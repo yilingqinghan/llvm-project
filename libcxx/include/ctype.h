@@ -29,33 +29,39 @@ int tolower(int c);
 int toupper(int c);
 */
 
-#include <__config>
+#include <__configuration/language.h>
 
-#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
-#  pragma GCC system_header
-#endif
+#if defined(_LIBCPP_CXX03_LANG) && !defined(_LIBCPP_USE_CXX03_HEADERS)
+#  include <__cxx03/ctype.h>
+#else
+#  include <__config>
 
-#if __has_include_next(<ctype.h>)
-#  include_next <ctype.h>
-#endif
+#  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#    pragma GCC system_header
+#  endif
 
-#ifdef __cplusplus
+#  if __has_include_next(<ctype.h>)
+#    include_next <ctype.h>
+#  endif
 
-#  undef isalnum
-#  undef isalpha
-#  undef isblank
-#  undef iscntrl
-#  undef isdigit
-#  undef isgraph
-#  undef islower
-#  undef isprint
-#  undef ispunct
-#  undef isspace
-#  undef isupper
-#  undef isxdigit
-#  undef tolower
-#  undef toupper
+#  ifdef __cplusplus
 
-#endif
+#    undef isalnum
+#    undef isalpha
+#    undef isblank
+#    undef iscntrl
+#    undef isdigit
+#    undef isgraph
+#    undef islower
+#    undef isprint
+#    undef ispunct
+#    undef isspace
+#    undef isupper
+#    undef isxdigit
+#    undef tolower
+#    undef toupper
+
+#  endif
+#endif // _LIBCPP_CXX03_LANG
 
 #endif // _LIBCPP_CTYPE_H

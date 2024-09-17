@@ -18,12 +18,18 @@
 
 */
 
-#include <cmath>
-#include <complex>
+#include <__configuration/language.h>
 
-#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
-#  pragma GCC system_header
-#endif
+#if defined(_LIBCPP_CXX03_LANG) && !defined(_LIBCPP_USE_CXX03_HEADERS)
+#  include <__cxx03/ctgmath>
+#else
+#  include <cmath>
+#  include <complex>
+
+#  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#    pragma GCC system_header
+#  endif
+#endif // _LIBCPP_CXX03_LANG
 
 #if _LIBCPP_STD_VER >= 20
 

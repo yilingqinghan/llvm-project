@@ -2233,6 +2233,11 @@ class FeatureTestMacros:
 #ifndef _LIBCPP_VERSION
 #define _LIBCPP_VERSION
 
+#include <__configuration/cxx03.h>
+
+#ifdef _LIBCPP_CXX03_LANG
+#  include <__cxx03/version>
+#else
 #include <__config>
 
 #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
@@ -2240,6 +2245,7 @@ class FeatureTestMacros:
 #endif
 
 {feature_test_macros}
+#endif // _LIBCPP_CXX03_LANG
 
 #endif // _LIBCPP_VERSION
 """

@@ -16,6 +16,11 @@
 #  pragma GCC system_header
 #endif
 
+// NOLINTNEXTLINE(libcpp-cpp-version-check)
+#  if __cplusplus < 201103L
+#    define _LIBCPP_CXX03_LANG
+#  endif
+
 // NOLINTBEGIN(libcpp-cpp-version-check)
 #ifdef __cplusplus
 #  if __cplusplus <= 201103L

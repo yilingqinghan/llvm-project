@@ -70,26 +70,32 @@ Macros:
 
 */
 
-#include <__config>
+#include <__configuration/language.h>
 
-#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
-#  pragma GCC system_header
-#endif
+#if defined(_LIBCPP_CXX03_LANG) && !defined(_LIBCPP_USE_CXX03_HEADERS)
+#  include <__cxx03/float.h>
+#else
+#  include <__config>
 
-#if __has_include_next(<float.h>)
-#  include_next <float.h>
-#endif
-
-#ifdef __cplusplus
-
-#  ifndef FLT_EVAL_METHOD
-#    define FLT_EVAL_METHOD __FLT_EVAL_METHOD__
+#  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#    pragma GCC system_header
 #  endif
 
-#  ifndef DECIMAL_DIG
-#    define DECIMAL_DIG __DECIMAL_DIG__
+#  if __has_include_next(<float.h>)
+#    include_next <float.h>
 #  endif
 
-#endif // __cplusplus
+#  ifdef __cplusplus
+
+#    ifndef FLT_EVAL_METHOD
+#      define FLT_EVAL_METHOD __FLT_EVAL_METHOD__
+#    endif
+
+#    ifndef DECIMAL_DIG
+#      define DECIMAL_DIG __DECIMAL_DIG__
+#    endif
+
+#  endif // __cplusplus
+#endif   // _LIBCPP_CXX03_LANG
 
 #endif // _LIBCPP_FLOAT_H

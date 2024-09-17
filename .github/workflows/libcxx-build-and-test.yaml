@@ -43,6 +43,7 @@ jobs:
       fail-fast: false
       matrix:
         config: [
+          'cxx03-main-headers',
           'generic-cxx03',
           'generic-cxx26',
           'generic-modules'

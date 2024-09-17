@@ -19,22 +19,28 @@ Macros:
 
 */
 
-#include <__config>
+#include <__configuration/language.h>
 
-#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
-#  pragma GCC system_header
-#endif
+#if defined(_LIBCPP_CXX03_LANG) && !defined(_LIBCPP_USE_CXX03_HEADERS)
+#  include <__cxx03/stdbool.h>
+#else
+#  include <__config>
 
-#if __has_include_next(<stdbool.h>)
-#  include_next <stdbool.h>
-#endif
+#  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#    pragma GCC system_header
+#  endif
 
-#ifdef __cplusplus
-#  undef bool
-#  undef true
-#  undef false
-#  undef __bool_true_false_are_defined
-#  define __bool_true_false_are_defined 1
-#endif
+#  if __has_include_next(<stdbool.h>)
+#    include_next <stdbool.h>
+#  endif
+
+#  ifdef __cplusplus
+#    undef bool
+#    undef true
+#    undef false
+#    undef __bool_true_false_are_defined
+#    define __bool_true_false_are_defined 1
+#  endif
+#endif // _LIBCPP_CXX03_LANG
 
 #endif // _LIBCPP_STDBOOL_H

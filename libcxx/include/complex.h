@@ -17,16 +17,22 @@
 
 */
 
-#include <__config>
+#include <__configuration/language.h>
 
-#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
-#  pragma GCC system_header
-#endif
+#if defined(_LIBCPP_CXX03_LANG) && !defined(_LIBCPP_USE_CXX03_HEADERS)
+#  include <__cxx03/complex.h>
+#else
+#  include <__config>
 
-#ifdef __cplusplus
-#  include <complex>
-#elif __has_include_next(<complex.h>)
-#  include_next <complex.h>
-#endif
+#  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#    pragma GCC system_header
+#  endif
+
+#  ifdef __cplusplus
+#    include <ccomplex>
+#  elif __has_include_next(<complex.h>)
+#    include_next <complex.h>
+#  endif
+#endif // _LIBCPP_CXX03_LANG
 
 #endif // _LIBCPP_COMPLEX_H

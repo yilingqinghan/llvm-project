@@ -98,26 +98,32 @@ int ferror(FILE* stream);
 void perror(const char* s);
 */
 
-#  include <__config>
+#  include <__configuration/language.h>
 
-#  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
-#    pragma GCC system_header
-#  endif
+#  if defined(_LIBCPP_CXX03_LANG) && !defined(_LIBCPP_USE_CXX03_HEADERS)
+#    include <__cxx03/stdio.h>
+#  else
+#    include <__config>
 
-#  if __has_include_next(<stdio.h>)
-#    include_next <stdio.h>
-#  endif
+#    if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#      pragma GCC system_header
+#    endif
 
-#  ifdef __cplusplus
+#    if __has_include_next(<stdio.h>)
+#      include_next <stdio.h>
+#    endif
 
-#    undef getc
-#    undef putc
-#    undef clearerr
-#    undef feof
-#    undef ferror
-#    undef putchar
-#    undef getchar
+#    ifdef __cplusplus
 
-#  endif
+#      undef getc
+#      undef putc
+#      undef clearerr
+#      undef feof
+#      undef ferror
+#      undef putchar
+#      undef getchar
+
+#    endif
+#  endif // _LIBCPP_CXX03_LANG
 
 #endif // _LIBCPP_STDIO_H
