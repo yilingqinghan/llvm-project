@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_SEMAPHORE
-#define _LIBCPP_SEMAPHORE
+#ifndef _LIBCPP___CXX03_SEMAPHORE
+#define _LIBCPP___CXX03_SEMAPHORE
 
 /*
     semaphore synopsis
@@ -80,7 +80,7 @@ functions. It avoids contention against users' own use of those facilities.
 
 */
 
-#    define _LIBCPP_SEMAPHORE_MAX (numeric_limits<ptrdiff_t>::max())
+#    define _LIBCPP___CXX03_SEMAPHORE_MAX (numeric_limits<ptrdiff_t>::max())
 
 class __atomic_semaphore_base {
   __atomic_base<ptrdiff_t> __a_;
@@ -90,7 +90,7 @@ public:
   _LIBCPP_AVAILABILITY_SYNC _LIBCPP_HIDE_FROM_ABI void release(ptrdiff_t __update = 1) {
     auto __old = __a_.fetch_add(__update, memory_order_release);
     _LIBCPP_ASSERT_ARGUMENT_WITHIN_DOMAIN(
-        __update <= _LIBCPP_SEMAPHORE_MAX - __old, "update is greater than the expected value");
+        __update <= _LIBCPP___CXX03_SEMAPHORE_MAX - __old, "update is greater than the expected value");
     if (__old == 0) {
       __a_.notify_all();
     }
@@ -123,7 +123,7 @@ private:
   }
 };
 
-template <ptrdiff_t __least_max_value = _LIBCPP_SEMAPHORE_MAX>
+template <ptrdiff_t __least_max_value = _LIBCPP___CXX03_SEMAPHORE_MAX>
 class _LIBCPP_DEPRECATED_ATOMIC_SYNC counting_semaphore {
   __atomic_semaphore_base __semaphore_;
 
@@ -181,8 +181,8 @@ _LIBCPP_POP_MACROS
 
 #endif // !defined(_LIBCPP_HAS_NO_THREADS)
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/atomic>
 #endif
 
-#endif //_LIBCPP_SEMAPHORE
+#endif //_LIBCPP___CXX03_SEMAPHORE

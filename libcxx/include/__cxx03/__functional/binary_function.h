@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FUNCTIONAL_BINARY_FUNCTION_H
-#define _LIBCPP___FUNCTIONAL_BINARY_FUNCTION_H
+#ifndef _LIBCPP___CXX03___FUNCTIONAL_BINARY_FUNCTION_H
+#define _LIBCPP___CXX03___FUNCTIONAL_BINARY_FUNCTION_H
 
 #include <__cxx03/__config>
 
@@ -18,7 +18,7 @@
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
+#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
 
 template <class _Arg1, class _Arg2, class _Result>
 struct _LIBCPP_TEMPLATE_VIS _LIBCPP_DEPRECATED_IN_CXX11 binary_function {
@@ -27,18 +27,18 @@ struct _LIBCPP_TEMPLATE_VIS _LIBCPP_DEPRECATED_IN_CXX11 binary_function {
   typedef _Result result_type;
 };
 
-#endif // _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
+#endif // _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
 
 template <class _Arg1, class _Arg2, class _Result>
 struct __binary_function_keep_layout_base {
-#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_BINDER_TYPEDEFS)
+#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP___CXX03_ENABLE_CXX20_REMOVED_BINDER_TYPEDEFS)
   using first_argument_type _LIBCPP_DEPRECATED_IN_CXX17  = _Arg1;
   using second_argument_type _LIBCPP_DEPRECATED_IN_CXX17 = _Arg2;
   using result_type _LIBCPP_DEPRECATED_IN_CXX17          = _Result;
 #endif
 };
 
-#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
+#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
 _LIBCPP_DIAGNOSTIC_PUSH
 _LIBCPP_CLANG_DIAGNOSTIC_IGNORED("-Wdeprecated-declarations")
 template <class _Arg1, class _Arg2, class _Result>
@@ -51,4 +51,4 @@ using __binary_function = __binary_function_keep_layout_base<_Arg1, _Arg2, _Resu
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___FUNCTIONAL_BINARY_FUNCTION_H
+#endif // _LIBCPP___CXX03___FUNCTIONAL_BINARY_FUNCTION_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_STDEXCEPT
-#define _LIBCPP_STDEXCEPT
+#ifndef _LIBCPP___CXX03_STDEXCEPT
+#define _LIBCPP___CXX03_STDEXCEPT
 
 /*
     stdexcept synopsis
@@ -215,7 +215,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_logic_error(const cha
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw logic_error(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("logic_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("logic_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
@@ -223,7 +223,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_domain_error(const ch
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw domain_error(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("domain_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("domain_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
@@ -231,7 +231,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_invalid_argument(cons
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw invalid_argument(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("invalid_argument was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("invalid_argument was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
@@ -239,7 +239,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_length_error(const ch
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw length_error(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("length_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("length_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
@@ -247,7 +247,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_out_of_range(const ch
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw out_of_range(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("out_of_range was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("out_of_range was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
@@ -255,7 +255,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_range_error(const cha
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw range_error(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("range_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("range_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
@@ -263,7 +263,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_overflow_error(const 
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw overflow_error(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("overflow_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("overflow_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
@@ -271,16 +271,16 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_underflow_error(const
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw underflow_error(__msg);
 #else
-  _LIBCPP_VERBOSE_ABORT("underflow_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
+  _LIBCPP___CXX03_VERBOSE_ABORT("underflow_error was thrown in -fno-exceptions mode with message \"%s\"", __msg);
 #endif
 }
 
 _LIBCPP_END_NAMESPACE_STD
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/cstdlib>
 #  include <__cxx03/exception>
 #  include <__cxx03/iosfwd>
 #endif
 
-#endif // _LIBCPP_STDEXCEPT
+#endif // _LIBCPP___CXX03_STDEXCEPT

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_PRINT
-#define _LIBCPP_PRINT
+#ifndef _LIBCPP___CXX03_PRINT
+#define _LIBCPP___CXX03_PRINT
 
 /*
 namespace std {
@@ -72,7 +72,7 @@ _LIBCPP_EXPORTED_FROM_ABI bool __is_posix_terminal(FILE* __stream);
 
 #if _LIBCPP_STD_VER >= 23
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
 // This is the code to transcode UTF-8 to UTF-16. This is used on
 // Windows for the native Unicode API. The code is modeled to make it
 // easier to extend to
@@ -164,7 +164,7 @@ _LIBCPP_HIDE_FROM_ABI constexpr _OutIt __transcode(_InIt __first, _InIt __last, 
 
 } // namespace __unicode
 
-#  endif //  _LIBCPP_HAS_NO_UNICODE
+#  endif //  _LIBCPP___CXX03_HAS_NO_UNICODE
 
 namespace __print {
 
@@ -184,7 +184,7 @@ namespace __print {
 //   (note at the time of writing Clang is hard-coded to UTF-8.)
 //
 
-#  ifdef _LIBCPP_HAS_NO_UNICODE
+#  ifdef _LIBCPP___CXX03_HAS_NO_UNICODE
 inline constexpr bool __use_unicode_execution_charset = false;
 #  elif defined(_MSVC_EXECUTION_CHARACTER_SET)
 // This is the same test MSVC STL uses in their implementation of <print>
@@ -195,10 +195,10 @@ inline constexpr bool __use_unicode_execution_charset = true;
 #  endif
 
 _LIBCPP_HIDE_FROM_ABI inline bool __is_terminal([[maybe_unused]] FILE* __stream) {
-  // The macro _LIBCPP_TESTING_PRINT_IS_TERMINAL is used to change
+  // The macro _LIBCPP___CXX03_TESTING_PRINT_IS_TERMINAL is used to change
   // the behavior in the test. This is not part of the public API.
-#  ifdef _LIBCPP_TESTING_PRINT_IS_TERMINAL
-  return _LIBCPP_TESTING_PRINT_IS_TERMINAL(__stream);
+#  ifdef _LIBCPP___CXX03_TESTING_PRINT_IS_TERMINAL
+  return _LIBCPP___CXX03_TESTING_PRINT_IS_TERMINAL(__stream);
 #  elif _LIBCPP_AVAILABILITY_HAS_PRINT == 0
   return false;
 #  elif defined(_LIBCPP_WIN32API)
@@ -226,7 +226,7 @@ __vprint_nonunicode(FILE* __stream, string_view __fmt, format_args __args, bool 
   }
 }
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
 
 // Note these helper functions are mainly used to aid testing.
 // On POSIX systems and Windows the output is no longer considered a
@@ -270,14 +270,14 @@ __vprint_unicode_windows(FILE* __stream, string_view __fmt, format_args __args, 
 
   [[maybe_unused]] wstring_view __view = __buffer.__view();
 
-  // The macro _LIBCPP_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION is used to change
+  // The macro _LIBCPP___CXX03_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION is used to change
   // the behavior in the test. This is not part of the public API.
-#      ifdef _LIBCPP_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION
-  _LIBCPP_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION(__stream, __view);
+#      ifdef _LIBCPP___CXX03_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION
+  _LIBCPP___CXX03_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION(__stream, __view);
 #      elif defined(_LIBCPP_WIN32API)
   std::__write_to_windows_console(__stream, __view);
 #      else
-  std::__throw_runtime_error("No defintion of _LIBCPP_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION and "
+  std::__throw_runtime_error("No defintion of _LIBCPP___CXX03_TESTING_PRINT_WRITE_TO_WINDOWS_CONSOLE_FUNCTION and "
                              "__write_to_windows_console is not available.");
 #      endif
 }
@@ -321,20 +321,20 @@ __vprint_unicode([[maybe_unused]] FILE* __stream,
 #    endif
 }
 
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 
 } // namespace __print
 
 template <class... _Args>
 _LIBCPP_HIDE_FROM_ABI void print(FILE* __stream, format_string<_Args...> __fmt, _Args&&... __args) {
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
   if constexpr (__print::__use_unicode_execution_charset)
     __print::__vprint_unicode(__stream, __fmt.get(), std::make_format_args(__args...), false);
   else
     __print::__vprint_nonunicode(__stream, __fmt.get(), std::make_format_args(__args...), false);
-#  else  // _LIBCPP_HAS_NO_UNICODE
+#  else  // _LIBCPP___CXX03_HAS_NO_UNICODE
   __print::__vprint_nonunicode(__stream, __fmt.get(), std::make_format_args(__args...), false);
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 }
 
 template <class... _Args>
@@ -344,7 +344,7 @@ _LIBCPP_HIDE_FROM_ABI void print(format_string<_Args...> __fmt, _Args&&... __arg
 
 template <class... _Args>
 _LIBCPP_HIDE_FROM_ABI void println(FILE* __stream, format_string<_Args...> __fmt, _Args&&... __args) {
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
   // Note the wording in the Standard is inefficient. The output of
   // std::format is a std::string which is then copied. This solution
   // just appends a newline at the end of the output.
@@ -352,9 +352,9 @@ _LIBCPP_HIDE_FROM_ABI void println(FILE* __stream, format_string<_Args...> __fmt
     __print::__vprint_unicode(__stream, __fmt.get(), std::make_format_args(__args...), true);
   else
     __print::__vprint_nonunicode(__stream, __fmt.get(), std::make_format_args(__args...), true);
-#  else  // _LIBCPP_HAS_NO_UNICODE
+#  else  // _LIBCPP___CXX03_HAS_NO_UNICODE
   __print::__vprint_nonunicode(__stream, __fmt.get(), std::make_format_args(__args...), true);
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 }
 
 template <class = void> // TODO PRINT template or availability markup fires too eagerly (http://llvm.org/PR61563).
@@ -372,7 +372,7 @@ _LIBCPP_HIDE_FROM_ABI void println(format_string<_Args...> __fmt, _Args&&... __a
   std::println(stdout, __fmt, std::forward<_Args>(__args)...);
 }
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
 template <class = void> // TODO PRINT template or availability markup fires too eagerly (http://llvm.org/PR61563).
 _LIBCPP_HIDE_FROM_ABI inline void vprint_unicode(FILE* __stream, string_view __fmt, format_args __args) {
   __print::__vprint_unicode(__stream, __fmt, __args, false);
@@ -383,7 +383,7 @@ _LIBCPP_HIDE_FROM_ABI inline void vprint_unicode(string_view __fmt, format_args 
   std::vprint_unicode(stdout, __fmt, __args);
 }
 
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 
 template <class = void> // TODO PRINT template or availability markup fires too eagerly (http://llvm.org/PR61563).
 _LIBCPP_HIDE_FROM_ABI inline void vprint_nonunicode(FILE* __stream, string_view __fmt, format_args __args) {
@@ -399,4 +399,4 @@ _LIBCPP_HIDE_FROM_ABI inline void vprint_nonunicode(string_view __fmt, format_ar
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP_PRINT
+#endif // _LIBCPP___CXX03_PRINT

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FUNCTIONAL_POINTER_TO_UNARY_FUNCTION_H
-#define _LIBCPP___FUNCTIONAL_POINTER_TO_UNARY_FUNCTION_H
+#ifndef _LIBCPP___CXX03___FUNCTIONAL_POINTER_TO_UNARY_FUNCTION_H
+#define _LIBCPP___CXX03___FUNCTIONAL_POINTER_TO_UNARY_FUNCTION_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__functional/unary_function.h>
@@ -19,7 +19,7 @@
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_BINDERS)
+#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_BINDERS)
 
 template <class _Arg, class _Result>
 class _LIBCPP_TEMPLATE_VIS
@@ -37,8 +37,8 @@ ptr_fun(_Result (*__f)(_Arg)) {
   return pointer_to_unary_function<_Arg, _Result>(__f);
 }
 
-#endif // _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_BINDERS)
+#endif // _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_BINDERS)
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___FUNCTIONAL_POINTER_TO_UNARY_FUNCTION_H
+#endif // _LIBCPP___CXX03___FUNCTIONAL_POINTER_TO_UNARY_FUNCTION_H

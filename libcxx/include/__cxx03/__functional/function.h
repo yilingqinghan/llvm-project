@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FUNCTIONAL_FUNCTION_H
-#define _LIBCPP___FUNCTIONAL_FUNCTION_H
+#ifndef _LIBCPP___CXX03___FUNCTIONAL_FUNCTION_H
+#define _LIBCPP___CXX03___FUNCTIONAL_FUNCTION_H
 
 #include <__cxx03/__assert>
 #include <__cxx03/__config>
@@ -82,7 +82,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_bad_function_call() {
 #  ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw bad_function_call();
 #  else
-  _LIBCPP_VERBOSE_ABORT("bad_function_call was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("bad_function_call was thrown in -fno-exceptions mode");
 #  endif
 }
 
@@ -1045,4 +1045,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FUNCTIONAL_FUNCTION_H
+#endif // _LIBCPP___CXX03___FUNCTIONAL_FUNCTION_H

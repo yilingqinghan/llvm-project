@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_FORMATTER_INTEGRAL_H
-#define _LIBCPP___FORMAT_FORMATTER_INTEGRAL_H
+#ifndef _LIBCPP___CXX03___FORMAT_FORMATTER_INTEGRAL_H
+#define _LIBCPP___CXX03___FORMAT_FORMATTER_INTEGRAL_H
 
 #include <__cxx03/__charconv/to_chars_integral.h>
 #include <__cxx03/__charconv/to_chars_result.h>
@@ -31,7 +31,7 @@
 #include <__cxx03/string>
 #include <__cxx03/string_view>
 
-#ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 #  include <__cxx03/__locale>
 #endif
 
@@ -297,7 +297,7 @@ _LIBCPP_HIDE_FROM_ABI typename _FormatContext::iterator __format_integer(
 
   _Iterator __last = __formatter::__to_buffer(__first, __end, __value, __base);
 
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
   if (__specs.__std_.__locale_specific_form_) {
     const auto& __np  = std::use_facet<numpunct<_CharT>>(__ctx.locale());
     string __grouping = __np.grouping();
@@ -422,7 +422,7 @@ struct _LIBCPP_TEMPLATE_VIS __bool_strings<wchar_t> {
 template <class _CharT, class _FormatContext>
 _LIBCPP_HIDE_FROM_ABI typename _FormatContext::iterator
 __format_bool(bool __value, _FormatContext& __ctx, __format_spec::__parsed_specifications<_CharT> __specs) {
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
   if (__specs.__std_.__locale_specific_form_) {
     const auto& __np           = std::use_facet<numpunct<_CharT>>(__ctx.locale());
     basic_string<_CharT> __str = __value ? __np.truename() : __np.falsename();
@@ -442,4 +442,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FORMAT_FORMATTER_INTEGRAL_H
+#endif // _LIBCPP___CXX03___FORMAT_FORMATTER_INTEGRAL_H

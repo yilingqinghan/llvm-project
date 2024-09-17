@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___LOCALE
-#define _LIBCPP___LOCALE
+#ifndef _LIBCPP___CXX03___LOCALE
+#define _LIBCPP___CXX03___LOCALE
 
 #include <__cxx03/__config>
 #include <__cxx03/__locale_dir/locale_base_api.h>
@@ -344,8 +344,8 @@ public:
   static const mask xdigit       = _HEX;
   static const mask blank        = _BLANK;
   static const mask __regex_word = 0x4000; // 0x8000 and 0x0100 and 0x00ff are used
-#  define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_PRINT
-#  define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_ALPHA
+#  define _LIBCPP___CXX03_CTYPE_MASK_IS_COMPOSITE_PRINT
+#  define _LIBCPP___CXX03_CTYPE_MASK_IS_COMPOSITE_ALPHA
 #elif defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__)
 #  ifdef __APPLE__
   typedef __uint32_t mask;
@@ -403,9 +403,9 @@ public:
   static const mask blank  = static_cast<mask>(_B);
   // mask is already fully saturated, use a different type in regex_type_traits.
   static const unsigned short __regex_word = 0x100;
-#  define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_PRINT
-#  define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_ALPHA
-#  define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_XDIGIT
+#  define _LIBCPP___CXX03_CTYPE_MASK_IS_COMPOSITE_PRINT
+#  define _LIBCPP___CXX03_CTYPE_MASK_IS_COMPOSITE_ALPHA
+#  define _LIBCPP___CXX03_CTYPE_MASK_IS_COMPOSITE_XDIGIT
 #elif defined(__MVS__)
 #  if defined(__NATIVE_ASCII_F)
   typedef unsigned int mask;
@@ -1510,4 +1510,4 @@ private:
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___LOCALE
+#endif // _LIBCPP___CXX03___LOCALE

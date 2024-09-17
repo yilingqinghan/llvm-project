@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___MEMORY_RAW_STORAGE_ITERATOR_H
-#define _LIBCPP___MEMORY_RAW_STORAGE_ITERATOR_H
+#ifndef _LIBCPP___CXX03___MEMORY_RAW_STORAGE_ITERATOR_H
+#define _LIBCPP___CXX03___MEMORY_RAW_STORAGE_ITERATOR_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__iterator/iterator.h>
@@ -27,7 +27,7 @@ _LIBCPP_PUSH_MACROS
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_RAW_STORAGE_ITERATOR)
+#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP___CXX03_ENABLE_CXX20_REMOVED_RAW_STORAGE_ITERATOR)
 
 _LIBCPP_SUPPRESS_DEPRECATED_PUSH
 template <class _OutputIterator, class _Tp>
@@ -78,10 +78,10 @@ public:
 #  endif
 };
 
-#endif // _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_RAW_STORAGE_ITERATOR)
+#endif // _LIBCPP_STD_VER <= 17 || defined(_LIBCPP___CXX03_ENABLE_CXX20_REMOVED_RAW_STORAGE_ITERATOR)
 
 _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___MEMORY_RAW_STORAGE_ITERATOR_H
+#endif // _LIBCPP___CXX03___MEMORY_RAW_STORAGE_ITERATOR_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_DEQUE
-#define _LIBCPP_DEQUE
+#ifndef _LIBCPP___CXX03_DEQUE
+#define _LIBCPP___CXX03_DEQUE
 
 /*
     deque synopsis
@@ -1141,7 +1141,7 @@ public:
   }
 
 private:
-#endif // _LIBCPP_VERIFY_ASAN_DEQUE_ANNOTATIONS
+#endif // _LIBCPP___CXX03_VERIFY_ASAN_DEQUE_ANNOTATIONS
   _LIBCPP_HIDE_FROM_ABI bool __maybe_remove_front_spare(bool __keep_one = true) {
     if (__front_spare_blocks() >= 2 || (!__keep_one && __front_spare_blocks())) {
       __annotate_whole_block(0, __asan_unposion);
@@ -2606,7 +2606,7 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/algorithm>
 #  include <__cxx03/atomic>
 #  include <__cxx03/concepts>
@@ -2618,4 +2618,4 @@ _LIBCPP_POP_MACROS
 #  include <__cxx03/typeinfo>
 #endif
 
-#endif // _LIBCPP_DEQUE
+#endif // _LIBCPP___CXX03_DEQUE

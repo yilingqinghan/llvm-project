@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___THREAD_SUPPORT_WINDOWS_H
-#define _LIBCPP___THREAD_SUPPORT_WINDOWS_H
+#ifndef _LIBCPP___CXX03___THREAD_SUPPORT_WINDOWS_H
+#define _LIBCPP___CXX03___THREAD_SUPPORT_WINDOWS_H
 
 #include <__cxx03/__chrono/duration.h>
 #include <__cxx03/__config>
@@ -26,7 +26,7 @@ using __libcpp_timespec_t = ::timespec;
 // Mutex
 //
 typedef void* __libcpp_mutex_t;
-#define _LIBCPP_MUTEX_INITIALIZER 0
+#define _LIBCPP___CXX03_MUTEX_INITIALIZER 0
 
 #if defined(_M_IX86) || defined(__i386__) || defined(_M_ARM) || defined(__arm__)
 typedef void* __libcpp_recursive_mutex_t[6];
@@ -61,7 +61,7 @@ _LIBCPP_EXPORTED_FROM_ABI int __libcpp_mutex_destroy(__libcpp_mutex_t* __m);
 // Condition variable
 //
 typedef void* __libcpp_condvar_t;
-#define _LIBCPP_CONDVAR_INITIALIZER 0
+#define _LIBCPP___CXX03_CONDVAR_INITIALIZER 0
 
 _LIBCPP_EXPORTED_FROM_ABI int __libcpp_condvar_signal(__libcpp_condvar_t* __cv);
 
@@ -79,7 +79,7 @@ _LIBCPP_EXPORTED_FROM_ABI int __libcpp_condvar_destroy(__libcpp_condvar_t* __cv)
 // Execute once
 //
 typedef void* __libcpp_exec_once_flag;
-#define _LIBCPP_EXEC_ONCE_INITIALIZER 0
+#define _LIBCPP___CXX03_EXEC_ONCE_INITIALIZER 0
 
 _LIBCPP_EXPORTED_FROM_ABI int __libcpp_execute_once(__libcpp_exec_once_flag* __flag, void (*__init_routine)());
 
@@ -95,7 +95,7 @@ _LIBCPP_EXPORTED_FROM_ABI bool __libcpp_thread_id_less(__libcpp_thread_id __t1, 
 //
 // Thread
 //
-#define _LIBCPP_NULL_THREAD 0U
+#define _LIBCPP___CXX03_NULL_THREAD 0U
 typedef void* __libcpp_thread_t;
 
 _LIBCPP_EXPORTED_FROM_ABI bool __libcpp_thread_isnull(const __libcpp_thread_t* __t);
@@ -119,10 +119,10 @@ _LIBCPP_EXPORTED_FROM_ABI void __libcpp_thread_sleep_for(const chrono::nanosecon
 //
 typedef long __libcpp_tls_key;
 
-#define _LIBCPP_TLS_DESTRUCTOR_CC __stdcall
+#define _LIBCPP___CXX03_TLS_DESTRUCTOR_CC __stdcall
 
 _LIBCPP_EXPORTED_FROM_ABI int
-__libcpp_tls_create(__libcpp_tls_key* __key, void(_LIBCPP_TLS_DESTRUCTOR_CC* __at_exit)(void*));
+__libcpp_tls_create(__libcpp_tls_key* __key, void(_LIBCPP___CXX03_TLS_DESTRUCTOR_CC* __at_exit)(void*));
 
 _LIBCPP_EXPORTED_FROM_ABI void* __libcpp_tls_get(__libcpp_tls_key __key);
 
@@ -130,4 +130,4 @@ _LIBCPP_EXPORTED_FROM_ABI int __libcpp_tls_set(__libcpp_tls_key __key, void* __p
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___THREAD_SUPPORT_WINDOWS_H
+#endif // _LIBCPP___CXX03___THREAD_SUPPORT_WINDOWS_H

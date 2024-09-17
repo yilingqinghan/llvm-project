@@ -49,11 +49,11 @@
 #include <__cxx03/cinttypes>
 #include <__cxx03/ciso646>
 #include <__cxx03/climits>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/clocale>
 #endif
 #include <__cxx03/cmath>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/codecvt>
 #endif
 #include <__cxx03/compare>
@@ -97,7 +97,7 @@
 #include <__cxx03/float.h>
 #include <__cxx03/format>
 #include <__cxx03/forward_list>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/fstream>
 #endif
 #include <__cxx03/functional>
@@ -106,17 +106,17 @@
 #endif
 #include <__cxx03/initializer_list>
 #include <__cxx03/inttypes.h>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/iomanip>
 #endif
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/ios>
 #endif
 #include <__cxx03/iosfwd>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/iostream>
 #endif
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/istream>
 #endif
 #include <__cxx03/iterator>
@@ -125,10 +125,10 @@
 #endif
 #include <__cxx03/limits>
 #include <__cxx03/list>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/locale.h>
 #endif
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/locale>
 #endif
 #include <__cxx03/map>
@@ -141,7 +141,7 @@
 #include <__cxx03/numbers>
 #include <__cxx03/numeric>
 #include <__cxx03/optional>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/ostream>
 #endif
 #include <__cxx03/print>
@@ -149,7 +149,7 @@
 #include <__cxx03/random>
 #include <__cxx03/ranges>
 #include <__cxx03/ratio>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/regex>
 #endif
 #include <__cxx03/scoped_allocator>
@@ -162,7 +162,7 @@
 #endif
 #include <__cxx03/source_location>
 #include <__cxx03/span>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/sstream>
 #endif
 #include <__cxx03/stack>
@@ -178,16 +178,16 @@
 #if !defined(_LIBCPP_HAS_NO_THREADS)
 #  include <__cxx03/stop_token>
 #endif
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/streambuf>
 #endif
 #include <__cxx03/string.h>
 #include <__cxx03/string>
 #include <__cxx03/string_view>
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/strstream>
 #endif
-#if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  include <__cxx03/syncstream>
 #endif
 #include <__cxx03/system_error>

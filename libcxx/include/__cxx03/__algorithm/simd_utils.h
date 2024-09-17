@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ALGORITHM_SIMD_UTILS_H
-#define _LIBCPP___ALGORITHM_SIMD_UTILS_H
+#ifndef _LIBCPP___CXX03___ALGORITHM_SIMD_UTILS_H
+#define _LIBCPP___CXX03___ALGORITHM_SIMD_UTILS_H
 
 #include <__cxx03/__algorithm/min.h>
 #include <__cxx03/__bit/bit_cast.h>
@@ -29,18 +29,18 @@ _LIBCPP_PUSH_MACROS
 
 // TODO: Find out how altivec changes things and allow vectorizations there too.
 #if _LIBCPP_STD_VER >= 14 && defined(_LIBCPP_CLANG_VER) && !defined(__ALTIVEC__)
-#  define _LIBCPP_HAS_ALGORITHM_VECTOR_UTILS 1
+#  define _LIBCPP___CXX03_HAS_ALGORITHM_VECTOR_UTILS 1
 #else
-#  define _LIBCPP_HAS_ALGORITHM_VECTOR_UTILS 0
+#  define _LIBCPP___CXX03_HAS_ALGORITHM_VECTOR_UTILS 0
 #endif
 
-#if _LIBCPP_HAS_ALGORITHM_VECTOR_UTILS && !defined(__OPTIMIZE_SIZE__)
-#  define _LIBCPP_VECTORIZE_ALGORITHMS 1
+#if _LIBCPP___CXX03_HAS_ALGORITHM_VECTOR_UTILS && !defined(__OPTIMIZE_SIZE__)
+#  define _LIBCPP___CXX03_VECTORIZE_ALGORITHMS 1
 #else
-#  define _LIBCPP_VECTORIZE_ALGORITHMS 0
+#  define _LIBCPP___CXX03_VECTORIZE_ALGORITHMS 0
 #endif
 
-#if _LIBCPP_HAS_ALGORITHM_VECTOR_UTILS
+#if _LIBCPP___CXX03_HAS_ALGORITHM_VECTOR_UTILS
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
@@ -127,7 +127,7 @@ _LIBCPP_NODISCARD _LIBCPP_HIDE_FROM_ABI size_t __find_first_set(__simd_vector<_T
 
   // This has MSan disabled du to https://github.com/llvm/llvm-project/issues/85876
   auto __impl = [&]<class _MaskT>(_MaskT) _LIBCPP_NO_SANITIZE("memory") noexcept {
-#  if defined(_LIBCPP_BIG_ENDIAN)
+#  if defined(_LIBCPP___CXX03_BIG_ENDIAN)
     return std::min<size_t>(
         _Np, std::__countl_zero(__builtin_bit_cast(_MaskT, __builtin_convertvector(__vec, __mask_vec))));
 #  else
@@ -157,8 +157,8 @@ _LIBCPP_NODISCARD _LIBCPP_HIDE_FROM_ABI size_t __find_first_not_set(__simd_vecto
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP_HAS_ALGORITHM_VECTOR_UTILS
+#endif // _LIBCPP___CXX03_HAS_ALGORITHM_VECTOR_UTILS
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___ALGORITHM_SIMD_UTILS_H
+#endif // _LIBCPP___CXX03___ALGORITHM_SIMD_UTILS_H

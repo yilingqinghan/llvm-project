@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_STRING
-#define _LIBCPP_STRING
+#ifndef _LIBCPP___CXX03_STRING
+#define _LIBCPP___CXX03_STRING
 
 // clang-format off
 
@@ -671,15 +671,15 @@ basic_string<char32_t> operator""s( const char32_t *str, size_t len );          
 _LIBCPP_PUSH_MACROS
 #include <__cxx03/__undef_macros>
 
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
-#  define _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS __attribute__((__no_sanitize__("address")))
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
+#  define _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS __attribute__((__no_sanitize__("address")))
 // This macro disables AddressSanitizer (ASan) instrumentation for a specific function,
 // allowing memory accesses that would normally trigger ASan errors to proceed without crashing.
 // This is useful for accessing parts of objects memory, which should not be accessed,
 // such as unused bytes in short strings, that should never be accessed
 // by other parts of the program.
 #else
-#  define _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS
+#  define _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS
 #endif
 
 _LIBCPP_BEGIN_NAMESPACE_STD
@@ -776,7 +776,7 @@ public:
   //
   // This string implementation doesn't contain any references into itself. It only contains a bit that says whether
   // it is in small or large string mode, so the entire structure is trivially relocatable if its members are.
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
   // When compiling with AddressSanitizer (ASan), basic_string cannot be trivially
   // relocatable. Because the object's memory might be poisoned when its content
   // is kept inside objects memory (short string optimization), instead of in allocated
@@ -790,7 +790,7 @@ public:
       basic_string,
       void>;
 #endif
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 pointer __asan_volatile_wrapper(pointer const& __ptr) const {
     if (__libcpp_is_constant_evaluated())
       return __ptr;
@@ -809,9 +809,9 @@ public:
 
     return const_cast<const_pointer&>(__copy_ptr);
   }
-#  define _LIBCPP_ASAN_VOLATILE_WRAPPER(PTR) __asan_volatile_wrapper(PTR)
+#  define _LIBCPP___CXX03_ASAN_VOLATILE_WRAPPER(PTR) __asan_volatile_wrapper(PTR)
 #else
-#  define _LIBCPP_ASAN_VOLATILE_WRAPPER(PTR) PTR
+#  define _LIBCPP___CXX03_ASAN_VOLATILE_WRAPPER(PTR) PTR
 #endif
 
   static_assert(!is_array<value_type>::value, "Character type of basic_string must not be an array");
@@ -870,7 +870,7 @@ private:
   // This does not impact the short string representation, since we never need the MSB
   // for representing the size of a short string anyway.
 
-#  ifdef _LIBCPP_BIG_ENDIAN
+#  ifdef _LIBCPP___CXX03_BIG_ENDIAN
   static const size_type __endian_factor = 2;
 #  else
   static const size_type __endian_factor = 1;
@@ -878,7 +878,7 @@ private:
 
 #else // _LIBCPP_ABI_ALTERNATE_STRING_LAYOUT
 
-#  ifdef _LIBCPP_BIG_ENDIAN
+#  ifdef _LIBCPP___CXX03_BIG_ENDIAN
   static const size_type __endian_factor = 1;
 #  else
   static const size_type __endian_factor = 2;
@@ -996,7 +996,7 @@ public:
     __annotate_new(0);
   }
 
-  _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS basic_string(const basic_string& __str)
+  _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS basic_string(const basic_string& __str)
       : __r_(__default_init_tag(), __alloc_traits::select_on_container_copy_construction(__str.__alloc())) {
     if (!__str.__is_long()) {
       __r_.first() = __str.__r_.first();
@@ -1005,7 +1005,7 @@ public:
       __init_copy_ctor_external(std::__to_address(__str.__get_long_pointer()), __str.__get_long_size());
   }
 
-  _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS
+  _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS
   basic_string(const basic_string& __str, const allocator_type& __a)
       : __r_(__default_init_tag(), __a) {
     if (!__str.__is_long()) {
@@ -1022,7 +1022,7 @@ public:
 #  else
       _NOEXCEPT
 #  endif
-      // Turning off ASan instrumentation for variable initialization with _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS
+      // Turning off ASan instrumentation for variable initialization with _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS
       // does not work consistently during initialization of __r_, so we instead unpoison __str's memory manually first.
       // __str's memory needs to be unpoisoned only in the case where it's a short string.
       : __r_([](basic_string& __s) -> decltype(__s.__r_)&& {
@@ -1216,7 +1216,7 @@ public:
     return __self_view(data(), size());
   }
 
-  _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS basic_string&
+  _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS basic_string&
   operator=(const basic_string& __str);
 
   template <class _Tp,
@@ -1308,13 +1308,13 @@ public:
   template <class _Op>
   _LIBCPP_HIDE_FROM_ABI constexpr void resize_and_overwrite(size_type __n, _Op __op) {
     __resize_default_init(__n);
-    __erase_to_end(std::move(__op)(data(), _LIBCPP_AUTO_CAST(__n)));
+    __erase_to_end(std::move(__op)(data(), _LIBCPP___CXX03_AUTO_CAST(__n)));
   }
 #endif
 
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __resize_default_init(size_type __n);
 
-#if _LIBCPP_STD_VER < 26 || defined(_LIBCPP_ENABLE_CXX26_REMOVED_STRING_RESERVE)
+#if _LIBCPP_STD_VER < 26 || defined(_LIBCPP___CXX03_ENABLE_CXX26_REMOVED_STRING_RESERVE)
   _LIBCPP_DEPRECATED_IN_CXX20 _LIBCPP_HIDE_FROM_ABI void reserve() _NOEXCEPT { shrink_to_fit(); }
 #endif
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void shrink_to_fit() _NOEXCEPT;
@@ -1872,7 +1872,7 @@ private:
 
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __shrink_or_extend(size_type __target_capacity);
 
-  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS bool
+  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS bool
   __is_long() const _NOEXCEPT {
     if (__libcpp_is_constant_evaluated() && __builtin_constant_p(__r_.first().__l.__is_long_)) {
       return __r_.first().__l.__is_long_;
@@ -1949,14 +1949,14 @@ private:
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 allocator_type& __alloc() _NOEXCEPT { return __r_.second(); }
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR const allocator_type& __alloc() const _NOEXCEPT { return __r_.second(); }
 
-  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS void
+  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS void
   __set_short_size(size_type __s) _NOEXCEPT {
     _LIBCPP_ASSERT_INTERNAL(__s < __min_cap, "__s should never be greater than or equal to the short string capacity");
     __r_.first().__s.__size_    = __s;
     __r_.first().__s.__is_long_ = false;
   }
 
-  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS size_type
+  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS size_type
   __get_short_size() const _NOEXCEPT {
     _LIBCPP_ASSERT_INTERNAL(!__r_.first().__s.__is_long_, "String has to be short when trying to get the short size");
     return __r_.first().__s.__size_;
@@ -1988,18 +1988,18 @@ private:
     __r_.first().__l.__data_ = __p;
   }
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 pointer __get_long_pointer() _NOEXCEPT {
-    return _LIBCPP_ASAN_VOLATILE_WRAPPER(__r_.first().__l.__data_);
+    return _LIBCPP___CXX03_ASAN_VOLATILE_WRAPPER(__r_.first().__l.__data_);
   }
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 const_pointer __get_long_pointer() const _NOEXCEPT {
-    return _LIBCPP_ASAN_VOLATILE_WRAPPER(__r_.first().__l.__data_);
+    return _LIBCPP___CXX03_ASAN_VOLATILE_WRAPPER(__r_.first().__l.__data_);
   }
-  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS pointer
+  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS pointer
   __get_short_pointer() _NOEXCEPT {
-    return _LIBCPP_ASAN_VOLATILE_WRAPPER(pointer_traits<pointer>::pointer_to(__r_.first().__s.__data_[0]));
+    return _LIBCPP___CXX03_ASAN_VOLATILE_WRAPPER(pointer_traits<pointer>::pointer_to(__r_.first().__s.__data_[0]));
   }
-  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS const_pointer
+  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS const_pointer
   __get_short_pointer() const _NOEXCEPT {
-    return _LIBCPP_ASAN_VOLATILE_WRAPPER(pointer_traits<const_pointer>::pointer_to(__r_.first().__s.__data_[0]));
+    return _LIBCPP___CXX03_ASAN_VOLATILE_WRAPPER(pointer_traits<const_pointer>::pointer_to(__r_.first().__s.__data_[0]));
   }
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 pointer __get_pointer() _NOEXCEPT {
     return __is_long() ? __get_long_pointer() : __get_short_pointer();
@@ -2013,7 +2013,7 @@ private:
   __annotate_contiguous_container(const void* __old_mid, const void* __new_mid) const {
     (void)__old_mid;
     (void)__new_mid;
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
 #  if defined(__APPLE__)
     // TODO: remove after addressing issue #96099 (https://github.com/llvm/llvm-project/issues/96099)
     if (!__is_long())
@@ -2025,14 +2025,14 @@ private:
 
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __annotate_new(size_type __current_size) const _NOEXCEPT {
     (void)__current_size;
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
     if (!__libcpp_is_constant_evaluated())
       __annotate_contiguous_container(data() + capacity() + 1, data() + __current_size + 1);
 #endif
   }
 
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __annotate_delete() const _NOEXCEPT {
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
     if (!__libcpp_is_constant_evaluated())
       __annotate_contiguous_container(data() + size() + 1, data() + capacity() + 1);
 #endif
@@ -2040,7 +2040,7 @@ private:
 
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __annotate_increase(size_type __n) const _NOEXCEPT {
     (void)__n;
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
     if (!__libcpp_is_constant_evaluated())
       __annotate_contiguous_container(data() + size() + 1, data() + size() + 1 + __n);
 #endif
@@ -2048,7 +2048,7 @@ private:
 
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __annotate_shrink(size_type __old_size) const _NOEXCEPT {
     (void)__old_size;
-#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP_INSTRUMENTED_WITH_ASAN)
+#if !defined(_LIBCPP_HAS_NO_ASAN) && defined(_LIBCPP___CXX03_INSTRUMENTED_WITH_ASAN)
     if (!__libcpp_is_constant_evaluated())
       __annotate_contiguous_container(data() + __old_size + 1, data() + size() + 1);
 #endif
@@ -2172,7 +2172,7 @@ private:
 #ifndef _LIBCPP_CXX03_LANG
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void
   __move_assign(basic_string& __str, false_type) noexcept(__alloc_traits::is_always_equal::value);
-  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS void
+  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS void
   __move_assign(basic_string& __str, true_type)
 #  if _LIBCPP_STD_VER >= 17
       noexcept;
@@ -2250,19 +2250,19 @@ private:
 
 // These declarations must appear before any functions are implicitly used
 // so that they have the correct visibility specifier.
-#define _LIBCPP_DECLARE(...) extern template __VA_ARGS__;
+#define _LIBCPP___CXX03_DECLARE(...) extern template __VA_ARGS__;
 #ifdef _LIBCPP_ABI_STRING_OPTIMIZED_EXTERNAL_INSTANTIATION
-_LIBCPP_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST(_LIBCPP_DECLARE, char)
+_LIBCPP___CXX03_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST(_LIBCPP___CXX03_DECLARE, char)
 #  ifndef _LIBCPP_HAS_NO_WIDE_CHARACTERS
-_LIBCPP_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST(_LIBCPP_DECLARE, wchar_t)
+_LIBCPP___CXX03_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST(_LIBCPP___CXX03_DECLARE, wchar_t)
 #  endif
 #else
-_LIBCPP_STRING_V1_EXTERN_TEMPLATE_LIST(_LIBCPP_DECLARE, char)
+_LIBCPP___CXX03_STRING_V1_EXTERN_TEMPLATE_LIST(_LIBCPP___CXX03_DECLARE, char)
 #  ifndef _LIBCPP_HAS_NO_WIDE_CHARACTERS
-_LIBCPP_STRING_V1_EXTERN_TEMPLATE_LIST(_LIBCPP_DECLARE, wchar_t)
+_LIBCPP___CXX03_STRING_V1_EXTERN_TEMPLATE_LIST(_LIBCPP___CXX03_DECLARE, wchar_t)
 #  endif
 #endif
-#undef _LIBCPP_DECLARE
+#undef _LIBCPP___CXX03_DECLARE
 
 #if _LIBCPP_STD_VER >= 17
 template <class _InputIterator,
@@ -2646,7 +2646,7 @@ basic_string<_CharT, _Traits, _Allocator>::operator=(value_type __c) {
 }
 
 template <class _CharT, class _Traits, class _Allocator>
-_LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS basic_string<_CharT, _Traits, _Allocator>&
+_LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS basic_string<_CharT, _Traits, _Allocator>&
 basic_string<_CharT, _Traits, _Allocator>::operator=(const basic_string& __str) {
   if (this != std::addressof(__str)) {
     __copy_assign_alloc(__str);
@@ -2680,7 +2680,7 @@ inline _LIBCPP_CONSTEXPR_SINCE_CXX20 void basic_string<_CharT, _Traits, _Allocat
 }
 
 template <class _CharT, class _Traits, class _Allocator>
-inline _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP_STRING_INTERNAL_MEMORY_ACCESS void
+inline _LIBCPP_CONSTEXPR_SINCE_CXX20 _LIBCPP___CXX03_STRING_INTERNAL_MEMORY_ACCESS void
 basic_string<_CharT, _Traits, _Allocator>::__move_assign(basic_string& __str, true_type)
 #  if _LIBCPP_STD_VER >= 17
     noexcept
@@ -4338,7 +4338,7 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/algorithm>
 #  include <__cxx03/concepts>
 #  include <__cxx03/cstdlib>
@@ -4349,4 +4349,4 @@ _LIBCPP_POP_MACROS
 #  include <__cxx03/utility>
 #endif
 
-#endif // _LIBCPP_STRING
+#endif // _LIBCPP___CXX03_STRING

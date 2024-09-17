@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CHRONO_FORMATTER_H
-#define _LIBCPP___CHRONO_FORMATTER_H
+#ifndef _LIBCPP___CXX03___CHRONO_FORMATTER_H
+#define _LIBCPP___CXX03___CHRONO_FORMATTER_H
 
 #include <__cxx03/__algorithm/ranges_copy.h>
 #include <__cxx03/__chrono/calendar.h>
@@ -108,12 +108,12 @@ __format_sub_seconds(basic_stringstream<_CharT>& __sstr, const chrono::duration<
     // differently and uses 3 decimals.
     // https://godbolt.org/z/6dsbnW8ba
     std::format_to(std::ostreambuf_iterator<_CharT>{__sstr},
-                   _LIBCPP_STATICALLY_WIDEN(_CharT, "{:0{}.0f}"),
+                   _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:0{}.0f}"),
                    chrono::duration_cast<typename chrono::hh_mm_ss<__duration>::precision>(__fraction).count(),
                    chrono::hh_mm_ss<__duration>::fractional_width);
   else
     std::format_to(std::ostreambuf_iterator<_CharT>{__sstr},
-                   _LIBCPP_STATICALLY_WIDEN(_CharT, "{:0{}}"),
+                   _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:0{}}"),
                    chrono::duration_cast<typename chrono::hh_mm_ss<__duration>::precision>(__fraction).count(),
                    chrono::hh_mm_ss<__duration>::fractional_width);
 }
@@ -129,18 +129,18 @@ __format_sub_seconds(basic_stringstream<_CharT>& __sstr, const chrono::hh_mm_ss<
   __sstr << std::use_facet<numpunct<_CharT>>(__sstr.getloc()).decimal_point();
   if constexpr (chrono::treat_as_floating_point_v<typename _Duration::rep>)
     std::format_to(std::ostreambuf_iterator<_CharT>{__sstr},
-                   _LIBCPP_STATICALLY_WIDEN(_CharT, "{:0{}.0f}"),
+                   _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:0{}.0f}"),
                    __value.subseconds().count(),
                    __value.fractional_width);
   else
     std::format_to(std::ostreambuf_iterator<_CharT>{__sstr},
-                   _LIBCPP_STATICALLY_WIDEN(_CharT, "{:0{}}"),
+                   _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:0{}}"),
                    __value.subseconds().count(),
                    __value.fractional_width);
 }
 
-#  if !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB) && !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) &&                     \
-      !defined(_LIBCPP_HAS_NO_FILESYSTEM) && !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#  if !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB) && !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) &&                     \
+      !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) && !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 template <class _CharT, class _Duration, class _TimeZonePtr>
 _LIBCPP_HIDE_FROM_ABI void
 __format_sub_seconds(basic_stringstream<_CharT>& __sstr, const chrono::zoned_time<_Duration, _TimeZonePtr>& __value) {
@@ -152,8 +152,8 @@ template <class _Tp>
 consteval bool __use_fraction() {
   if constexpr (__is_time_point<_Tp>)
     return chrono::hh_mm_ss<typename _Tp::duration>::fractional_width;
-#  if !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB) && !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) &&                     \
-      !defined(_LIBCPP_HAS_NO_FILESYSTEM) && !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#  if !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB) && !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) &&                     \
+      !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) && !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
   else if constexpr (__is_specialization_v<_Tp, chrono::zoned_time>)
     return chrono::hh_mm_ss<typename _Tp::duration>::fractional_width;
 #  endif
@@ -178,7 +178,7 @@ _LIBCPP_HIDE_FROM_ABI void __format_year(basic_stringstream<_CharT>& __sstr, int
   // left-padded -> zero-padded, otherwise the proper value would be 000-0.
 
   // Note according to the wording it should be left padded, which is odd.
-  __sstr << std::format(_LIBCPP_STATICALLY_WIDEN(_CharT, "{:04}"), __year);
+  __sstr << std::format(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:04}"), __year);
 }
 
 template <class _CharT>
@@ -190,7 +190,7 @@ _LIBCPP_HIDE_FROM_ABI void __format_century(basic_stringstream<_CharT>& __sstr, 
 
   bool __negative = __year < 0;
   int __century   = (__year - (99 * __negative)) / 100; // floored division
-  __sstr << std::format(_LIBCPP_STATICALLY_WIDEN(_CharT, "{:02}"), __century);
+  __sstr << std::format(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:02}"), __century);
 }
 
 // Implements the %z format specifier according to [tab:time.format.spec], where
@@ -209,10 +209,10 @@ __format_zone_offset(basic_stringstream<_CharT>& __sstr, chrono::seconds __offse
   chrono::hh_mm_ss __hms{__offset};
   std::ostreambuf_iterator<_CharT> __out_it{__sstr};
   // Note HMS does not allow formatting hours > 23, but the offset is not limited to 24H.
-  std::format_to(__out_it, _LIBCPP_STATICALLY_WIDEN(_CharT, "{:02}"), __hms.hours().count());
+  std::format_to(__out_it, _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:02}"), __hms.hours().count());
   if (__modifier)
     __sstr << _CharT(':');
-  std::format_to(__out_it, _LIBCPP_STATICALLY_WIDEN(_CharT, "{:02}"), __hms.minutes().count());
+  std::format_to(__out_it, _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:02}"), __hms.minutes().count());
 }
 
 // Helper to store the time zone information needed for formatting.
@@ -228,8 +228,8 @@ _LIBCPP_HIDE_FROM_ABI __time_zone __convert_to_time_zone([[maybe_unused]] const 
 #  if !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB)
   if constexpr (same_as<_Tp, chrono::sys_info>)
     return {__value.abbrev, __value.offset};
-#    if !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&                          \
-        !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    if !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&                          \
+        !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
   else if constexpr (__is_specialization_v<_Tp, chrono::zoned_time>)
     return __formatter::__convert_to_time_zone(__value.get_info());
 #    endif
@@ -301,7 +301,7 @@ _LIBCPP_HIDE_FROM_ABI void __format_chrono_using_chrono_specs(
         // FMT honours precision and has a bug for separator
         // https://godbolt.org/z/78b7sMxns
         if constexpr (chrono::__is_duration<_Tp>::value) {
-          __sstr << std::format(_LIBCPP_STATICALLY_WIDEN(_CharT, "{}"), __value.count());
+          __sstr << std::format(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{}"), __value.count());
           break;
         }
         __builtin_unreachable();
@@ -344,7 +344,7 @@ _LIBCPP_HIDE_FROM_ABI void __format_chrono_using_chrono_specs(
 #  if defined(__GLIBC__) || defined(_AIX) || defined(_WIN32)
       case _CharT('y'):
         // Glibc fails for negative values, AIX for positive values too.
-        __sstr << std::format(_LIBCPP_STATICALLY_WIDEN(_CharT, "{:02}"), (std::abs(__t.tm_year + 1900)) % 100);
+        __sstr << std::format(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{:02}"), (std::abs(__t.tm_year + 1900)) % 100);
         break;
 #  endif // defined(__GLIBC__) || defined(_AIX) || defined(_WIN32)
 
@@ -360,7 +360,7 @@ _LIBCPP_HIDE_FROM_ABI void __format_chrono_using_chrono_specs(
         // limited. Instead of testing all conditions use the internal
         // implementation unconditionally.
         __formatter::__format_year(__sstr, __t.tm_year + 1900);
-        __sstr << std::format(_LIBCPP_STATICALLY_WIDEN(_CharT, "-{:02}-{:02}"), __t.tm_mon + 1, __t.tm_mday);
+        __sstr << std::format(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "-{:02}-{:02}"), __t.tm_mon + 1, __t.tm_mday);
         break;
 
       case _CharT('z'):
@@ -447,8 +447,8 @@ _LIBCPP_HIDE_FROM_ABI constexpr bool __weekday_ok(const _Tp& __value) {
     return true;
   else if constexpr (same_as<_Tp, chrono::local_info>)
     return true;
-#    if !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&                          \
-        !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    if !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&                          \
+        !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
   else if constexpr (__is_specialization_v<_Tp, chrono::zoned_time>)
     return true;
 #    endif
@@ -498,8 +498,8 @@ _LIBCPP_HIDE_FROM_ABI constexpr bool __weekday_name_ok(const _Tp& __value) {
     return true;
   else if constexpr (same_as<_Tp, chrono::local_info>)
     return true;
-#    if !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&                          \
-        !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    if !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&                          \
+        !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
   else if constexpr (__is_specialization_v<_Tp, chrono::zoned_time>)
     return true;
 #    endif
@@ -549,8 +549,8 @@ _LIBCPP_HIDE_FROM_ABI constexpr bool __date_ok(const _Tp& __value) {
     return true;
   else if constexpr (same_as<_Tp, chrono::local_info>)
     return true;
-#    if !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&                          \
-        !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    if !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&                          \
+        !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
   else if constexpr (__is_specialization_v<_Tp, chrono::zoned_time>)
     return true;
 #    endif
@@ -600,8 +600,8 @@ _LIBCPP_HIDE_FROM_ABI constexpr bool __month_name_ok(const _Tp& __value) {
     return true;
   else if constexpr (same_as<_Tp, chrono::local_info>)
     return true;
-#    if !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&                          \
-        !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    if !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&                          \
+        !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
   else if constexpr (__is_specialization_v<_Tp, chrono::zoned_time>)
     return true;
 #    endif
@@ -965,8 +965,8 @@ public:
     return _Base::__parse(__ctx, __format_spec::__fields_chrono, __format_spec::__flags{});
   }
 };
-#    if !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&                          \
-        !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    if !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&                          \
+        !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 // Note due to how libc++'s formatters are implemented there is no need to add
 // the exposition only local-time-format-t abstraction.
 template <class _Duration, class _TimeZonePtr, __fmt_char_type _CharT>
@@ -979,12 +979,12 @@ public:
     return _Base::__parse(__ctx, __format_spec::__fields_chrono, __format_spec::__flags::__clock);
   }
 };
-#    endif // !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&
-           // !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    endif // !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&
+           // !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #  endif   // !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB)
 
 #endif // if _LIBCPP_STD_VER >= 20
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif //  _LIBCPP___CHRONO_FORMATTER_H
+#endif //  _LIBCPP___CXX03___CHRONO_FORMATTER_H

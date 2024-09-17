@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_FORMATTER_TUPLE_H
-#define _LIBCPP___FORMAT_FORMATTER_TUPLE_H
+#ifndef _LIBCPP___CXX03___FORMAT_FORMATTER_TUPLE_H
+#define _LIBCPP___CXX03___FORMAT_FORMATTER_TUPLE_H
 
 #include <__cxx03/__algorithm/ranges_copy.h>
 #include <__cxx03/__chrono/statically_widen.h>
@@ -56,7 +56,7 @@ struct _LIBCPP_TEMPLATE_VIS __formatter_tuple {
       set_brackets({}, {});
     else if (__begin != __end && *__begin == _CharT('m')) {
       if constexpr (sizeof...(_Args) == 2) {
-        set_separator(_LIBCPP_STATICALLY_WIDEN(_CharT, ": "));
+        set_separator(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, ": "));
         set_brackets({}, {});
         ++__begin;
       } else
@@ -130,9 +130,9 @@ struct _LIBCPP_TEMPLATE_VIS __formatter_tuple {
 
 private:
   tuple<formatter<remove_cvref_t<_Args>, _CharT>...> __underlying_;
-  basic_string_view<_CharT> __separator_       = _LIBCPP_STATICALLY_WIDEN(_CharT, ", ");
-  basic_string_view<_CharT> __opening_bracket_ = _LIBCPP_STATICALLY_WIDEN(_CharT, "(");
-  basic_string_view<_CharT> __closing_bracket_ = _LIBCPP_STATICALLY_WIDEN(_CharT, ")");
+  basic_string_view<_CharT> __separator_       = _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, ", ");
+  basic_string_view<_CharT> __opening_bracket_ = _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "(");
+  basic_string_view<_CharT> __closing_bracket_ = _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, ")");
 };
 
 template <__fmt_char_type _CharT, formattable<_CharT>... _Args>
@@ -147,4 +147,4 @@ struct _LIBCPP_TEMPLATE_VIS formatter<tuple<_Args...>, _CharT>
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___FORMAT_FORMATTER_TUPLE_H
+#endif // _LIBCPP___CXX03___FORMAT_FORMATTER_TUPLE_H

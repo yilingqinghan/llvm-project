@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ERRC
-#define _LIBCPP___ERRC
+#ifndef _LIBCPP___CXX03___ERRC
+#define _LIBCPP___CXX03___ERRC
 
 /*
     system_error synopsis
@@ -118,11 +118,11 @@ enum class errc
 // the macros. Since C libraries may start to deprecate these POSIX macros the
 // deprecation warning avoidance is kept.
 #if defined(_LIBCPP_COMPILER_CLANG_BASED)
-#  define _LIBCPP_SUPPRESS_DEPRECATED_ERRC_PUSH _LIBCPP_SUPPRESS_DEPRECATED_PUSH
-#  define _LIBCPP_SUPPRESS_DEPRECATED_ERRC_POP _LIBCPP_SUPPRESS_DEPRECATED_POP
+#  define _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_PUSH _LIBCPP_SUPPRESS_DEPRECATED_PUSH
+#  define _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_POP _LIBCPP_SUPPRESS_DEPRECATED_POP
 #else
-#  define _LIBCPP_SUPPRESS_DEPRECATED_ERRC_PUSH
-#  define _LIBCPP_SUPPRESS_DEPRECATED_ERRC_POP
+#  define _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_PUSH
+#  define _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_POP
 #endif
 
 _LIBCPP_BEGIN_NAMESPACE_STD
@@ -183,13 +183,13 @@ _LIBCPP_DECLARE_STRONG_ENUM(errc){
     no_lock_available                  = ENOLCK,
     // clang-format off
     no_message_available _LIBCPP_DEPRECATED =
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_PUSH
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_PUSH
 #ifdef ENODATA
                                               ENODATA
 #else
                                               ENOMSG
 #endif
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_POP
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_POP
     ,
     // clang-format on
     no_message         = ENOMSG,
@@ -197,13 +197,13 @@ _LIBCPP_DECLARE_STRONG_ENUM(errc){
     no_space_on_device = ENOSPC,
     // clang-format off
     no_stream_resources _LIBCPP_DEPRECATED =
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_PUSH
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_PUSH
 #ifdef ENOSR
                                               ENOSR
 #else
                                               ENOMEM
 #endif
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_POP
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_POP
     ,
     // clang-format on
     no_such_device_or_address = ENXIO,
@@ -214,13 +214,13 @@ _LIBCPP_DECLARE_STRONG_ENUM(errc){
     not_a_socket              = ENOTSOCK,
     // clang-format off
     not_a_stream _LIBCPP_DEPRECATED =
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_PUSH
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_PUSH
 #ifdef ENOSTR
                                       ENOSTR
 #else
                                       EINVAL
 #endif
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_POP
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_POP
     ,
     // clang-format on
     not_connected                  = ENOTCONN,
@@ -242,13 +242,13 @@ _LIBCPP_DECLARE_STRONG_ENUM(errc){
     state_not_recoverable          = ENOTRECOVERABLE,
     // clang-format off
     stream_timeout _LIBCPP_DEPRECATED =
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_PUSH
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_PUSH
 #ifdef ETIME
                                         ETIME
 #else
                                         ETIMEDOUT
 #endif
-    _LIBCPP_SUPPRESS_DEPRECATED_ERRC_POP
+    _LIBCPP___CXX03_SUPPRESS_DEPRECATED_ERRC_POP
     ,
     // clang-format on
     text_file_busy                = ETXTBSY,
@@ -263,4 +263,4 @@ _LIBCPP_DECLARE_STRONG_ENUM_EPILOG(errc)
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___ERRC
+#endif // _LIBCPP___CXX03___ERRC

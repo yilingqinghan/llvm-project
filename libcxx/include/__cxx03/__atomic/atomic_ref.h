@@ -14,8 +14,8 @@
 //
 //===---------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ATOMIC_ATOMIC_REF_H
-#define _LIBCPP___ATOMIC_ATOMIC_REF_H
+#ifndef _LIBCPP___CXX03___ATOMIC_ATOMIC_REF_H
+#define _LIBCPP___CXX03___ATOMIC_ATOMIC_REF_H
 
 #include <__cxx03/__assert>
 #include <__cxx03/__atomic/atomic_sync.h>
@@ -122,7 +122,7 @@ public:
   _LIBCPP_HIDE_FROM_ABI bool is_lock_free() const noexcept { return __atomic_is_lock_free(sizeof(_Tp), __ptr_); }
 
   _LIBCPP_HIDE_FROM_ABI void store(_Tp __desired, memory_order __order = memory_order::seq_cst) const noexcept
-      _LIBCPP_CHECK_STORE_MEMORY_ORDER(__order) {
+      _LIBCPP___CXX03_CHECK_STORE_MEMORY_ORDER(__order) {
     _LIBCPP_ASSERT_ARGUMENT_WITHIN_DOMAIN(
         __order == memory_order::relaxed || __order == memory_order::release || __order == memory_order::seq_cst,
         "atomic_ref: memory order argument to atomic store operation is invalid");
@@ -135,7 +135,7 @@ public:
   }
 
   _LIBCPP_HIDE_FROM_ABI _Tp load(memory_order __order = memory_order::seq_cst) const noexcept
-      _LIBCPP_CHECK_LOAD_MEMORY_ORDER(__order) {
+      _LIBCPP___CXX03_CHECK_LOAD_MEMORY_ORDER(__order) {
     _LIBCPP_ASSERT_ARGUMENT_WITHIN_DOMAIN(
         __order == memory_order::relaxed || __order == memory_order::consume || __order == memory_order::acquire ||
             __order == memory_order::seq_cst,
@@ -157,7 +157,7 @@ public:
 
   _LIBCPP_HIDE_FROM_ABI bool
   compare_exchange_weak(_Tp& __expected, _Tp __desired, memory_order __success, memory_order __failure) const noexcept
-      _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__success, __failure) {
+      _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__success, __failure) {
     _LIBCPP_ASSERT_ARGUMENT_WITHIN_DOMAIN(
         __failure == memory_order::relaxed || __failure == memory_order::consume ||
             __failure == memory_order::acquire || __failure == memory_order::seq_cst,
@@ -172,7 +172,7 @@ public:
   }
   _LIBCPP_HIDE_FROM_ABI bool
   compare_exchange_strong(_Tp& __expected, _Tp __desired, memory_order __success, memory_order __failure) const noexcept
-      _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__success, __failure) {
+      _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__success, __failure) {
     _LIBCPP_ASSERT_ARGUMENT_WITHIN_DOMAIN(
         __failure == memory_order::relaxed || __failure == memory_order::consume ||
             __failure == memory_order::acquire || __failure == memory_order::seq_cst,
@@ -208,7 +208,7 @@ public:
   }
 
   _LIBCPP_HIDE_FROM_ABI void wait(_Tp __old, memory_order __order = memory_order::seq_cst) const noexcept
-      _LIBCPP_CHECK_WAIT_MEMORY_ORDER(__order) {
+      _LIBCPP___CXX03_CHECK_WAIT_MEMORY_ORDER(__order) {
     _LIBCPP_ASSERT_ARGUMENT_WITHIN_DOMAIN(
         __order == memory_order::relaxed || __order == memory_order::consume || __order == memory_order::acquire ||
             __order == memory_order::seq_cst,
@@ -375,4 +375,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP__ATOMIC_ATOMIC_REF_H
+#endif // _LIBCPP___CXX03__ATOMIC_ATOMIC_REF_H

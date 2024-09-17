@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___VERBOSE_ABORT
-#define _LIBCPP___VERBOSE_ABORT
+#ifndef _LIBCPP___CXX03___VERBOSE_ABORT
+#define _LIBCPP___CXX03___VERBOSE_ABORT
 
 #include <__cxx03/__config>
 
@@ -19,11 +19,11 @@
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // This function should never be called directly from the code -- it should only be called through
-// the _LIBCPP_VERBOSE_ABORT macro.
+// the _LIBCPP___CXX03_VERBOSE_ABORT macro.
 _LIBCPP_NORETURN _LIBCPP_AVAILABILITY_VERBOSE_ABORT _LIBCPP_OVERRIDABLE_FUNC_VIS
 _LIBCPP_ATTRIBUTE_FORMAT(__printf__, 1, 2) void __libcpp_verbose_abort(const char* __format, ...);
 
-// _LIBCPP_VERBOSE_ABORT(format, args...)
+// _LIBCPP___CXX03_VERBOSE_ABORT(format, args...)
 //
 // This macro is used to abort the program abnormally while providing additional diagnostic information.
 //
@@ -31,22 +31,22 @@ _LIBCPP_ATTRIBUTE_FORMAT(__printf__, 1, 2) void __libcpp_verbose_abort(const cha
 // into the format-string. This macro can be customized by users to provide fine-grained control over
 // how verbose termination is triggered.
 //
-// If the user does not supply their own version of the _LIBCPP_VERBOSE_ABORT macro, we pick the default
+// If the user does not supply their own version of the _LIBCPP___CXX03_VERBOSE_ABORT macro, we pick the default
 // behavior based on whether we know the built library we're running against provides support for the
 // verbose termination handler or not. If it does, we call it. If it doesn't, we call __builtin_abort to
 // make sure that the program terminates but without taking any complex dependencies in this header.
-#if !defined(_LIBCPP_VERBOSE_ABORT)
+#if !defined(_LIBCPP___CXX03_VERBOSE_ABORT)
 
 #  if !_LIBCPP_AVAILABILITY_HAS_VERBOSE_ABORT
 // The decltype is there to suppress -Wunused warnings in this configuration.
 void __use(const char*, ...);
-#    define _LIBCPP_VERBOSE_ABORT(...) (decltype(::std::__use(__VA_ARGS__))(), __builtin_abort())
+#    define _LIBCPP___CXX03_VERBOSE_ABORT(...) (decltype(::std::__use(__VA_ARGS__))(), __builtin_abort())
 #  else
-#    define _LIBCPP_VERBOSE_ABORT(...) ::std::__libcpp_verbose_abort(__VA_ARGS__)
+#    define _LIBCPP___CXX03_VERBOSE_ABORT(...) ::std::__libcpp_verbose_abort(__VA_ARGS__)
 #  endif
 
-#endif // !defined(_LIBCPP_VERBOSE_ABORT)
+#endif // !defined(_LIBCPP___CXX03_VERBOSE_ABORT)
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___VERBOSE_ABORT
+#endif // _LIBCPP___CXX03___VERBOSE_ABORT

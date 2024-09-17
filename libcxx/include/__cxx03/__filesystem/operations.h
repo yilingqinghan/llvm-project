@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FILESYSTEM_OPERATIONS_H
-#define _LIBCPP___FILESYSTEM_OPERATIONS_H
+#ifndef _LIBCPP___CXX03___FILESYSTEM_OPERATIONS_H
+#define _LIBCPP___CXX03___FILESYSTEM_OPERATIONS_H
 
 #include <__cxx03/__chrono/time_point.h>
 #include <__cxx03/__config>
@@ -27,7 +27,7 @@
 #  pragma GCC system_header
 #endif
 
-#if _LIBCPP_STD_VER >= 17 && !defined(_LIBCPP_HAS_NO_FILESYSTEM)
+#if _LIBCPP_STD_VER >= 17 && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM)
 
 _LIBCPP_BEGIN_NAMESPACE_FILESYSTEM
 
@@ -305,6 +305,6 @@ _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY_POP
 
 _LIBCPP_END_NAMESPACE_FILESYSTEM
 
-#endif // _LIBCPP_STD_VER >= 17 && !defined(_LIBCPP_HAS_NO_FILESYSTEM)
+#endif // _LIBCPP_STD_VER >= 17 && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM)
 
-#endif // _LIBCPP___FILESYSTEM_OPERATIONS_H
+#endif // _LIBCPP___CXX03___FILESYSTEM_OPERATIONS_H

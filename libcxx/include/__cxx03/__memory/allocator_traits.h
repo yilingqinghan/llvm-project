@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___MEMORY_ALLOCATOR_TRAITS_H
-#define _LIBCPP___MEMORY_ALLOCATOR_TRAITS_H
+#ifndef _LIBCPP___CXX03___MEMORY_ALLOCATOR_TRAITS_H
+#define _LIBCPP___CXX03___MEMORY_ALLOCATOR_TRAITS_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__memory/construct_at.h>
@@ -34,7 +34,7 @@ _LIBCPP_PUSH_MACROS
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#define _LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(NAME, PROPERTY)                                                               \
+#define _LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(NAME, PROPERTY)                                                               \
   template <class _Tp, class = void>                                                                                   \
   struct NAME : false_type {};                                                                                         \
   template <class _Tp>                                                                                                 \
@@ -54,7 +54,7 @@ struct __pointer<_Tp, _Alloc, _RawAlloc, false> {
 };
 
 // __const_pointer
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_const_pointer, const_pointer);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_const_pointer, const_pointer);
 template <class _Tp, class _Ptr, class _Alloc, bool = __has_const_pointer<_Alloc>::value>
 struct __const_pointer {
   using type _LIBCPP_NODEBUG = typename _Alloc::const_pointer;
@@ -69,7 +69,7 @@ struct __const_pointer<_Tp, _Ptr, _Alloc, false> {
 };
 
 // __void_pointer
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_void_pointer, void_pointer);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_void_pointer, void_pointer);
 template <class _Ptr, class _Alloc, bool = __has_void_pointer<_Alloc>::value>
 struct __void_pointer {
   using type _LIBCPP_NODEBUG = typename _Alloc::void_pointer;
@@ -84,7 +84,7 @@ struct __void_pointer<_Ptr, _Alloc, false> {
 };
 
 // __const_void_pointer
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_const_void_pointer, const_void_pointer);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_const_void_pointer, const_void_pointer);
 template <class _Ptr, class _Alloc, bool = __has_const_void_pointer<_Alloc>::value>
 struct __const_void_pointer {
   using type _LIBCPP_NODEBUG = typename _Alloc::const_void_pointer;
@@ -99,7 +99,7 @@ struct __const_void_pointer<_Ptr, _Alloc, false> {
 };
 
 // __size_type
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_size_type, size_type);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_size_type, size_type);
 template <class _Alloc, class _DiffType, bool = __has_size_type<_Alloc>::value>
 struct __size_type : make_unsigned<_DiffType> {};
 template <class _Alloc, class _DiffType>
@@ -108,7 +108,7 @@ struct __size_type<_Alloc, _DiffType, true> {
 };
 
 // __alloc_traits_difference_type
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_alloc_traits_difference_type, difference_type);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_alloc_traits_difference_type, difference_type);
 template <class _Alloc, class _Ptr, bool = __has_alloc_traits_difference_type<_Alloc>::value>
 struct __alloc_traits_difference_type {
   using type _LIBCPP_NODEBUG = typename pointer_traits<_Ptr>::difference_type;
@@ -119,7 +119,7 @@ struct __alloc_traits_difference_type<_Alloc, _Ptr, true> {
 };
 
 // __propagate_on_container_copy_assignment
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_propagate_on_container_copy_assignment, propagate_on_container_copy_assignment);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_propagate_on_container_copy_assignment, propagate_on_container_copy_assignment);
 template <class _Alloc, bool = __has_propagate_on_container_copy_assignment<_Alloc>::value>
 struct __propagate_on_container_copy_assignment : false_type {};
 template <class _Alloc>
@@ -128,7 +128,7 @@ struct __propagate_on_container_copy_assignment<_Alloc, true> {
 };
 
 // __propagate_on_container_move_assignment
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_propagate_on_container_move_assignment, propagate_on_container_move_assignment);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_propagate_on_container_move_assignment, propagate_on_container_move_assignment);
 template <class _Alloc, bool = __has_propagate_on_container_move_assignment<_Alloc>::value>
 struct __propagate_on_container_move_assignment : false_type {};
 template <class _Alloc>
@@ -137,7 +137,7 @@ struct __propagate_on_container_move_assignment<_Alloc, true> {
 };
 
 // __propagate_on_container_swap
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_propagate_on_container_swap, propagate_on_container_swap);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_propagate_on_container_swap, propagate_on_container_swap);
 template <class _Alloc, bool = __has_propagate_on_container_swap<_Alloc>::value>
 struct __propagate_on_container_swap : false_type {};
 template <class _Alloc>
@@ -146,7 +146,7 @@ struct __propagate_on_container_swap<_Alloc, true> {
 };
 
 // __is_always_equal
-_LIBCPP_ALLOCATOR_TRAITS_HAS_XXX(__has_is_always_equal, is_always_equal);
+_LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX(__has_is_always_equal, is_always_equal);
 template <class _Alloc, bool = __has_is_always_equal<_Alloc>::value>
 struct __is_always_equal : is_empty<_Alloc> {};
 template <class _Alloc>
@@ -415,10 +415,10 @@ struct __is_cpp17_copy_insertable<
                    __has_construct<_Alloc, typename _Alloc::value_type*, const typename _Alloc::value_type&>::value > >
     : __is_cpp17_move_insertable<_Alloc> {};
 
-#undef _LIBCPP_ALLOCATOR_TRAITS_HAS_XXX
+#undef _LIBCPP___CXX03_ALLOCATOR_TRAITS_HAS_XXX
 
 _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___MEMORY_ALLOCATOR_TRAITS_H
+#endif // _LIBCPP___CXX03___MEMORY_ALLOCATOR_TRAITS_H

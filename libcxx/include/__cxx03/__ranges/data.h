@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANGES_DATA_H
-#define _LIBCPP___RANGES_DATA_H
+#ifndef _LIBCPP___CXX03___RANGES_DATA_H
+#define _LIBCPP___CXX03___RANGES_DATA_H
 
 #include <__cxx03/__concepts/class_or_enum.h>
 #include <__cxx03/__config>
@@ -41,7 +41,7 @@ concept __ptr_to_object = is_pointer_v<_Tp> && is_object_v<remove_pointer_t<_Tp>
 
 template <class _Tp>
 concept __member_data = __can_borrow<_Tp> && requires(_Tp&& __t) {
-  { _LIBCPP_AUTO_CAST(__t.data()) } -> __ptr_to_object;
+  { _LIBCPP___CXX03_AUTO_CAST(__t.data()) } -> __ptr_to_object;
 };
 
 template <class _Tp>
@@ -99,4 +99,4 @@ inline constexpr auto cdata = __cdata::__fn{};
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___RANGES_DATA_H
+#endif // _LIBCPP___CXX03___RANGES_DATA_H

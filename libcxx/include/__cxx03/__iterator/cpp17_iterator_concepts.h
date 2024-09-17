@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ITERATOR_CPP17_ITERATOR_CONCEPTS_H
-#define _LIBCPP___ITERATOR_CPP17_ITERATOR_CONCEPTS_H
+#ifndef _LIBCPP___CXX03___ITERATOR_CPP17_ITERATOR_CONCEPTS_H
+#define _LIBCPP___CXX03___ITERATOR_CPP17_ITERATOR_CONCEPTS_H
 
 #include <__cxx03/__concepts/boolean_testable.h>
 #include <__cxx03/__concepts/convertible_to.h>
@@ -156,35 +156,35 @@ concept __cpp17_random_access_iterator =
 
 _LIBCPP_END_NAMESPACE_STD
 
-#  ifndef _LIBCPP_DISABLE_ITERATOR_CHECKS
-#    define _LIBCPP_REQUIRE_CPP17_INPUT_ITERATOR(iter_t, message)                                                      \
+#  ifndef _LIBCPP___CXX03_DISABLE_ITERATOR_CHECKS
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_INPUT_ITERATOR(iter_t, message)                                                      \
       static_assert(::std::__cpp17_input_iterator<iter_t>, message)
-#    define _LIBCPP_REQUIRE_CPP17_OUTPUT_ITERATOR(iter_t, write_t, message)                                            \
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_OUTPUT_ITERATOR(iter_t, write_t, message)                                            \
       static_assert(::std::__cpp17_output_iterator<iter_t, write_t>, message)
-#    define _LIBCPP_REQUIRE_CPP17_FORWARD_ITERATOR(iter_t, message)                                                    \
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_FORWARD_ITERATOR(iter_t, message)                                                    \
       static_assert(::std::__cpp17_forward_iterator<iter_t>, message)
-#    define _LIBCPP_REQUIRE_CPP17_BIDIRECTIONAL_ITERATOR(iter_t, message)                                              \
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_BIDIRECTIONAL_ITERATOR(iter_t, message)                                              \
       static_assert(::std::__cpp17_bidirectional_iterator<iter_t>, message)
-#    define _LIBCPP_REQUIRE_CPP17_RANDOM_ACCESS_ITERATOR(iter_t, message)                                              \
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_RANDOM_ACCESS_ITERATOR(iter_t, message)                                              \
       static_assert(::std::__cpp17_random_access_iterator<iter_t>, message)
 #  else
-#    define _LIBCPP_REQUIRE_CPP17_INPUT_ITERATOR(iter_t, message) static_assert(true)
-#    define _LIBCPP_REQUIRE_CPP17_OUTPUT_ITERATOR(iter_t, write_t, message) static_assert(true)
-#    define _LIBCPP_REQUIRE_CPP17_FORWARD_ITERATOR(iter_t, message) static_assert(true)
-#    define _LIBCPP_REQUIRE_CPP17_BIDIRECTIONAL_ITERATOR(iter_t, message) static_assert(true)
-#    define _LIBCPP_REQUIRE_CPP17_RANDOM_ACCESS_ITERATOR(iter_t, message) static_assert(true)
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_INPUT_ITERATOR(iter_t, message) static_assert(true)
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_OUTPUT_ITERATOR(iter_t, write_t, message) static_assert(true)
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_FORWARD_ITERATOR(iter_t, message) static_assert(true)
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_BIDIRECTIONAL_ITERATOR(iter_t, message) static_assert(true)
+#    define _LIBCPP___CXX03_REQUIRE_CPP17_RANDOM_ACCESS_ITERATOR(iter_t, message) static_assert(true)
 #  endif
 
 #else // _LIBCPP_STD_VER >= 20
 
-#  define _LIBCPP_REQUIRE_CPP17_INPUT_ITERATOR(iter_t, message) static_assert(true)
-#  define _LIBCPP_REQUIRE_CPP17_OUTPUT_ITERATOR(iter_t, write_t, message) static_assert(true)
-#  define _LIBCPP_REQUIRE_CPP17_FORWARD_ITERATOR(iter_t, message) static_assert(true)
-#  define _LIBCPP_REQUIRE_CPP17_BIDIRECTIONAL_ITERATOR(iter_t, message) static_assert(true)
-#  define _LIBCPP_REQUIRE_CPP17_RANDOM_ACCESS_ITERATOR(iter_t, message) static_assert(true)
+#  define _LIBCPP___CXX03_REQUIRE_CPP17_INPUT_ITERATOR(iter_t, message) static_assert(true)
+#  define _LIBCPP___CXX03_REQUIRE_CPP17_OUTPUT_ITERATOR(iter_t, write_t, message) static_assert(true)
+#  define _LIBCPP___CXX03_REQUIRE_CPP17_FORWARD_ITERATOR(iter_t, message) static_assert(true)
+#  define _LIBCPP___CXX03_REQUIRE_CPP17_BIDIRECTIONAL_ITERATOR(iter_t, message) static_assert(true)
+#  define _LIBCPP___CXX03_REQUIRE_CPP17_RANDOM_ACCESS_ITERATOR(iter_t, message) static_assert(true)
 
 #endif // _LIBCPP_STD_VER >= 20
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___ITERATOR_CPP17_ITERATOR_CONCEPTS_H
+#endif // _LIBCPP___CXX03___ITERATOR_CPP17_ITERATOR_CONCEPTS_H

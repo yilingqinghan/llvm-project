@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANGES_SIZE_H
-#define _LIBCPP___RANGES_SIZE_H
+#ifndef _LIBCPP___CXX03___RANGES_SIZE_H
+#define _LIBCPP___CXX03___RANGES_SIZE_H
 
 #include <__cxx03/__concepts/arithmetic.h>
 #include <__cxx03/__concepts/class_or_enum.h>
@@ -48,13 +48,13 @@ concept __size_enabled = !disable_sized_range<remove_cvref_t<_Tp>>;
 
 template <class _Tp>
 concept __member_size = __size_enabled<_Tp> && requires(_Tp&& __t) {
-  { _LIBCPP_AUTO_CAST(__t.size()) } -> __integer_like;
+  { _LIBCPP___CXX03_AUTO_CAST(__t.size()) } -> __integer_like;
 };
 
 template <class _Tp>
 concept __unqualified_size =
     __size_enabled<_Tp> && !__member_size<_Tp> && __class_or_enum<remove_cvref_t<_Tp>> && requires(_Tp&& __t) {
-      { _LIBCPP_AUTO_CAST(size(__t)) } -> __integer_like;
+      { _LIBCPP___CXX03_AUTO_CAST(size(__t)) } -> __integer_like;
     };
 
 template <class _Tp>
@@ -80,15 +80,15 @@ struct __fn {
   // `[range.prim.size]`: `auto(t.size())` is a valid expression.
   template <__member_size _Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr __integer_like auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(__t.size()))) {
-    return _LIBCPP_AUTO_CAST(__t.size());
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(__t.size()))) {
+    return _LIBCPP___CXX03_AUTO_CAST(__t.size());
   }
 
   // `[range.prim.size]`: `auto(size(t))` is a valid expression.
   template <__unqualified_size _Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr __integer_like auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(size(__t)))) {
-    return _LIBCPP_AUTO_CAST(size(__t));
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(size(__t)))) {
+    return _LIBCPP___CXX03_AUTO_CAST(size(__t));
   }
 
   // [range.prim.size]: the `to-unsigned-like` case.
@@ -134,4 +134,4 @@ inline constexpr auto ssize = __ssize::__fn{};
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___RANGES_SIZE_H
+#endif // _LIBCPP___CXX03___RANGES_SIZE_H

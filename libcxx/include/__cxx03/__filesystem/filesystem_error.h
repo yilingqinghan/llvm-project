@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FILESYSTEM_FILESYSTEM_ERROR_H
-#define _LIBCPP___FILESYSTEM_FILESYSTEM_ERROR_H
+#ifndef _LIBCPP___CXX03___FILESYSTEM_FILESYSTEM_ERROR_H
+#define _LIBCPP___CXX03___FILESYSTEM_FILESYSTEM_ERROR_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__filesystem/path.h>
@@ -77,7 +77,7 @@ __throw_filesystem_error(_Args&&... __args) {
 template <class... _Args>
 _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_AVAILABILITY_FILESYSTEM_LIBRARY void
 __throw_filesystem_error(_Args&&...) {
-  _LIBCPP_VERBOSE_ABORT("filesystem_error was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("filesystem_error was thrown in -fno-exceptions mode");
 }
 #  endif
 
@@ -85,4 +85,4 @@ _LIBCPP_END_NAMESPACE_FILESYSTEM
 
 #endif // _LIBCPP_STD_VER >= 17
 
-#endif // _LIBCPP___FILESYSTEM_FILESYSTEM_ERROR_H
+#endif // _LIBCPP___CXX03___FILESYSTEM_FILESYSTEM_ERROR_H

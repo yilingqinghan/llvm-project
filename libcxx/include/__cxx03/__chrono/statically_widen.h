@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CHRONO_STATICALLY_WIDEN_H
-#define _LIBCPP___CHRONO_STATICALLY_WIDEN_H
+#ifndef _LIBCPP___CXX03___CHRONO_STATICALLY_WIDEN_H
+#define _LIBCPP___CXX03___CHRONO_STATICALLY_WIDEN_H
 
 // Implements the STATICALLY-WIDEN exposition-only function. ([time.general]/2)
 
@@ -32,7 +32,7 @@ _LIBCPP_HIDE_FROM_ABI constexpr const _CharT* __statically_widen(const char* __s
   else
     return __wstr;
 }
-#    define _LIBCPP_STATICALLY_WIDEN(_CharT, __str) ::std::__statically_widen<_CharT>(__str, L##__str)
+#    define _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, __str) ::std::__statically_widen<_CharT>(__str, L##__str)
 #  else // _LIBCPP_HAS_NO_WIDE_CHARACTERS
 
 // Without this indirection the unit test test/libcxx/modules_include.sh.cpp
@@ -42,11 +42,11 @@ template <__fmt_char_type _CharT>
 _LIBCPP_HIDE_FROM_ABI constexpr const _CharT* __statically_widen(const char* __str) {
   return __str;
 }
-#    define _LIBCPP_STATICALLY_WIDEN(_CharT, __str) ::std::__statically_widen<_CharT>(__str)
+#    define _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, __str) ::std::__statically_widen<_CharT>(__str)
 #  endif // _LIBCPP_HAS_NO_WIDE_CHARACTERS
 
 #endif //_LIBCPP_STD_VER >= 20
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___CHRONO_STATICALLY_WIDEN_H
+#endif // _LIBCPP___CXX03___CHRONO_STATICALLY_WIDEN_H

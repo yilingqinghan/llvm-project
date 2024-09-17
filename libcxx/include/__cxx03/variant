@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_VARIANT
-#define _LIBCPP_VARIANT
+#ifndef _LIBCPP___CXX03_VARIANT
+#define _LIBCPP___CXX03_VARIANT
 
 /*
    variant synopsis
@@ -301,7 +301,7 @@ __throw_bad_variant_access() {
 #  ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw bad_variant_access();
 #  else
-  _LIBCPP_VERBOSE_ABORT("bad_variant_access was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("bad_variant_access was thrown in -fno-exceptions mode");
 #  endif
 }
 
@@ -662,7 +662,7 @@ private:
 
 // Adding semi-colons in macro expansions helps clang-format to do a better job.
 // This macro is used to avoid compilation errors due to "stray" semi-colons.
-#  define _LIBCPP_EAT_SEMICOLON static_assert(true, "")
+#  define _LIBCPP___CXX03_EAT_SEMICOLON static_assert(true, "")
 
 template <size_t _Index, class _Tp>
 struct _LIBCPP_TEMPLATE_VIS __alt {
@@ -682,7 +682,7 @@ union _LIBCPP_TEMPLATE_VIS __union;
 template <_Trait _DestructibleTrait, size_t _Index>
 union _LIBCPP_TEMPLATE_VIS __union<_DestructibleTrait, _Index> {};
 
-#  define _LIBCPP_VARIANT_UNION(destructible_trait, destructor_definition)                                             \
+#  define _LIBCPP___CXX03_VARIANT_UNION(destructible_trait, destructor_definition)                                             \
     template <size_t _Index, class _Tp, class... _Types>                                                               \
     union _LIBCPP_TEMPLATE_VIS __union<destructible_trait, _Index, _Tp, _Types...> {                                   \
     public:                                                                                                            \
@@ -710,13 +710,13 @@ union _LIBCPP_TEMPLATE_VIS __union<_DestructibleTrait, _Index> {};
       friend struct __access::__union;                                                                                 \
     }
 
-_LIBCPP_VARIANT_UNION(_Trait::_TriviallyAvailable,
+_LIBCPP___CXX03_VARIANT_UNION(_Trait::_TriviallyAvailable,
                       _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__union() = default);
-_LIBCPP_VARIANT_UNION(
-    _Trait::_Available, _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__union() {} _LIBCPP_EAT_SEMICOLON);
-_LIBCPP_VARIANT_UNION(_Trait::_Unavailable, _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__union() = delete);
+_LIBCPP___CXX03_VARIANT_UNION(
+    _Trait::_Available, _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__union() {} _LIBCPP___CXX03_EAT_SEMICOLON);
+_LIBCPP___CXX03_VARIANT_UNION(_Trait::_Unavailable, _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__union() = delete);
 
-#  undef _LIBCPP_VARIANT_UNION
+#  undef _LIBCPP___CXX03_VARIANT_UNION
 
 template <_Trait _DestructibleTrait, class... _Types>
 class _LIBCPP_TEMPLATE_VIS __base {
@@ -757,7 +757,7 @@ protected:
 template <class _Traits, _Trait = _Traits::__destructible_trait>
 class _LIBCPP_TEMPLATE_VIS __dtor;
 
-#  define _LIBCPP_VARIANT_DESTRUCTOR(destructible_trait, destructor_definition, destroy)                               \
+#  define _LIBCPP___CXX03_VARIANT_DESTRUCTOR(destructible_trait, destructor_definition, destroy)                               \
     template <class... _Types>                                                                                         \
     class _LIBCPP_TEMPLATE_VIS __dtor<__traits<_Types...>, destructible_trait>                                         \
         : public __base<destructible_trait, _Types...> {                                                               \
@@ -777,16 +777,16 @@ class _LIBCPP_TEMPLATE_VIS __dtor;
       destroy;                                                                                                         \
     }
 
-_LIBCPP_VARIANT_DESTRUCTOR(
+_LIBCPP___CXX03_VARIANT_DESTRUCTOR(
     _Trait::_TriviallyAvailable,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__dtor() = default,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __destroy() noexcept {
       this->__index = __variant_npos<__index_t>;
-    } _LIBCPP_EAT_SEMICOLON);
+    } _LIBCPP___CXX03_EAT_SEMICOLON);
 
-_LIBCPP_VARIANT_DESTRUCTOR(
+_LIBCPP___CXX03_VARIANT_DESTRUCTOR(
     _Trait::_Available,
-    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__dtor() { __destroy(); } _LIBCPP_EAT_SEMICOLON,
+    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__dtor() { __destroy(); } _LIBCPP___CXX03_EAT_SEMICOLON,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __destroy() noexcept {
       if (!this->valueless_by_exception()) {
         __visitation::__base::__visit_alt(
@@ -797,13 +797,13 @@ _LIBCPP_VARIANT_DESTRUCTOR(
             *this);
       }
       this->__index = __variant_npos<__index_t>;
-    } _LIBCPP_EAT_SEMICOLON);
+    } _LIBCPP___CXX03_EAT_SEMICOLON);
 
-_LIBCPP_VARIANT_DESTRUCTOR(_Trait::_Unavailable,
+_LIBCPP___CXX03_VARIANT_DESTRUCTOR(_Trait::_Unavailable,
                            _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 ~__dtor()                 = delete,
                            _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __destroy() noexcept = delete);
 
-#  undef _LIBCPP_VARIANT_DESTRUCTOR
+#  undef _LIBCPP___CXX03_VARIANT_DESTRUCTOR
 
 template <class _Traits>
 class _LIBCPP_TEMPLATE_VIS __ctor : public __dtor<_Traits> {
@@ -835,7 +835,7 @@ protected:
 template <class _Traits, _Trait = _Traits::__move_constructible_trait>
 class _LIBCPP_TEMPLATE_VIS __move_constructor;
 
-#  define _LIBCPP_VARIANT_MOVE_CONSTRUCTOR(move_constructible_trait, move_constructor_definition)                      \
+#  define _LIBCPP___CXX03_VARIANT_MOVE_CONSTRUCTOR(move_constructible_trait, move_constructor_definition)                      \
     template <class... _Types>                                                                                         \
     class _LIBCPP_TEMPLATE_VIS __move_constructor<__traits<_Types...>, move_constructible_trait>                       \
         : public __ctor<__traits<_Types...>> {                                                                         \
@@ -852,28 +852,28 @@ class _LIBCPP_TEMPLATE_VIS __move_constructor;
       move_constructor_definition;                                                                                     \
     }
 
-_LIBCPP_VARIANT_MOVE_CONSTRUCTOR(
+_LIBCPP___CXX03_VARIANT_MOVE_CONSTRUCTOR(
     _Trait::_TriviallyAvailable,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __move_constructor(__move_constructor&& __that) = default);
 
-_LIBCPP_VARIANT_MOVE_CONSTRUCTOR(
+_LIBCPP___CXX03_VARIANT_MOVE_CONSTRUCTOR(
     _Trait::_Available,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __move_constructor(__move_constructor&& __that) noexcept(
         __all<is_nothrow_move_constructible_v<_Types>...>::value)
     : __move_constructor(__valueless_t{}) {
       this->__generic_construct(*this, std::move(__that));
-    } _LIBCPP_EAT_SEMICOLON);
+    } _LIBCPP___CXX03_EAT_SEMICOLON);
 
-_LIBCPP_VARIANT_MOVE_CONSTRUCTOR(
+_LIBCPP___CXX03_VARIANT_MOVE_CONSTRUCTOR(
     _Trait::_Unavailable,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __move_constructor(__move_constructor&&) = delete);
 
-#  undef _LIBCPP_VARIANT_MOVE_CONSTRUCTOR
+#  undef _LIBCPP___CXX03_VARIANT_MOVE_CONSTRUCTOR
 
 template <class _Traits, _Trait = _Traits::__copy_constructible_trait>
 class _LIBCPP_TEMPLATE_VIS __copy_constructor;
 
-#  define _LIBCPP_VARIANT_COPY_CONSTRUCTOR(copy_constructible_trait, copy_constructor_definition)                      \
+#  define _LIBCPP___CXX03_VARIANT_COPY_CONSTRUCTOR(copy_constructible_trait, copy_constructor_definition)                      \
     template <class... _Types>                                                                                         \
     class _LIBCPP_TEMPLATE_VIS __copy_constructor<__traits<_Types...>, copy_constructible_trait>                       \
         : public __move_constructor<__traits<_Types...>> {                                                             \
@@ -890,20 +890,20 @@ class _LIBCPP_TEMPLATE_VIS __copy_constructor;
       copy_constructor_definition;                                                                                     \
     }
 
-_LIBCPP_VARIANT_COPY_CONSTRUCTOR(
+_LIBCPP___CXX03_VARIANT_COPY_CONSTRUCTOR(
     _Trait::_TriviallyAvailable,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __copy_constructor(const __copy_constructor& __that) = default);
 
-_LIBCPP_VARIANT_COPY_CONSTRUCTOR(
+_LIBCPP___CXX03_VARIANT_COPY_CONSTRUCTOR(
     _Trait::_Available,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __copy_constructor(const __copy_constructor& __that)
-    : __copy_constructor(__valueless_t{}) { this->__generic_construct(*this, __that); } _LIBCPP_EAT_SEMICOLON);
+    : __copy_constructor(__valueless_t{}) { this->__generic_construct(*this, __that); } _LIBCPP___CXX03_EAT_SEMICOLON);
 
-_LIBCPP_VARIANT_COPY_CONSTRUCTOR(
+_LIBCPP___CXX03_VARIANT_COPY_CONSTRUCTOR(
     _Trait::_Unavailable,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __copy_constructor(const __copy_constructor&) = delete);
 
-#  undef _LIBCPP_VARIANT_COPY_CONSTRUCTOR
+#  undef _LIBCPP___CXX03_VARIANT_COPY_CONSTRUCTOR
 
 template <class _Traits>
 class _LIBCPP_TEMPLATE_VIS __assignment : public __copy_constructor<_Traits> {
@@ -962,7 +962,7 @@ protected:
 template <class _Traits, _Trait = _Traits::__move_assignable_trait>
 class _LIBCPP_TEMPLATE_VIS __move_assignment;
 
-#  define _LIBCPP_VARIANT_MOVE_ASSIGNMENT(move_assignable_trait, move_assignment_definition)                           \
+#  define _LIBCPP___CXX03_VARIANT_MOVE_ASSIGNMENT(move_assignable_trait, move_assignment_definition)                           \
     template <class... _Types>                                                                                         \
     class _LIBCPP_TEMPLATE_VIS __move_assignment<__traits<_Types...>, move_assignable_trait>                           \
         : public __assignment<__traits<_Types...>> {                                                                   \
@@ -979,29 +979,29 @@ class _LIBCPP_TEMPLATE_VIS __move_assignment;
       move_assignment_definition;                                                                                      \
     }
 
-_LIBCPP_VARIANT_MOVE_ASSIGNMENT(_Trait::_TriviallyAvailable,
+_LIBCPP___CXX03_VARIANT_MOVE_ASSIGNMENT(_Trait::_TriviallyAvailable,
                                 _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __move_assignment& operator=(
                                     __move_assignment&& __that) = default);
 
-_LIBCPP_VARIANT_MOVE_ASSIGNMENT(
+_LIBCPP___CXX03_VARIANT_MOVE_ASSIGNMENT(
     _Trait::_Available,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __move_assignment&
     operator=(__move_assignment&& __that) noexcept(
         __all<(is_nothrow_move_constructible_v<_Types> && is_nothrow_move_assignable_v<_Types>)...>::value) {
       this->__generic_assign(std::move(__that));
       return *this;
-    } _LIBCPP_EAT_SEMICOLON);
+    } _LIBCPP___CXX03_EAT_SEMICOLON);
 
-_LIBCPP_VARIANT_MOVE_ASSIGNMENT(
+_LIBCPP___CXX03_VARIANT_MOVE_ASSIGNMENT(
     _Trait::_Unavailable,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __move_assignment& operator=(__move_assignment&&) = delete);
 
-#  undef _LIBCPP_VARIANT_MOVE_ASSIGNMENT
+#  undef _LIBCPP___CXX03_VARIANT_MOVE_ASSIGNMENT
 
 template <class _Traits, _Trait = _Traits::__copy_assignable_trait>
 class _LIBCPP_TEMPLATE_VIS __copy_assignment;
 
-#  define _LIBCPP_VARIANT_COPY_ASSIGNMENT(copy_assignable_trait, copy_assignment_definition)                           \
+#  define _LIBCPP___CXX03_VARIANT_COPY_ASSIGNMENT(copy_assignable_trait, copy_assignment_definition)                           \
     template <class... _Types>                                                                                         \
     class _LIBCPP_TEMPLATE_VIS __copy_assignment<__traits<_Types...>, copy_assignable_trait>                           \
         : public __move_assignment<__traits<_Types...>> {                                                              \
@@ -1018,23 +1018,23 @@ class _LIBCPP_TEMPLATE_VIS __copy_assignment;
       copy_assignment_definition;                                                                                      \
     }
 
-_LIBCPP_VARIANT_COPY_ASSIGNMENT(_Trait::_TriviallyAvailable,
+_LIBCPP___CXX03_VARIANT_COPY_ASSIGNMENT(_Trait::_TriviallyAvailable,
                                 _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __copy_assignment& operator=(
                                     const __copy_assignment& __that) = default);
 
-_LIBCPP_VARIANT_COPY_ASSIGNMENT(
+_LIBCPP___CXX03_VARIANT_COPY_ASSIGNMENT(
     _Trait::_Available,
     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __copy_assignment&
     operator=(const __copy_assignment& __that) {
       this->__generic_assign(__that);
       return *this;
-    } _LIBCPP_EAT_SEMICOLON);
+    } _LIBCPP___CXX03_EAT_SEMICOLON);
 
-_LIBCPP_VARIANT_COPY_ASSIGNMENT(_Trait::_Unavailable,
+_LIBCPP___CXX03_VARIANT_COPY_ASSIGNMENT(_Trait::_Unavailable,
                                 _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 __copy_assignment& operator=(
                                     const __copy_assignment&) = delete);
 
-#  undef _LIBCPP_VARIANT_COPY_ASSIGNMENT
+#  undef _LIBCPP___CXX03_VARIANT_COPY_ASSIGNMENT
 
 template <class... _Types>
 class _LIBCPP_TEMPLATE_VIS __impl : public __copy_assignment<__traits<_Types...>> {
@@ -1639,7 +1639,7 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/exception>
 #  include <__cxx03/tuple>
 #  include <__cxx03/type_traits>
@@ -1647,4 +1647,4 @@ _LIBCPP_POP_MACROS
 #  include <__cxx03/utility>
 #endif
 
-#endif // _LIBCPP_VARIANT
+#endif // _LIBCPP___CXX03_VARIANT

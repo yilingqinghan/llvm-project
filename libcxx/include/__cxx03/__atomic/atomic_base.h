@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ATOMIC_ATOMIC_BASE_H
-#define _LIBCPP___ATOMIC_ATOMIC_BASE_H
+#ifndef _LIBCPP___CXX03___ATOMIC_ATOMIC_BASE_H
+#define _LIBCPP___CXX03___ATOMIC_ATOMIC_BASE_H
 
 #include <__cxx03/__atomic/atomic_sync.h>
 #include <__cxx03/__atomic/check_memory_order.h>
@@ -43,19 +43,19 @@ struct __atomic_base // false
     return static_cast<__atomic_base const volatile*>(this)->is_lock_free();
   }
   _LIBCPP_HIDE_FROM_ABI void store(_Tp __d, memory_order __m = memory_order_seq_cst) volatile _NOEXCEPT
-      _LIBCPP_CHECK_STORE_MEMORY_ORDER(__m) {
+      _LIBCPP___CXX03_CHECK_STORE_MEMORY_ORDER(__m) {
     std::__cxx_atomic_store(std::addressof(__a_), __d, __m);
   }
   _LIBCPP_HIDE_FROM_ABI void store(_Tp __d, memory_order __m = memory_order_seq_cst) _NOEXCEPT
-      _LIBCPP_CHECK_STORE_MEMORY_ORDER(__m) {
+      _LIBCPP___CXX03_CHECK_STORE_MEMORY_ORDER(__m) {
     std::__cxx_atomic_store(std::addressof(__a_), __d, __m);
   }
   _LIBCPP_HIDE_FROM_ABI _Tp load(memory_order __m = memory_order_seq_cst) const volatile _NOEXCEPT
-      _LIBCPP_CHECK_LOAD_MEMORY_ORDER(__m) {
+      _LIBCPP___CXX03_CHECK_LOAD_MEMORY_ORDER(__m) {
     return std::__cxx_atomic_load(std::addressof(__a_), __m);
   }
   _LIBCPP_HIDE_FROM_ABI _Tp load(memory_order __m = memory_order_seq_cst) const _NOEXCEPT
-      _LIBCPP_CHECK_LOAD_MEMORY_ORDER(__m) {
+      _LIBCPP___CXX03_CHECK_LOAD_MEMORY_ORDER(__m) {
     return std::__cxx_atomic_load(std::addressof(__a_), __m);
   }
   _LIBCPP_HIDE_FROM_ABI operator _Tp() const volatile _NOEXCEPT { return load(); }
@@ -68,20 +68,20 @@ struct __atomic_base // false
   }
   _LIBCPP_HIDE_FROM_ABI bool
   compare_exchange_weak(_Tp& __e, _Tp __d, memory_order __s, memory_order __f) volatile _NOEXCEPT
-      _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+      _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
     return std::__cxx_atomic_compare_exchange_weak(std::addressof(__a_), std::addressof(__e), __d, __s, __f);
   }
   _LIBCPP_HIDE_FROM_ABI bool compare_exchange_weak(_Tp& __e, _Tp __d, memory_order __s, memory_order __f) _NOEXCEPT
-      _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+      _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
     return std::__cxx_atomic_compare_exchange_weak(std::addressof(__a_), std::addressof(__e), __d, __s, __f);
   }
   _LIBCPP_HIDE_FROM_ABI bool
   compare_exchange_strong(_Tp& __e, _Tp __d, memory_order __s, memory_order __f) volatile _NOEXCEPT
-      _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+      _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
     return std::__cxx_atomic_compare_exchange_strong(std::addressof(__a_), std::addressof(__e), __d, __s, __f);
   }
   _LIBCPP_HIDE_FROM_ABI bool compare_exchange_strong(_Tp& __e, _Tp __d, memory_order __s, memory_order __f) _NOEXCEPT
-      _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+      _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
     return std::__cxx_atomic_compare_exchange_strong(std::addressof(__a_), std::addressof(__e), __d, __s, __f);
   }
   _LIBCPP_HIDE_FROM_ABI bool
@@ -218,4 +218,4 @@ struct __atomic_waitable_traits<__atomic_base<_Tp, _IsIntegral> > {
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___ATOMIC_ATOMIC_BASE_H
+#endif // _LIBCPP___CXX03___ATOMIC_ATOMIC_BASE_H

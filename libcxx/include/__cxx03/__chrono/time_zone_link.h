@@ -9,8 +9,8 @@
 
 // For information see https://libcxx.llvm.org/DesignDocs/TimeZone.html
 
-#ifndef _LIBCPP___CHRONO_TIME_ZONE_LINK_H
-#define _LIBCPP___CHRONO_TIME_ZONE_LINK_H
+#ifndef _LIBCPP___CXX03___CHRONO_TIME_ZONE_LINK_H
+#define _LIBCPP___CXX03___CHRONO_TIME_ZONE_LINK_H
 
 #include <__cxx03/version>
 // Enable the contents of the header only when libc++ was built with experimental features enabled.
@@ -31,8 +31,8 @@ _LIBCPP_PUSH_MACROS
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#  if _LIBCPP_STD_VER >= 20 && !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&   \
-      !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#  if _LIBCPP_STD_VER >= 20 && !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&   \
+      !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 
 namespace chrono {
 
@@ -76,4 +76,4 @@ _LIBCPP_POP_MACROS
 
 #endif // !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB)
 
-#endif // _LIBCPP___CHRONO_TIME_ZONE_LINK_H
+#endif // _LIBCPP___CXX03___CHRONO_TIME_ZONE_LINK_H

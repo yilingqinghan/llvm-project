@@ -15,8 +15,8 @@
 
 #  include_next <wchar.h>
 
-#elif !defined(_LIBCPP_WCHAR_H)
-#  define _LIBCPP_WCHAR_H
+#elif !defined(_LIBCPP___CXX03_WCHAR_H)
+#  define _LIBCPP___CXX03_WCHAR_H
 
 /*
     wchar.h synopsis
@@ -131,18 +131,18 @@ size_t wcsrtombs(char* restrict dst, const wchar_t** restrict src, size_t len,
 
 // Determine whether we have const-correct overloads for wcschr and friends.
 #  if defined(_WCHAR_H_CPLUSPLUS_98_CONFORMANCE_)
-#    define _LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS 1
+#    define _LIBCPP___CXX03_WCHAR_H_HAS_CONST_OVERLOADS 1
 #  elif defined(__GLIBC_PREREQ)
 #    if __GLIBC_PREREQ(2, 10)
-#      define _LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS 1
+#      define _LIBCPP___CXX03_WCHAR_H_HAS_CONST_OVERLOADS 1
 #    endif
 #  elif defined(_LIBCPP_MSVCRT)
 #    if defined(_CRT_CONST_CORRECT_OVERLOADS)
-#      define _LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS 1
+#      define _LIBCPP___CXX03_WCHAR_H_HAS_CONST_OVERLOADS 1
 #    endif
 #  endif
 
-#  if defined(__cplusplus) && !defined(_LIBCPP_WCHAR_H_HAS_CONST_OVERLOADS) && defined(_LIBCPP_PREFERRED_OVERLOAD)
+#  if defined(__cplusplus) && !defined(_LIBCPP___CXX03_WCHAR_H_HAS_CONST_OVERLOADS) && defined(_LIBCPP_PREFERRED_OVERLOAD)
 extern "C++" {
 inline _LIBCPP_HIDE_FROM_ABI wchar_t* __libcpp_wcschr(const wchar_t* __s, wchar_t __c) {
   return (wchar_t*)wcschr(__s, __c);
@@ -208,4 +208,4 @@ size_t wcsnrtombs(
 } // extern "C"
 #  endif // __cplusplus && (_LIBCPP_MSVCRT || __MVS__)
 
-#endif // _LIBCPP_WCHAR_H
+#endif // _LIBCPP___CXX03_WCHAR_H

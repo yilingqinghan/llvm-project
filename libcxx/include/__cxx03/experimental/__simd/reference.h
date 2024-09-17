@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_EXPERIMENTAL___SIMD_REFERENCE_H
-#define _LIBCPP_EXPERIMENTAL___SIMD_REFERENCE_H
+#ifndef _LIBCPP___CXX03_EXPERIMENTAL___SIMD_REFERENCE_H
+#define _LIBCPP___CXX03_EXPERIMENTAL___SIMD_REFERENCE_H
 
 #include <__cxx03/__type_traits/is_assignable.h>
 #include <__cxx03/__type_traits/is_same.h>
@@ -23,7 +23,7 @@ _LIBCPP_PUSH_MACROS
 
 #if _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
 
-_LIBCPP_BEGIN_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_BEGIN_NAMESPACE_EXPERIMENTAL
 inline namespace parallelism_v2 {
 template <class _Tp, class _Storage, class _Vp>
 class __simd_reference {
@@ -96,10 +96,10 @@ _LIBCPP_HIDE_FROM_ABI void swap(__simd_reference<_Tp, _Storage, _Vp>&& __a, _Vp&
 }
 
 } // namespace parallelism_v2
-_LIBCPP_END_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_END_NAMESPACE_EXPERIMENTAL
 
 #endif // _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP_EXPERIMENTAL___SIMD_REFERENCE_H
+#endif // _LIBCPP___CXX03_EXPERIMENTAL___SIMD_REFERENCE_H

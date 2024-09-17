@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANGES_REND_H
-#define _LIBCPP___RANGES_REND_H
+#ifndef _LIBCPP___CXX03___RANGES_REND_H
+#define _LIBCPP___CXX03___RANGES_REND_H
 
 #include <__cxx03/__concepts/class_or_enum.h>
 #include <__cxx03/__concepts/same_as.h>
@@ -39,7 +39,7 @@ namespace __rend {
 template <class _Tp>
 concept __member_rend = __can_borrow<_Tp> && requires(_Tp&& __t) {
   ranges::rbegin(__t);
-  { _LIBCPP_AUTO_CAST(__t.rend()) } -> sentinel_for<decltype(ranges::rbegin(__t))>;
+  { _LIBCPP___CXX03_AUTO_CAST(__t.rend()) } -> sentinel_for<decltype(ranges::rbegin(__t))>;
 };
 
 void rend() = delete;
@@ -48,7 +48,7 @@ template <class _Tp>
 concept __unqualified_rend =
     !__member_rend<_Tp> && __can_borrow<_Tp> && __class_or_enum<remove_cvref_t<_Tp>> && requires(_Tp&& __t) {
       ranges::rbegin(__t);
-      { _LIBCPP_AUTO_CAST(rend(__t)) } -> sentinel_for<decltype(ranges::rbegin(__t))>;
+      { _LIBCPP___CXX03_AUTO_CAST(rend(__t)) } -> sentinel_for<decltype(ranges::rbegin(__t))>;
     };
 
 template <class _Tp>
@@ -62,15 +62,15 @@ public:
   template <class _Tp>
     requires __member_rend<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(__t.rend()))) {
-    return _LIBCPP_AUTO_CAST(__t.rend());
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(__t.rend()))) {
+    return _LIBCPP___CXX03_AUTO_CAST(__t.rend());
   }
 
   template <class _Tp>
     requires __unqualified_rend<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(rend(__t)))) {
-    return _LIBCPP_AUTO_CAST(rend(__t));
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(rend(__t)))) {
+    return _LIBCPP___CXX03_AUTO_CAST(rend(__t));
   }
 
   template <class _Tp>
@@ -120,4 +120,4 @@ inline constexpr auto crend = __crend::__fn{};
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___RANGES_REND_H
+#endif // _LIBCPP___CXX03___RANGES_REND_H

@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___PSTL_BACKEND_H
-#define _LIBCPP___PSTL_BACKEND_H
+#ifndef _LIBCPP___CXX03___PSTL_BACKEND_H
+#define _LIBCPP___CXX03___PSTL_BACKEND_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__pstl/backend_fwd.h>
@@ -19,17 +19,17 @@
 _LIBCPP_PUSH_MACROS
 #include <__cxx03/__undef_macros>
 
-#if defined(_LIBCPP_PSTL_BACKEND_SERIAL)
+#if defined(_LIBCPP___CXX03_PSTL_BACKEND_SERIAL)
 #  include <__cxx03/__pstl/backends/default.h>
 #  include <__cxx03/__pstl/backends/serial.h>
-#elif defined(_LIBCPP_PSTL_BACKEND_STD_THREAD)
+#elif defined(_LIBCPP___CXX03_PSTL_BACKEND_STD_THREAD)
 #  include <__cxx03/__pstl/backends/default.h>
 #  include <__cxx03/__pstl/backends/std_thread.h>
-#elif defined(_LIBCPP_PSTL_BACKEND_LIBDISPATCH)
+#elif defined(_LIBCPP___CXX03_PSTL_BACKEND_LIBDISPATCH)
 #  include <__cxx03/__pstl/backends/default.h>
 #  include <__cxx03/__pstl/backends/libdispatch.h>
 #endif
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___PSTL_BACKEND_H
+#endif // _LIBCPP___CXX03___PSTL_BACKEND_H

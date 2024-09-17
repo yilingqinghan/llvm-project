@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___PSTL_BACKEND_FWD_H
-#define _LIBCPP___PSTL_BACKEND_FWD_H
+#ifndef _LIBCPP___CXX03___PSTL_BACKEND_FWD_H
+#define _LIBCPP___CXX03___PSTL_BACKEND_FWD_H
 
 #include <__cxx03/__config>
 
@@ -50,11 +50,11 @@ struct __libdispatch_backend_tag;
 struct __serial_backend_tag;
 struct __std_thread_backend_tag;
 
-#if defined(_LIBCPP_PSTL_BACKEND_SERIAL)
+#if defined(_LIBCPP___CXX03_PSTL_BACKEND_SERIAL)
 using __current_configuration = __backend_configuration<__serial_backend_tag, __default_backend_tag>;
-#elif defined(_LIBCPP_PSTL_BACKEND_STD_THREAD)
+#elif defined(_LIBCPP___CXX03_PSTL_BACKEND_STD_THREAD)
 using __current_configuration = __backend_configuration<__std_thread_backend_tag, __default_backend_tag>;
-#elif defined(_LIBCPP_PSTL_BACKEND_LIBDISPATCH)
+#elif defined(_LIBCPP___CXX03_PSTL_BACKEND_LIBDISPATCH)
 using __current_configuration = __backend_configuration<__libdispatch_backend_tag, __default_backend_tag>;
 #else
 
@@ -298,4 +298,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___PSTL_BACKEND_FWD_H
+#endif // _LIBCPP___CXX03___PSTL_BACKEND_FWD_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANGES_RBEGIN_H
-#define _LIBCPP___RANGES_RBEGIN_H
+#ifndef _LIBCPP___CXX03___RANGES_RBEGIN_H
+#define _LIBCPP___CXX03___RANGES_RBEGIN_H
 
 #include <__cxx03/__concepts/class_or_enum.h>
 #include <__cxx03/__concepts/same_as.h>
@@ -37,7 +37,7 @@ namespace ranges {
 namespace __rbegin {
 template <class _Tp>
 concept __member_rbegin = __can_borrow<_Tp> && requires(_Tp&& __t) {
-  { _LIBCPP_AUTO_CAST(__t.rbegin()) } -> input_or_output_iterator;
+  { _LIBCPP___CXX03_AUTO_CAST(__t.rbegin()) } -> input_or_output_iterator;
 };
 
 void rbegin() = delete;
@@ -45,7 +45,7 @@ void rbegin() = delete;
 template <class _Tp>
 concept __unqualified_rbegin =
     !__member_rbegin<_Tp> && __can_borrow<_Tp> && __class_or_enum<remove_cvref_t<_Tp>> && requires(_Tp&& __t) {
-      { _LIBCPP_AUTO_CAST(rbegin(__t)) } -> input_or_output_iterator;
+      { _LIBCPP___CXX03_AUTO_CAST(rbegin(__t)) } -> input_or_output_iterator;
     };
 
 template <class _Tp>
@@ -59,15 +59,15 @@ struct __fn {
   template <class _Tp>
     requires __member_rbegin<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(__t.rbegin()))) {
-    return _LIBCPP_AUTO_CAST(__t.rbegin());
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(__t.rbegin()))) {
+    return _LIBCPP___CXX03_AUTO_CAST(__t.rbegin());
   }
 
   template <class _Tp>
     requires __unqualified_rbegin<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(rbegin(__t)))) {
-    return _LIBCPP_AUTO_CAST(rbegin(__t));
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(rbegin(__t)))) {
+    return _LIBCPP___CXX03_AUTO_CAST(rbegin(__t));
   }
 
   template <class _Tp>
@@ -117,4 +117,4 @@ inline constexpr auto crbegin = __crbegin::__fn{};
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___RANGES_RBEGIN_H
+#endif // _LIBCPP___CXX03___RANGES_RBEGIN_H

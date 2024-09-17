@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___THREAD_THREAD_H
-#define _LIBCPP___THREAD_THREAD_H
+#ifndef _LIBCPP___CXX03___THREAD_THREAD_H
+#define _LIBCPP___CXX03___THREAD_THREAD_H
 
 #include <__cxx03/__condition_variable/condition_variable.h>
 #include <__cxx03/__config>
@@ -23,7 +23,7 @@
 #include <__cxx03/__utility/forward.h>
 #include <__cxx03/tuple>
 
-#ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 #  include <__cxx03/locale>
 #  include <__cxx03/sstream>
 #endif
@@ -69,7 +69,7 @@ class __thread_specific_ptr {
   __thread_specific_ptr();
   friend _LIBCPP_EXPORTED_FROM_ABI __thread_specific_ptr<__thread_struct>& __thread_local_data();
 
-  _LIBCPP_HIDDEN static void _LIBCPP_TLS_DESTRUCTOR_CC __at_thread_exit(void*);
+  _LIBCPP_HIDDEN static void _LIBCPP___CXX03_TLS_DESTRUCTOR_CC __at_thread_exit(void*);
 
 public:
   typedef _Tp* pointer;
@@ -85,7 +85,7 @@ public:
 };
 
 template <class _Tp>
-void _LIBCPP_TLS_DESTRUCTOR_CC __thread_specific_ptr<_Tp>::__at_thread_exit(void* __p) {
+void _LIBCPP___CXX03_TLS_DESTRUCTOR_CC __thread_specific_ptr<_Tp>::__at_thread_exit(void* __p) {
   delete static_cast<pointer>(__p);
 }
 
@@ -117,7 +117,7 @@ struct _LIBCPP_TEMPLATE_VIS hash<__thread_id> : public __unary_function<__thread
   }
 };
 
-#ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 template <class _CharT, class _Traits>
 _LIBCPP_HIDE_FROM_ABI basic_ostream<_CharT, _Traits>&
 operator<<(basic_ostream<_CharT, _Traits>& __os, __thread_id __id) {
@@ -142,7 +142,7 @@ operator<<(basic_ostream<_CharT, _Traits>& __os, __thread_id __id) {
   __sstr << __id.__id_;
   return __os << __sstr.str();
 }
-#endif // _LIBCPP_HAS_NO_LOCALIZATION
+#endif // _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 
 class _LIBCPP_EXPORTED_FROM_ABI thread {
   __libcpp_thread_t __t_;
@@ -154,7 +154,7 @@ public:
   typedef __thread_id id;
   typedef __libcpp_thread_t native_handle_type;
 
-  _LIBCPP_HIDE_FROM_ABI thread() _NOEXCEPT : __t_(_LIBCPP_NULL_THREAD) {}
+  _LIBCPP_HIDE_FROM_ABI thread() _NOEXCEPT : __t_(_LIBCPP___CXX03_NULL_THREAD) {}
 #ifndef _LIBCPP_CXX03_LANG
   template <class _Fp, class... _Args, __enable_if_t<!is_same<__remove_cvref_t<_Fp>, thread>::value, int> = 0>
   _LIBCPP_METHOD_TEMPLATE_IMPLICIT_INSTANTIATION_VIS explicit thread(_Fp&& __f, _Args&&... __args);
@@ -164,13 +164,13 @@ public:
 #endif
   ~thread();
 
-  _LIBCPP_HIDE_FROM_ABI thread(thread&& __t) _NOEXCEPT : __t_(__t.__t_) { __t.__t_ = _LIBCPP_NULL_THREAD; }
+  _LIBCPP_HIDE_FROM_ABI thread(thread&& __t) _NOEXCEPT : __t_(__t.__t_) { __t.__t_ = _LIBCPP___CXX03_NULL_THREAD; }
 
   _LIBCPP_HIDE_FROM_ABI thread& operator=(thread&& __t) _NOEXCEPT {
     if (!__libcpp_thread_isnull(&__t_))
       terminate();
     __t_     = __t.__t_;
-    __t.__t_ = _LIBCPP_NULL_THREAD;
+    __t.__t_ = _LIBCPP___CXX03_NULL_THREAD;
     return *this;
   }
 
@@ -255,4 +255,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___THREAD_THREAD_H
+#endif // _LIBCPP___CXX03___THREAD_THREAD_H

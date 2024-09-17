@@ -6,8 +6,8 @@
 //
 //===---------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___OSTREAM_PRINT_H
-#define _LIBCPP___OSTREAM_PRINT_H
+#ifndef _LIBCPP___CXX03___OSTREAM_PRINT_H
+#define _LIBCPP___CXX03___OSTREAM_PRINT_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__fwd/ostream.h>
@@ -91,7 +91,7 @@ _LIBCPP_HIDE_FROM_ABI inline void vprint_nonunicode(ostream& __os, string_view _
 // is determined in the same way as the print(FILE*, ...) overloads.
 _LIBCPP_EXPORTED_FROM_ABI FILE* __get_ostream_file(ostream& __os);
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
 template <class = void> // TODO PRINT template or availability markup fires too eagerly (http://llvm.org/PR61563).
 _LIBCPP_HIDE_FROM_ABI void __vprint_unicode(ostream& __os, string_view __fmt, format_args __args, bool __write_nl) {
 #    if _LIBCPP_AVAILABILITY_HAS_PRINT == 0
@@ -138,23 +138,23 @@ template <class = void> // TODO PRINT template or availability markup fires too 
 _LIBCPP_HIDE_FROM_ABI inline void vprint_unicode(ostream& __os, string_view __fmt, format_args __args) {
   std::__vprint_unicode(__os, __fmt, __args, false);
 }
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 
 template <class... _Args>
 _LIBCPP_HIDE_FROM_ABI void print(ostream& __os, format_string<_Args...> __fmt, _Args&&... __args) {
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
   if constexpr (__print::__use_unicode_execution_charset)
     std::__vprint_unicode(__os, __fmt.get(), std::make_format_args(__args...), false);
   else
     std::__vprint_nonunicode(__os, __fmt.get(), std::make_format_args(__args...), false);
-#  else  // _LIBCPP_HAS_NO_UNICODE
+#  else  // _LIBCPP___CXX03_HAS_NO_UNICODE
   std::__vprint_nonunicode(__os, __fmt.get(), std::make_format_args(__args...), false);
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 }
 
 template <class... _Args>
 _LIBCPP_HIDE_FROM_ABI void println(ostream& __os, format_string<_Args...> __fmt, _Args&&... __args) {
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
   // Note the wording in the Standard is inefficient. The output of
   // std::format is a std::string which is then copied. This solution
   // just appends a newline at the end of the output.
@@ -162,9 +162,9 @@ _LIBCPP_HIDE_FROM_ABI void println(ostream& __os, format_string<_Args...> __fmt,
     std::__vprint_unicode(__os, __fmt.get(), std::make_format_args(__args...), true);
   else
     std::__vprint_nonunicode(__os, __fmt.get(), std::make_format_args(__args...), true);
-#  else  // _LIBCPP_HAS_NO_UNICODE
+#  else  // _LIBCPP___CXX03_HAS_NO_UNICODE
   std::__vprint_nonunicode(__os, __fmt.get(), std::make_format_args(__args...), true);
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 }
 
 template <class = void> // TODO PRINT template or availability markup fires too eagerly (http://llvm.org/PR61563).
@@ -176,4 +176,4 @@ _LIBCPP_HIDE_FROM_ABI inline void println(ostream& __os) {
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___OSTREAM_PRINT_H
+#endif // _LIBCPP___CXX03___OSTREAM_PRINT_H

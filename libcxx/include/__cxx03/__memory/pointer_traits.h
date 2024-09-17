@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___MEMORY_POINTER_TRAITS_H
-#define _LIBCPP___MEMORY_POINTER_TRAITS_H
+#ifndef _LIBCPP___CXX03___MEMORY_POINTER_TRAITS_H
+#define _LIBCPP___CXX03___MEMORY_POINTER_TRAITS_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__memory/addressof.h>
@@ -33,15 +33,15 @@ _LIBCPP_PUSH_MACROS
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // clang-format off
-#define _LIBCPP_CLASS_TRAITS_HAS_XXX(NAME, PROPERTY)                                                                   \
+#define _LIBCPP___CXX03_CLASS_TRAITS_HAS_XXX(NAME, PROPERTY)                                                                   \
   template <class _Tp, class = void>                                                                                   \
   struct NAME : false_type {};                                                                                         \
   template <class _Tp>                                                                                                 \
   struct NAME<_Tp, __void_t<typename _Tp::PROPERTY> > : true_type {}
 // clang-format on
 
-_LIBCPP_CLASS_TRAITS_HAS_XXX(__has_pointer, pointer);
-_LIBCPP_CLASS_TRAITS_HAS_XXX(__has_element_type, element_type);
+_LIBCPP___CXX03_CLASS_TRAITS_HAS_XXX(__has_pointer, pointer);
+_LIBCPP___CXX03_CLASS_TRAITS_HAS_XXX(__has_element_type, element_type);
 
 template <class _Ptr, bool = __has_element_type<_Ptr>::value>
 struct __pointer_traits_element_type {};
@@ -304,4 +304,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___MEMORY_POINTER_TRAITS_H
+#endif // _LIBCPP___CXX03___MEMORY_POINTER_TRAITS_H

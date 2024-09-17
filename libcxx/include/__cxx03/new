@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_NEW
-#define _LIBCPP_NEW
+#ifndef _LIBCPP___CXX03_NEW
+#define _LIBCPP___CXX03_NEW
 
 /*
     new synopsis
@@ -104,15 +104,15 @@ void  operator delete[](void* ptr, void*) noexcept;
 #endif
 
 #if !defined(__cpp_sized_deallocation) || __cpp_sized_deallocation < 201309L
-#  define _LIBCPP_HAS_NO_LANGUAGE_SIZED_DEALLOCATION
+#  define _LIBCPP___CXX03_HAS_NO_LANGUAGE_SIZED_DEALLOCATION
 #endif
 
-#if !defined(_LIBCPP_BUILDING_LIBRARY) && _LIBCPP_STD_VER < 14 && defined(_LIBCPP_HAS_NO_LANGUAGE_SIZED_DEALLOCATION)
-#  define _LIBCPP_HAS_NO_LIBRARY_SIZED_DEALLOCATION
+#if !defined(_LIBCPP_BUILDING_LIBRARY) && _LIBCPP_STD_VER < 14 && defined(_LIBCPP___CXX03_HAS_NO_LANGUAGE_SIZED_DEALLOCATION)
+#  define _LIBCPP___CXX03_HAS_NO_LIBRARY_SIZED_DEALLOCATION
 #endif
 
-#if defined(_LIBCPP_HAS_NO_LIBRARY_SIZED_DEALLOCATION) || defined(_LIBCPP_HAS_NO_LANGUAGE_SIZED_DEALLOCATION)
-#  define _LIBCPP_HAS_NO_SIZED_DEALLOCATION
+#if defined(_LIBCPP___CXX03_HAS_NO_LIBRARY_SIZED_DEALLOCATION) || defined(_LIBCPP___CXX03_HAS_NO_LANGUAGE_SIZED_DEALLOCATION)
+#  define _LIBCPP___CXX03_HAS_NO_SIZED_DEALLOCATION
 #endif
 
 namespace std // purposefully not using versioning namespace
@@ -172,7 +172,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_bad_array_new_length(
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw bad_array_new_length();
 #else
-  _LIBCPP_VERBOSE_ABORT("bad_array_new_length was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("bad_array_new_length was thrown in -fno-exceptions mode");
 #endif
 }
 
@@ -208,7 +208,7 @@ _LIBCPP_NODISCARD _LIBCPP_OVERRIDABLE_FUNC_VIS void* operator new(std::size_t __
     _LIBCPP_NOALIAS;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete(void* __p) _NOEXCEPT;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete(void* __p, const std::nothrow_t&) _NOEXCEPT;
-#  ifndef _LIBCPP_HAS_NO_LIBRARY_SIZED_DEALLOCATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LIBRARY_SIZED_DEALLOCATION
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete(void* __p, std::size_t __sz) _NOEXCEPT;
 #  endif
 
@@ -217,7 +217,7 @@ _LIBCPP_NODISCARD _LIBCPP_OVERRIDABLE_FUNC_VIS void* operator new[](std::size_t 
     _LIBCPP_NOALIAS;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete[](void* __p) _NOEXCEPT;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete[](void* __p, const std::nothrow_t&) _NOEXCEPT;
-#  ifndef _LIBCPP_HAS_NO_LIBRARY_SIZED_DEALLOCATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LIBRARY_SIZED_DEALLOCATION
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete[](void* __p, std::size_t __sz) _NOEXCEPT;
 #  endif
 
@@ -227,7 +227,7 @@ _LIBCPP_NODISCARD _LIBCPP_OVERRIDABLE_FUNC_VIS void*
 operator new(std::size_t __sz, std::align_val_t, const std::nothrow_t&) _NOEXCEPT _LIBCPP_NOALIAS;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete(void* __p, std::align_val_t) _NOEXCEPT;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete(void* __p, std::align_val_t, const std::nothrow_t&) _NOEXCEPT;
-#    ifndef _LIBCPP_HAS_NO_LIBRARY_SIZED_DEALLOCATION
+#    ifndef _LIBCPP___CXX03_HAS_NO_LIBRARY_SIZED_DEALLOCATION
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete(void* __p, std::size_t __sz, std::align_val_t) _NOEXCEPT;
 #    endif
 
@@ -237,7 +237,7 @@ _LIBCPP_NODISCARD _LIBCPP_OVERRIDABLE_FUNC_VIS void*
 operator new[](std::size_t __sz, std::align_val_t, const std::nothrow_t&) _NOEXCEPT _LIBCPP_NOALIAS;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete[](void* __p, std::align_val_t) _NOEXCEPT;
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete[](void* __p, std::align_val_t, const std::nothrow_t&) _NOEXCEPT;
-#    ifndef _LIBCPP_HAS_NO_LIBRARY_SIZED_DEALLOCATION
+#    ifndef _LIBCPP___CXX03_HAS_NO_LIBRARY_SIZED_DEALLOCATION
 _LIBCPP_OVERRIDABLE_FUNC_VIS void operator delete[](void* __p, std::size_t __sz, std::align_val_t) _NOEXCEPT;
 #    endif
 #  endif
@@ -291,7 +291,7 @@ inline _LIBCPP_HIDE_FROM_ABI void* __libcpp_allocate(size_t __size, size_t __ali
 
 template <class... _Args>
 _LIBCPP_HIDE_FROM_ABI void __do_deallocate_handle_size(void* __ptr, size_t __size, _Args... __args) {
-#ifdef _LIBCPP_HAS_NO_SIZED_DEALLOCATION
+#ifdef _LIBCPP___CXX03_HAS_NO_SIZED_DEALLOCATION
   (void)__size;
   return std::__libcpp_operator_delete(__ptr, __args...);
 #else
@@ -354,9 +354,9 @@ inline constexpr size_t hardware_constructive_interference_size = __GCC_CONSTRUC
 
 _LIBCPP_END_NAMESPACE_STD
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/cstdlib>
 #  include <__cxx03/type_traits>
 #endif
 
-#endif // _LIBCPP_NEW
+#endif // _LIBCPP___CXX03_NEW

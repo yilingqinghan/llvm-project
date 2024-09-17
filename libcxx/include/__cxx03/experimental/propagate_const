@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_EXPERIMENTAL_PROPAGATE_CONST
-#define _LIBCPP_EXPERIMENTAL_PROPAGATE_CONST
+#ifndef _LIBCPP___CXX03_EXPERIMENTAL_PROPAGATE_CONST
+#define _LIBCPP___CXX03_EXPERIMENTAL_PROPAGATE_CONST
 
 /*
     propagate_const synopsis
@@ -139,7 +139,7 @@ _LIBCPP_PUSH_MACROS
 
 #if _LIBCPP_STD_VER >= 14
 
-_LIBCPP_BEGIN_NAMESPACE_LFTS_V2
+_LIBCPP___CXX03_BEGIN_NAMESPACE_LFTS_V2
 
 template <class _Tp>
 class propagate_const;
@@ -397,7 +397,7 @@ constexpr _Tp& get_underlying(propagate_const<_Tp>& __pt) _NOEXCEPT {
   return __pt.__t_;
 }
 
-_LIBCPP_END_NAMESPACE_LFTS_V2
+_LIBCPP___CXX03_END_NAMESPACE_LFTS_V2
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
@@ -483,8 +483,8 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/type_traits>
 #endif
 
-#endif // _LIBCPP_EXPERIMENTAL_PROPAGATE_CONST
+#endif // _LIBCPP___CXX03_EXPERIMENTAL_PROPAGATE_CONST

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANGES_ACCESS_H
-#define _LIBCPP___RANGES_ACCESS_H
+#ifndef _LIBCPP___CXX03___RANGES_ACCESS_H
+#define _LIBCPP___CXX03___RANGES_ACCESS_H
 
 #include <__cxx03/__concepts/class_or_enum.h>
 #include <__cxx03/__config>
@@ -42,7 +42,7 @@ namespace ranges {
 namespace __begin {
 template <class _Tp>
 concept __member_begin = __can_borrow<_Tp> && requires(_Tp&& __t) {
-  { _LIBCPP_AUTO_CAST(__t.begin()) } -> input_or_output_iterator;
+  { _LIBCPP___CXX03_AUTO_CAST(__t.begin()) } -> input_or_output_iterator;
 };
 
 void begin() = delete;
@@ -50,7 +50,7 @@ void begin() = delete;
 template <class _Tp>
 concept __unqualified_begin =
     !__member_begin<_Tp> && __can_borrow<_Tp> && __class_or_enum<remove_cvref_t<_Tp>> && requires(_Tp&& __t) {
-      { _LIBCPP_AUTO_CAST(begin(__t)) } -> input_or_output_iterator;
+      { _LIBCPP___CXX03_AUTO_CAST(begin(__t)) } -> input_or_output_iterator;
     };
 
 struct __fn {
@@ -71,15 +71,15 @@ struct __fn {
   template <class _Tp>
     requires __member_begin<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(__t.begin()))) {
-    return _LIBCPP_AUTO_CAST(__t.begin());
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(__t.begin()))) {
+    return _LIBCPP___CXX03_AUTO_CAST(__t.begin());
   }
 
   template <class _Tp>
     requires __unqualified_begin<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(begin(__t)))) {
-    return _LIBCPP_AUTO_CAST(begin(__t));
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(begin(__t)))) {
+    return _LIBCPP___CXX03_AUTO_CAST(begin(__t));
   }
 
   void operator()(auto&&) const = delete;
@@ -105,7 +105,7 @@ namespace __end {
 template <class _Tp>
 concept __member_end = __can_borrow<_Tp> && requires(_Tp&& __t) {
   typename iterator_t<_Tp>;
-  { _LIBCPP_AUTO_CAST(__t.end()) } -> sentinel_for<iterator_t<_Tp>>;
+  { _LIBCPP___CXX03_AUTO_CAST(__t.end()) } -> sentinel_for<iterator_t<_Tp>>;
 };
 
 void end() = delete;
@@ -114,7 +114,7 @@ template <class _Tp>
 concept __unqualified_end =
     !__member_end<_Tp> && __can_borrow<_Tp> && __class_or_enum<remove_cvref_t<_Tp>> && requires(_Tp&& __t) {
       typename iterator_t<_Tp>;
-      { _LIBCPP_AUTO_CAST(end(__t)) } -> sentinel_for<iterator_t<_Tp>>;
+      { _LIBCPP___CXX03_AUTO_CAST(end(__t)) } -> sentinel_for<iterator_t<_Tp>>;
     };
 
 struct __fn {
@@ -128,15 +128,15 @@ struct __fn {
   template <class _Tp>
     requires __member_end<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(__t.end()))) {
-    return _LIBCPP_AUTO_CAST(__t.end());
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(__t.end()))) {
+    return _LIBCPP___CXX03_AUTO_CAST(__t.end());
   }
 
   template <class _Tp>
     requires __unqualified_end<_Tp>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(end(__t)))) {
-    return _LIBCPP_AUTO_CAST(end(__t));
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(end(__t)))) {
+    return _LIBCPP___CXX03_AUTO_CAST(end(__t));
   }
 
   void operator()(auto&&) const = delete;
@@ -207,4 +207,4 @@ inline constexpr auto cend = __cend::__fn{};
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___RANGES_ACCESS_H
+#endif // _LIBCPP___CXX03___RANGES_ACCESS_H

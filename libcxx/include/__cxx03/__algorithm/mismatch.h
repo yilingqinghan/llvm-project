@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ALGORITHM_MISMATCH_H
-#define _LIBCPP___ALGORITHM_MISMATCH_H
+#ifndef _LIBCPP___CXX03___ALGORITHM_MISMATCH_H
+#define _LIBCPP___CXX03___ALGORITHM_MISMATCH_H
 
 #include <__cxx03/__algorithm/comp.h>
 #include <__cxx03/__algorithm/min.h>
@@ -54,7 +54,7 @@ __mismatch(_Iter1 __first1, _Sent1 __last1, _Iter2 __first2, _Pred& __pred, _Pro
   return std::__mismatch_loop(__first1, __last1, __first2, __pred, __proj1, __proj2);
 }
 
-#if _LIBCPP_VECTORIZE_ALGORITHMS
+#if _LIBCPP___CXX03_VECTORIZE_ALGORITHMS
 
 template <class _Iter>
 _LIBCPP_NODISCARD _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 pair<_Iter, _Iter>
@@ -147,7 +147,7 @@ __mismatch(_Tp* __first1, _Tp* __last1, _Tp* __first2, _Pred& __pred, _Proj1& __
     return {__ret.first.__base(), __ret.second.__base()};
   }
 }
-#endif // _LIBCPP_VECTORIZE_ALGORITHMS
+#endif // _LIBCPP___CXX03_VECTORIZE_ALGORITHMS
 
 template <class _InputIterator1, class _InputIterator2, class _BinaryPredicate>
 _LIBCPP_NODISCARD inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 pair<_InputIterator1, _InputIterator2>
@@ -214,4 +214,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___ALGORITHM_MISMATCH_H
+#endif // _LIBCPP___CXX03___ALGORITHM_MISMATCH_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CONFIGURATION_PLATFORM_H
-#define _LIBCPP___CONFIGURATION_PLATFORM_H
+#ifndef _LIBCPP___CXX03___CONFIGURATION_PLATFORM_H
+#define _LIBCPP___CXX03___CONFIGURATION_PLATFORM_H
 
 #include <__config_site>
 
@@ -17,15 +17,15 @@
 #endif
 
 #if defined(__ELF__)
-#  define _LIBCPP_OBJECT_FORMAT_ELF 1
+#  define _LIBCPP___CXX03_OBJECT_FORMAT_ELF 1
 #elif defined(__MACH__)
-#  define _LIBCPP_OBJECT_FORMAT_MACHO 1
+#  define _LIBCPP___CXX03_OBJECT_FORMAT_MACHO 1
 #elif defined(_WIN32)
 #  define _LIBCPP_OBJECT_FORMAT_COFF 1
 #elif defined(__wasm__)
-#  define _LIBCPP_OBJECT_FORMAT_WASM 1
+#  define _LIBCPP___CXX03_OBJECT_FORMAT_WASM 1
 #elif defined(_AIX)
-#  define _LIBCPP_OBJECT_FORMAT_XCOFF 1
+#  define _LIBCPP___CXX03_OBJECT_FORMAT_XCOFF 1
 #else
 // ... add new file formats here ...
 #endif
@@ -46,9 +46,9 @@
 #endif
 
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-#  define _LIBCPP_LITTLE_ENDIAN
+#  define _LIBCPP___CXX03_LITTLE_ENDIAN
 #elif __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-#  define _LIBCPP_BIG_ENDIAN
+#  define _LIBCPP___CXX03_BIG_ENDIAN
 #endif // __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
 
-#endif // _LIBCPP___CONFIGURATION_PLATFORM_H
+#endif // _LIBCPP___CXX03___CONFIGURATION_PLATFORM_H

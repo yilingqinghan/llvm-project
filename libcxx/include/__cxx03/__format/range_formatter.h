@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_RANGE_FORMATTER_H
-#define _LIBCPP___FORMAT_RANGE_FORMATTER_H
+#ifndef _LIBCPP___CXX03___FORMAT_RANGE_FORMATTER_H
+#define _LIBCPP___CXX03___FORMAT_RANGE_FORMATTER_H
 
 #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
 #  pragma GCC system_header
@@ -214,8 +214,8 @@ private:
     switch (*__begin) {
     case _CharT('m'):
       if constexpr (__fmt_pair_like<_Tp>) {
-        set_brackets(_LIBCPP_STATICALLY_WIDEN(_CharT, "{"), _LIBCPP_STATICALLY_WIDEN(_CharT, "}"));
-        set_separator(_LIBCPP_STATICALLY_WIDEN(_CharT, ", "));
+        set_brackets(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{"), _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "}"));
+        set_separator(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, ", "));
         ++__begin;
       } else
         std::__throw_format_error("Type m requires a pair or a tuple with two elements");
@@ -252,13 +252,13 @@ private:
   }
 
   formatter<_Tp, _CharT> __underlying_;
-  basic_string_view<_CharT> __separator_       = _LIBCPP_STATICALLY_WIDEN(_CharT, ", ");
-  basic_string_view<_CharT> __opening_bracket_ = _LIBCPP_STATICALLY_WIDEN(_CharT, "[");
-  basic_string_view<_CharT> __closing_bracket_ = _LIBCPP_STATICALLY_WIDEN(_CharT, "]");
+  basic_string_view<_CharT> __separator_       = _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, ", ");
+  basic_string_view<_CharT> __opening_bracket_ = _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "[");
+  basic_string_view<_CharT> __closing_bracket_ = _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "]");
 };
 
 #endif //_LIBCPP_STD_VER >= 23
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___FORMAT_RANGE_FORMATTER_H
+#endif // _LIBCPP___CXX03___FORMAT_RANGE_FORMATTER_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_FORMAT
-#define _LIBCPP_FORMAT
+#ifndef _LIBCPP___CXX03_FORMAT
+#define _LIBCPP___CXX03_FORMAT
 
 /*
 
@@ -227,7 +227,7 @@ namespace std {
 #  pragma GCC system_header
 #endif
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/array>
 #  include <__cxx03/cctype>
 #  include <__cxx03/cerrno>
@@ -254,4 +254,4 @@ namespace std {
 #  endif
 #endif
 
-#endif // _LIBCPP_FORMAT
+#endif // _LIBCPP___CXX03_FORMAT

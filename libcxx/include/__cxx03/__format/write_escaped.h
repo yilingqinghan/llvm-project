@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_WRITE_ESCAPED_H
-#define _LIBCPP___FORMAT_WRITE_ESCAPED_H
+#ifndef _LIBCPP___CXX03___FORMAT_WRITE_ESCAPED_H
+#define _LIBCPP___CXX03___FORMAT_WRITE_ESCAPED_H
 
 #include <__cxx03/__algorithm/ranges_copy.h>
 #include <__cxx03/__algorithm/ranges_for_each.h>
@@ -41,7 +41,7 @@ namespace __formatter {
 
 /// Writes a string using format's width estimation algorithm.
 ///
-/// \note When \c _LIBCPP_HAS_NO_UNICODE is defined the function assumes the
+/// \note When \c _LIBCPP___CXX03_HAS_NO_UNICODE is defined the function assumes the
 /// input is ASCII.
 template <class _CharT>
 _LIBCPP_HIDE_FROM_ABI auto
@@ -87,7 +87,7 @@ __write_escaped_code_unit(basic_string<_CharT>& __str, char32_t __value, const _
 // lower-case hexadecimal digits.
 template <class _CharT>
 _LIBCPP_HIDE_FROM_ABI void __write_well_formed_escaped_code_unit(basic_string<_CharT>& __str, char32_t __value) {
-  __formatter::__write_escaped_code_unit(__str, __value, _LIBCPP_STATICALLY_WIDEN(_CharT, "\\u{"));
+  __formatter::__write_escaped_code_unit(__str, __value, _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "\\u{"));
 }
 
 // [format.string.escaped]/2.2.3
@@ -97,13 +97,13 @@ _LIBCPP_HIDE_FROM_ABI void __write_well_formed_escaped_code_unit(basic_string<_C
 // lower-case hexadecimal digits.
 template <class _CharT>
 _LIBCPP_HIDE_FROM_ABI void __write_escape_ill_formed_code_unit(basic_string<_CharT>& __str, char32_t __value) {
-  __formatter::__write_escaped_code_unit(__str, __value, _LIBCPP_STATICALLY_WIDEN(_CharT, "\\x{"));
+  __formatter::__write_escaped_code_unit(__str, __value, _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "\\x{"));
 }
 
 template <class _CharT>
 [[nodiscard]] _LIBCPP_HIDE_FROM_ABI bool
 __is_escaped_sequence_written(basic_string<_CharT>& __str, bool __last_escaped, char32_t __value) {
-#  ifdef _LIBCPP_HAS_NO_UNICODE
+#  ifdef _LIBCPP___CXX03_HAS_NO_UNICODE
   // For ASCII assume everything above 127 is printable.
   if (__value > 127)
     return false;
@@ -141,28 +141,28 @@ template <class _CharT>
   // 2.2.1.1 - Mapped character in [tab:format.escape.sequences]
   switch (__value) {
   case _CharT('\t'):
-    __str += _LIBCPP_STATICALLY_WIDEN(_CharT, "\\t");
+    __str += _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "\\t");
     return true;
   case _CharT('\n'):
-    __str += _LIBCPP_STATICALLY_WIDEN(_CharT, "\\n");
+    __str += _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "\\n");
     return true;
   case _CharT('\r'):
-    __str += _LIBCPP_STATICALLY_WIDEN(_CharT, "\\r");
+    __str += _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "\\r");
     return true;
   case _CharT('\''):
     if (__mark == __escape_quotation_mark::__apostrophe)
-      __str += _LIBCPP_STATICALLY_WIDEN(_CharT, R"(\')");
+      __str += _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, R"(\')");
     else
       __str += __value;
     return true;
   case _CharT('"'):
     if (__mark == __escape_quotation_mark::__double_quote)
-      __str += _LIBCPP_STATICALLY_WIDEN(_CharT, R"(\")");
+      __str += _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, R"(\")");
     else
       __str += __value;
     return true;
   case _CharT('\\'):
-    __str += _LIBCPP_STATICALLY_WIDEN(_CharT, R"(\\)");
+    __str += _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, R"(\\)");
     return true;
 
   // 2.2.1.2 - Space
@@ -239,4 +239,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FORMAT_WRITE_ESCAPED_H
+#endif // _LIBCPP___CXX03___FORMAT_WRITE_ESCAPED_H

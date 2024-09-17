@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_EXPERIMENTAL___SIMD_UTILITY_H
-#define _LIBCPP_EXPERIMENTAL___SIMD_UTILITY_H
+#ifndef _LIBCPP___CXX03_EXPERIMENTAL___SIMD_UTILITY_H
+#define _LIBCPP___CXX03_EXPERIMENTAL___SIMD_UTILITY_H
 
 #include <__cxx03/__type_traits/is_arithmetic.h>
 #include <__cxx03/__type_traits/is_const.h>
@@ -30,7 +30,7 @@ _LIBCPP_PUSH_MACROS
 
 #if _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
 
-_LIBCPP_BEGIN_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_BEGIN_NAMESPACE_EXPERIMENTAL
 inline namespace parallelism_v2 {
 template <class _Tp>
 inline constexpr bool __is_vectorizable_v =
@@ -94,10 +94,10 @@ template <class _Tp, class _Generator, std::size_t _Size>
 inline constexpr bool __can_generate_v = experimental::__can_generate<_Tp, _Generator>(make_index_sequence<_Size>());
 
 } // namespace parallelism_v2
-_LIBCPP_END_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_END_NAMESPACE_EXPERIMENTAL
 
 #endif // _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP_EXPERIMENTAL___SIMD_UTILITY_H
+#endif // _LIBCPP___CXX03_EXPERIMENTAL___SIMD_UTILITY_H

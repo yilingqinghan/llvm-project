@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_EXPERIMENTAL___SIMD_ALIGNED_TAG_H
-#define _LIBCPP_EXPERIMENTAL___SIMD_ALIGNED_TAG_H
+#ifndef _LIBCPP___CXX03_EXPERIMENTAL___SIMD_ALIGNED_TAG_H
+#define _LIBCPP___CXX03_EXPERIMENTAL___SIMD_ALIGNED_TAG_H
 
 #include <__cxx03/__memory/assume_aligned.h>
 #include <__cxx03/__type_traits/remove_const.h>
@@ -18,7 +18,7 @@
 
 #if _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
 
-_LIBCPP_BEGIN_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_BEGIN_NAMESPACE_EXPERIMENTAL
 inline namespace parallelism_v2 {
 // memory alignment
 struct element_aligned_tag {
@@ -69,7 +69,7 @@ template <size_t _Np>
 inline constexpr overaligned_tag<_Np> overaligned{};
 
 } // namespace parallelism_v2
-_LIBCPP_END_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_END_NAMESPACE_EXPERIMENTAL
 
 #endif // _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
-#endif // _LIBCPP_EXPERIMENTAL___SIMD_ALIGNED_TAG_H
+#endif // _LIBCPP___CXX03_EXPERIMENTAL___SIMD_ALIGNED_TAG_H

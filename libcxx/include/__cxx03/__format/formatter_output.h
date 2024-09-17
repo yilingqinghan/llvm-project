@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_FORMATTER_OUTPUT_H
-#define _LIBCPP___FORMAT_FORMATTER_OUTPUT_H
+#ifndef _LIBCPP___CXX03___FORMAT_FORMATTER_OUTPUT_H
+#define _LIBCPP___CXX03___FORMAT_FORMATTER_OUTPUT_H
 
 #include <__cxx03/__algorithm/ranges_copy.h>
 #include <__cxx03/__algorithm/ranges_fill_n.h>
@@ -168,7 +168,7 @@ _LIBCPP_HIDE_FROM_ABI _OutIt __fill(_OutIt __out_it, size_t __n, _CharT __value)
   }
 }
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
 template <__fmt_char_type _CharT, output_iterator<const _CharT&> _OutIt>
   requires(same_as<_CharT, char>)
 _LIBCPP_HIDE_FROM_ABI _OutIt __fill(_OutIt __out_it, size_t __n, __format_spec::__code_point<_CharT> __value) {
@@ -201,12 +201,12 @@ _LIBCPP_HIDE_FROM_ABI _OutIt __fill(_OutIt __out_it, size_t __n, __format_spec::
   return __formatter::__fill(std::move(__out_it), __n, __value.__data[0]);
 }
 #    endif // _LIBCPP_HAS_NO_WIDE_CHARACTERS
-#  else    // _LIBCPP_HAS_NO_UNICODE
+#  else    // _LIBCPP___CXX03_HAS_NO_UNICODE
 template <__fmt_char_type _CharT, output_iterator<const _CharT&> _OutIt>
 _LIBCPP_HIDE_FROM_ABI _OutIt __fill(_OutIt __out_it, size_t __n, __format_spec::__code_point<_CharT> __value) {
   return __formatter::__fill(std::move(__out_it), __n, __value.__data[0]);
 }
-#  endif   // _LIBCPP_HAS_NO_UNICODE
+#  endif   // _LIBCPP___CXX03_HAS_NO_UNICODE
 
 /// Writes the input to the output with the required padding.
 ///
@@ -294,7 +294,7 @@ _LIBCPP_HIDE_FROM_ABI auto __write_transformed(
 ///
 /// \pre !__specs.__has_precision()
 ///
-/// \note When \c _LIBCPP_HAS_NO_UNICODE is defined the function assumes the
+/// \note When \c _LIBCPP___CXX03_HAS_NO_UNICODE is defined the function assumes the
 /// input is ASCII.
 template <class _CharT>
 _LIBCPP_HIDE_FROM_ABI auto __write_string_no_precision(
@@ -332,4 +332,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FORMAT_FORMATTER_OUTPUT_H
+#endif // _LIBCPP___CXX03___FORMAT_FORMATTER_OUTPUT_H

@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ATOMIC_ALIASES_H
-#define _LIBCPP___ATOMIC_ALIASES_H
+#ifndef _LIBCPP___CXX03___ATOMIC_ALIASES_H
+#define _LIBCPP___CXX03___ATOMIC_ALIASES_H
 
 #include <__cxx03/__atomic/atomic.h>
 #include <__cxx03/__atomic/atomic_lock_free.h>
@@ -91,10 +91,10 @@ using __largest_lock_free_type = short;
 #  elif ATOMIC_CHAR_LOCK_FREE == 2
 using __largest_lock_free_type = char;
 #  else
-#    define _LIBCPP_NO_LOCK_FREE_TYPES // There are no lockfree types (this can happen on unusual platforms)
+#    define _LIBCPP___CXX03_NO_LOCK_FREE_TYPES // There are no lockfree types (this can happen on unusual platforms)
 #  endif
 
-#  ifndef _LIBCPP_NO_LOCK_FREE_TYPES
+#  ifndef _LIBCPP___CXX03_NO_LOCK_FREE_TYPES
 using __contention_t_or_largest =
     __conditional_t<__libcpp_is_always_lock_free<__cxx_contention_t>::__value,
                     __cxx_contention_t,
@@ -102,9 +102,9 @@ using __contention_t_or_largest =
 
 using atomic_signed_lock_free   = atomic<__contention_t_or_largest>;
 using atomic_unsigned_lock_free = atomic<make_unsigned_t<__contention_t_or_largest>>;
-#  endif // !_LIBCPP_NO_LOCK_FREE_TYPES
+#  endif // !_LIBCPP___CXX03_NO_LOCK_FREE_TYPES
 #endif   // C++20
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___ATOMIC_ALIASES_H
+#endif // _LIBCPP___CXX03___ATOMIC_ALIASES_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_STRING_H
-#define _LIBCPP_STRING_H
+#ifndef _LIBCPP___CXX03_STRING_H
+#define _LIBCPP___CXX03_STRING_H
 
 /*
     string.h synopsis
@@ -65,10 +65,10 @@ size_t strlen(const char* s);
 // <string.h>. This macro can be defined by users if their C library provides
 // the right signature.
 #if defined(__CORRECT_ISO_CPP_STRING_H_PROTO) || defined(_LIBCPP_MSVCRT) || defined(_STRING_H_CPLUSPLUS_98_CONFORMANCE_)
-#  define _LIBCPP_STRING_H_HAS_CONST_OVERLOADS
+#  define _LIBCPP___CXX03_STRING_H_HAS_CONST_OVERLOADS
 #endif
 
-#if defined(__cplusplus) && !defined(_LIBCPP_STRING_H_HAS_CONST_OVERLOADS) && defined(_LIBCPP_PREFERRED_OVERLOAD)
+#if defined(__cplusplus) && !defined(_LIBCPP___CXX03_STRING_H_HAS_CONST_OVERLOADS) && defined(_LIBCPP_PREFERRED_OVERLOAD)
 extern "C++" {
 inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_PREFERRED_OVERLOAD const char* strchr(const char* __s, int __c) {
   return __builtin_strchr(__s, __c);
@@ -107,4 +107,4 @@ inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_PREFERRED_OVERLOAD char* strstr(char* __s1,
 } // extern "C++"
 #endif
 
-#endif // _LIBCPP_STRING_H
+#endif // _LIBCPP___CXX03_STRING_H

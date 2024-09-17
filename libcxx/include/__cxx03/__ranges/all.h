@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANGES_ALL_H
-#define _LIBCPP___RANGES_ALL_H
+#ifndef _LIBCPP___CXX03___RANGES_ALL_H
+#define _LIBCPP___CXX03___RANGES_ALL_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__functional/compose.h>         // TODO(modules): Those should not be required
@@ -40,8 +40,8 @@ struct __fn : __range_adaptor_closure<__fn> {
   template <class _Tp>
     requires ranges::view<decay_t<_Tp>>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Tp&& __t) const noexcept(
-      noexcept(_LIBCPP_AUTO_CAST(std::forward<_Tp>(__t)))) -> decltype(_LIBCPP_AUTO_CAST(std::forward<_Tp>(__t))) {
-    return _LIBCPP_AUTO_CAST(std::forward<_Tp>(__t));
+      noexcept(_LIBCPP___CXX03_AUTO_CAST(std::forward<_Tp>(__t)))) -> decltype(_LIBCPP___CXX03_AUTO_CAST(std::forward<_Tp>(__t))) {
+    return _LIBCPP___CXX03_AUTO_CAST(std::forward<_Tp>(__t));
   }
 
   template <class _Tp>
@@ -75,4 +75,4 @@ using all_t = decltype(views::all(std::declval<_Range>()));
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___RANGES_ALL_H
+#endif // _LIBCPP___CXX03___RANGES_ALL_H

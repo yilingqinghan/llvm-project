@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CHRONO_DURATION_H
-#define _LIBCPP___CHRONO_DURATION_H
+#ifndef _LIBCPP___CXX03___CHRONO_DURATION_H
+#define _LIBCPP___CXX03___CHRONO_DURATION_H
 
 #include <__cxx03/__compare/ordering.h>
 #include <__cxx03/__compare/three_way_comparable.h>
@@ -543,8 +543,8 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/type_traits>
 #endif
 
-#endif // _LIBCPP___CHRONO_DURATION_H
+#endif // _LIBCPP___CXX03___CHRONO_DURATION_H

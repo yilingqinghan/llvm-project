@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANGES_TAKE_VIEW_H
-#define _LIBCPP___RANGES_TAKE_VIEW_H
+#ifndef _LIBCPP___CXX03___RANGES_TAKE_VIEW_H
+#define _LIBCPP___CXX03___RANGES_TAKE_VIEW_H
 
 #include <__cxx03/__algorithm/min.h>
 #include <__cxx03/__algorithm/ranges_min.h>
@@ -252,9 +252,9 @@ struct __fn {
   template <class _Range, convertible_to<range_difference_t<_Range>> _Np>
     requires __is_empty_view<remove_cvref_t<_Range>>
   [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr auto operator()(_Range&& __range, _Np&&) const
-      noexcept(noexcept(_LIBCPP_AUTO_CAST(std::forward<_Range>(__range))))
-          -> decltype(_LIBCPP_AUTO_CAST(std::forward<_Range>(__range))) {
-    return _LIBCPP_AUTO_CAST(std::forward<_Range>(__range));
+      noexcept(noexcept(_LIBCPP___CXX03_AUTO_CAST(std::forward<_Range>(__range))))
+          -> decltype(_LIBCPP___CXX03_AUTO_CAST(std::forward<_Range>(__range))) {
+    return _LIBCPP___CXX03_AUTO_CAST(std::forward<_Range>(__range));
   }
 
   // [range.take.overview]: the `span | basic_string_view | subrange` case.
@@ -366,4 +366,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___RANGES_TAKE_VIEW_H
+#endif // _LIBCPP___CXX03___RANGES_TAKE_VIEW_H

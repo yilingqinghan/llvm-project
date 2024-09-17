@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_WCTYPE_H
-#define _LIBCPP_WCTYPE_H
+#ifndef _LIBCPP___CXX03_WCTYPE_H
+#define _LIBCPP___CXX03_WCTYPE_H
 
 /*
     wctype.h synopsis
@@ -66,7 +66,7 @@ wctrans_t wctrans(const char* property);
 // will fail because it does not refer to the same declaration.
 #if __has_include_next(<wctype.h>)
 #  include_next <wctype.h>
-#  define _LIBCPP_INCLUDED_C_LIBRARY_WCTYPE_H
+#  define _LIBCPP___CXX03_INCLUDED_C_LIBRARY_WCTYPE_H
 #endif
 
 #ifdef __cplusplus
@@ -92,4 +92,4 @@ wctrans_t wctrans(const char* property);
 
 #endif // __cplusplus
 
-#endif // _LIBCPP_WCTYPE_H
+#endif // _LIBCPP___CXX03_WCTYPE_H

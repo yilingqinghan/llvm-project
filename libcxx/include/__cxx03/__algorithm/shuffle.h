@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ALGORITHM_SHUFFLE_H
-#define _LIBCPP___ALGORITHM_SHUFFLE_H
+#ifndef _LIBCPP___CXX03___ALGORITHM_SHUFFLE_H
+#define _LIBCPP___CXX03___ALGORITHM_SHUFFLE_H
 
 #include <__cxx03/__algorithm/iterator_operations.h>
 #include <__cxx03/__config>
@@ -53,8 +53,8 @@ private:
   uint_fast64_t __state_;
   uint_fast64_t __inc_;
   _LIBCPP_HIDE_FROM_ABI static uint_fast64_t __seed() {
-#ifdef _LIBCPP_DEBUG_RANDOMIZE_UNSPECIFIED_STABILITY_SEED
-    return _LIBCPP_DEBUG_RANDOMIZE_UNSPECIFIED_STABILITY_SEED;
+#ifdef _LIBCPP___CXX03_DEBUG_RANDOMIZE_UNSPECIFIED_STABILITY_SEED
+    return _LIBCPP___CXX03_DEBUG_RANDOMIZE_UNSPECIFIED_STABILITY_SEED;
 #else
     static char __x;
     return reinterpret_cast<uintptr_t>(&__x);
@@ -62,7 +62,7 @@ private:
   }
 };
 
-#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_RANDOM_SHUFFLE) || defined(_LIBCPP_BUILDING_LIBRARY)
+#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_RANDOM_SHUFFLE) || defined(_LIBCPP_BUILDING_LIBRARY)
 class _LIBCPP_EXPORTED_FROM_ABI __rs_default;
 
 _LIBCPP_EXPORTED_FROM_ABI __rs_default __rs_get();
@@ -164,4 +164,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___ALGORITHM_SHUFFLE_H
+#endif // _LIBCPP___CXX03___ALGORITHM_SHUFFLE_H

@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___RANDOM_RANDOM_DEVICE_H
-#define _LIBCPP___RANDOM_RANDOM_DEVICE_H
+#ifndef _LIBCPP___CXX03___RANDOM_RANDOM_DEVICE_H
+#define _LIBCPP___CXX03___RANDOM_RANDOM_DEVICE_H
 
 #include <__cxx03/__config>
 #include <__cxx03/string>
@@ -21,7 +21,7 @@ _LIBCPP_PUSH_MACROS
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#if !defined(_LIBCPP_HAS_NO_RANDOM_DEVICE)
+#if !defined(_LIBCPP___CXX03_HAS_NO_RANDOM_DEVICE)
 
 class _LIBCPP_EXPORTED_FROM_ABI random_device {
 #  ifdef _LIBCPP_USING_DEV_RANDOM
@@ -72,10 +72,10 @@ public:
   void operator=(const random_device&) = delete;
 };
 
-#endif // !_LIBCPP_HAS_NO_RANDOM_DEVICE
+#endif // !_LIBCPP___CXX03_HAS_NO_RANDOM_DEVICE
 
 _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___RANDOM_RANDOM_DEVICE_H
+#endif // _LIBCPP___CXX03___RANDOM_RANDOM_DEVICE_H

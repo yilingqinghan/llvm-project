@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_FORMATTER_BOOL_H
-#define _LIBCPP___FORMAT_FORMATTER_BOOL_H
+#ifndef _LIBCPP___CXX03___FORMAT_FORMATTER_BOOL_H
+#define _LIBCPP___CXX03___FORMAT_FORMATTER_BOOL_H
 
 #include <__cxx03/__algorithm/copy.h>
 #include <__cxx03/__assert>
@@ -20,7 +20,7 @@
 #include <__cxx03/__format/parser_std_format_spec.h>
 #include <__cxx03/__utility/unreachable.h>
 
-#ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 #  include <__cxx03/__locale>
 #endif
 
@@ -73,4 +73,4 @@ public:
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___FORMAT_FORMATTER_BOOL_H
+#endif // _LIBCPP___CXX03___FORMAT_FORMATTER_BOOL_H

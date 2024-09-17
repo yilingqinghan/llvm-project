@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___ATOMIC_ATOMIC_H
-#define _LIBCPP___ATOMIC_ATOMIC_H
+#ifndef _LIBCPP___CXX03___ATOMIC_ATOMIC_H
+#define _LIBCPP___CXX03___ATOMIC_ATOMIC_H
 
 #include <__cxx03/__atomic/atomic_base.h>
 #include <__cxx03/__atomic/check_memory_order.h>
@@ -294,14 +294,14 @@ _LIBCPP_HIDE_FROM_ABI void atomic_store(atomic<_Tp>* __o, typename atomic<_Tp>::
 template <class _Tp>
 _LIBCPP_HIDE_FROM_ABI void
 atomic_store_explicit(volatile atomic<_Tp>* __o, typename atomic<_Tp>::value_type __d, memory_order __m) _NOEXCEPT
-    _LIBCPP_CHECK_STORE_MEMORY_ORDER(__m) {
+    _LIBCPP___CXX03_CHECK_STORE_MEMORY_ORDER(__m) {
   __o->store(__d, __m);
 }
 
 template <class _Tp>
 _LIBCPP_HIDE_FROM_ABI void
 atomic_store_explicit(atomic<_Tp>* __o, typename atomic<_Tp>::value_type __d, memory_order __m) _NOEXCEPT
-    _LIBCPP_CHECK_STORE_MEMORY_ORDER(__m) {
+    _LIBCPP___CXX03_CHECK_STORE_MEMORY_ORDER(__m) {
   __o->store(__d, __m);
 }
 
@@ -321,13 +321,13 @@ _LIBCPP_HIDE_FROM_ABI _Tp atomic_load(const atomic<_Tp>* __o) _NOEXCEPT {
 
 template <class _Tp>
 _LIBCPP_HIDE_FROM_ABI _Tp atomic_load_explicit(const volatile atomic<_Tp>* __o, memory_order __m) _NOEXCEPT
-    _LIBCPP_CHECK_LOAD_MEMORY_ORDER(__m) {
+    _LIBCPP___CXX03_CHECK_LOAD_MEMORY_ORDER(__m) {
   return __o->load(__m);
 }
 
 template <class _Tp>
 _LIBCPP_HIDE_FROM_ABI _Tp atomic_load_explicit(const atomic<_Tp>* __o, memory_order __m) _NOEXCEPT
-    _LIBCPP_CHECK_LOAD_MEMORY_ORDER(__m) {
+    _LIBCPP___CXX03_CHECK_LOAD_MEMORY_ORDER(__m) {
   return __o->load(__m);
 }
 
@@ -393,7 +393,7 @@ _LIBCPP_HIDE_FROM_ABI bool atomic_compare_exchange_weak_explicit(
     typename atomic<_Tp>::value_type* __e,
     typename atomic<_Tp>::value_type __d,
     memory_order __s,
-    memory_order __f) _NOEXCEPT _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+    memory_order __f) _NOEXCEPT _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
   return __o->compare_exchange_weak(*__e, __d, __s, __f);
 }
 
@@ -403,7 +403,7 @@ _LIBCPP_HIDE_FROM_ABI bool atomic_compare_exchange_weak_explicit(
     typename atomic<_Tp>::value_type* __e,
     typename atomic<_Tp>::value_type __d,
     memory_order __s,
-    memory_order __f) _NOEXCEPT _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+    memory_order __f) _NOEXCEPT _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
   return __o->compare_exchange_weak(*__e, __d, __s, __f);
 }
 
@@ -415,7 +415,7 @@ _LIBCPP_HIDE_FROM_ABI bool atomic_compare_exchange_strong_explicit(
     typename atomic<_Tp>::value_type* __e,
     typename atomic<_Tp>::value_type __d,
     memory_order __s,
-    memory_order __f) _NOEXCEPT _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+    memory_order __f) _NOEXCEPT _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
   return __o->compare_exchange_strong(*__e, __d, __s, __f);
 }
 
@@ -425,7 +425,7 @@ _LIBCPP_HIDE_FROM_ABI bool atomic_compare_exchange_strong_explicit(
     typename atomic<_Tp>::value_type* __e,
     typename atomic<_Tp>::value_type __d,
     memory_order __s,
-    memory_order __f) _NOEXCEPT _LIBCPP_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
+    memory_order __f) _NOEXCEPT _LIBCPP___CXX03_CHECK_EXCHANGE_MEMORY_ORDER(__s, __f) {
   return __o->compare_exchange_strong(*__e, __d, __s, __f);
 }
 
@@ -448,14 +448,14 @@ atomic_wait(const atomic<_Tp>* __o, typename atomic<_Tp>::value_type __v) _NOEXC
 template <class _Tp>
 _LIBCPP_AVAILABILITY_SYNC _LIBCPP_HIDE_FROM_ABI void
 atomic_wait_explicit(const volatile atomic<_Tp>* __o, typename atomic<_Tp>::value_type __v, memory_order __m) _NOEXCEPT
-    _LIBCPP_CHECK_LOAD_MEMORY_ORDER(__m) {
+    _LIBCPP___CXX03_CHECK_LOAD_MEMORY_ORDER(__m) {
   return __o->wait(__v, __m);
 }
 
 template <class _Tp>
 _LIBCPP_AVAILABILITY_SYNC _LIBCPP_HIDE_FROM_ABI void
 atomic_wait_explicit(const atomic<_Tp>* __o, typename atomic<_Tp>::value_type __v, memory_order __m) _NOEXCEPT
-    _LIBCPP_CHECK_LOAD_MEMORY_ORDER(__m) {
+    _LIBCPP___CXX03_CHECK_LOAD_MEMORY_ORDER(__m) {
   return __o->wait(__v, __m);
 }
 
@@ -619,4 +619,4 @@ atomic_fetch_xor_explicit(atomic<_Tp>* __o, typename atomic<_Tp>::value_type __o
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___ATOMIC_ATOMIC_H
+#endif // _LIBCPP___CXX03___ATOMIC_ATOMIC_H

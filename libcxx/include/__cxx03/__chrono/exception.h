@@ -9,8 +9,8 @@
 
 // For information see https://libcxx.llvm.org/DesignDocs/TimeZone.html
 
-#ifndef _LIBCPP___CHRONO_EXCEPTION_H
-#define _LIBCPP___CHRONO_EXCEPTION_H
+#ifndef _LIBCPP___CXX03___CHRONO_EXCEPTION_H
+#define _LIBCPP___CXX03___CHRONO_EXCEPTION_H
 
 #include <__cxx03/version>
 // Enable the contents of the header only when libc++ was built with experimental features enabled.
@@ -76,7 +76,7 @@ _LIBCPP_NORETURN _LIBCPP_AVAILABILITY_TZDB _LIBCPP_HIDE_FROM_ABI void __throw_no
 #    ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw nonexistent_local_time(__time, __info);
 #    else
-  _LIBCPP_VERBOSE_ABORT("nonexistent_local_time was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("nonexistent_local_time was thrown in -fno-exceptions mode");
 #    endif
 }
 
@@ -120,7 +120,7 @@ _LIBCPP_NORETURN _LIBCPP_AVAILABILITY_TZDB _LIBCPP_HIDE_FROM_ABI void __throw_am
 #    ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw ambiguous_local_time(__time, __info);
 #    else
-  _LIBCPP_VERBOSE_ABORT("ambiguous_local_time was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("ambiguous_local_time was thrown in -fno-exceptions mode");
 #    endif
 }
 
@@ -132,4 +132,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 #endif // !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB)
 
-#endif // _LIBCPP___CHRONO_EXCEPTION_H
+#endif // _LIBCPP___CXX03___CHRONO_EXCEPTION_H

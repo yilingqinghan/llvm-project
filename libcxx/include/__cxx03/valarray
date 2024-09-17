@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_VALARRAY
-#define _LIBCPP_VALARRAY
+#ifndef _LIBCPP___CXX03_VALARRAY
+#define _LIBCPP___CXX03_VALARRAY
 
 /*
     valarray synopsis
@@ -3351,7 +3351,7 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/algorithm>
 #  include <__cxx03/concepts>
 #  include <__cxx03/cstdlib>
@@ -3361,4 +3361,4 @@ _LIBCPP_POP_MACROS
 #  include <__cxx03/type_traits>
 #endif
 
-#endif // _LIBCPP_VALARRAY
+#endif // _LIBCPP___CXX03_VALARRAY

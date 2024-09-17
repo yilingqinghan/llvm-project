@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 //
 //===----------------------------------------------------------------------===//
-#ifndef _LIBCPP___EXPECTED_EXPECTED_H
-#define _LIBCPP___EXPECTED_EXPECTED_H
+#ifndef _LIBCPP___CXX03___EXPECTED_EXPECTED_H
+#define _LIBCPP___CXX03___EXPECTED_EXPECTED_H
 
 #include <__cxx03/__assert>
 #include <__cxx03/__config>
@@ -75,7 +75,7 @@ _LIBCPP_HIDE_FROM_ABI void __throw_bad_expected_access(_Arg&& __arg) {
   throw bad_expected_access<_Err>(std::forward<_Arg>(__arg));
 #  else
   (void)__arg;
-  _LIBCPP_VERBOSE_ABORT("bad_expected_access was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("bad_expected_access was thrown in -fno-exceptions mode");
 #  endif
 }
 
@@ -1871,4 +1871,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___EXPECTED_EXPECTED_H
+#endif // _LIBCPP___CXX03___EXPECTED_EXPECTED_H

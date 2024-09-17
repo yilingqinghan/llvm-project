@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_FORMAT_CONTEXT_H
-#define _LIBCPP___FORMAT_FORMAT_CONTEXT_H
+#ifndef _LIBCPP___CXX03___FORMAT_FORMAT_CONTEXT_H
+#define _LIBCPP___CXX03___FORMAT_FORMAT_CONTEXT_H
 
 #include <__cxx03/__concepts/same_as.h>
 #include <__cxx03/__config>
@@ -25,7 +25,7 @@
 #include <__cxx03/__variant/monostate.h>
 #include <__cxx03/cstddef>
 
-#ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 #  include <__cxx03/__locale>
 #  include <__cxx03/optional>
 #endif
@@ -45,7 +45,7 @@ template <class _OutIt, class _CharT>
   requires output_iterator<_OutIt, const _CharT&>
 class _LIBCPP_TEMPLATE_VIS basic_format_context;
 
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 /**
  * Helper to create a basic_format_context.
  *
@@ -89,7 +89,7 @@ public:
   _LIBCPP_HIDE_FROM_ABI basic_format_arg<basic_format_context> arg(size_t __id) const noexcept {
     return __args_.get(__id);
   }
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
   _LIBCPP_HIDE_FROM_ABI std::locale locale() {
     if (!__loc_)
       __loc_ = std::locale{};
@@ -102,7 +102,7 @@ public:
 private:
   iterator __out_it_;
   basic_format_args<basic_format_context> __args_;
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 
   // The Standard doesn't specify how the locale is stored.
   // [format.context]/6
@@ -163,7 +163,7 @@ public:
   template <class _Context>
   _LIBCPP_HIDE_FROM_ABI explicit basic_format_context(iterator __out_it, _Context& __ctx)
       : __out_it_(std::move(__out_it)),
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
         __loc_([](void* __c) { return static_cast<_Context*>(__c)->locale(); }),
 #  endif
         __ctx_(std::addressof(__ctx)),
@@ -193,7 +193,7 @@ public:
   _LIBCPP_HIDE_FROM_ABI basic_format_arg<basic_format_context> arg(size_t __id) const noexcept {
     return __arg_(__ctx_, __id);
   }
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
   _LIBCPP_HIDE_FROM_ABI std::locale locale() { return __loc_(__ctx_); }
 #  endif
   _LIBCPP_HIDE_FROM_ABI iterator out() { return std::move(__out_it_); }
@@ -202,7 +202,7 @@ public:
 private:
   iterator __out_it_;
 
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
   std::locale (*__loc_)(void* __ctx);
 #  endif
 
@@ -217,4 +217,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FORMAT_FORMAT_CONTEXT_H
+#endif // _LIBCPP___CXX03___FORMAT_FORMAT_CONTEXT_H

@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___LIBCXX_DEBUG_UTILS_SANITIZERS_H
-#define _LIBCPP___LIBCXX_DEBUG_UTILS_SANITIZERS_H
+#ifndef _LIBCPP___CXX03___LIBCXX_DEBUG_UTILS_SANITIZERS_H
+#define _LIBCPP___CXX03___LIBCXX_DEBUG_UTILS_SANITIZERS_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__type_traits/integral_constant.h>
@@ -34,10 +34,10 @@ _LIBCPP_BEGIN_NAMESPACE_STD
 
 // ASan choices
 #ifndef _LIBCPP_HAS_NO_ASAN
-#  define _LIBCPP_HAS_ASAN_CONTAINER_ANNOTATIONS_FOR_ALL_ALLOCATORS 1
+#  define _LIBCPP___CXX03_HAS_ASAN_CONTAINER_ANNOTATIONS_FOR_ALL_ALLOCATORS 1
 #endif
 
-#ifdef _LIBCPP_HAS_ASAN_CONTAINER_ANNOTATIONS_FOR_ALL_ALLOCATORS
+#ifdef _LIBCPP___CXX03_HAS_ASAN_CONTAINER_ANNOTATIONS_FOR_ALL_ALLOCATORS
 // __asan_annotate_container_with_allocator determines whether containers with custom allocators are annotated. This is
 // a public customization point to disable annotations if the custom allocator assumes that the memory isn't poisoned.
 // See the https://libcxx.llvm.org/UsingLibcxx.html#turning-off-asan-annotation-in-containers for more information.
@@ -101,4 +101,4 @@ _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 void __annotate_contiguous_c
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___LIBCXX_DEBUG_UTILS_SANITIZERS_H
+#endif // _LIBCPP___CXX03___LIBCXX_DEBUG_UTILS_SANITIZERS_H

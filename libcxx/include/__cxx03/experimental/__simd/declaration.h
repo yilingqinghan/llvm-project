@@ -7,15 +7,15 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_EXPERIMENTAL___SIMD_DECLARATION_H
-#define _LIBCPP_EXPERIMENTAL___SIMD_DECLARATION_H
+#ifndef _LIBCPP___CXX03_EXPERIMENTAL___SIMD_DECLARATION_H
+#define _LIBCPP___CXX03_EXPERIMENTAL___SIMD_DECLARATION_H
 
 #include <__cxx03/cstddef>
 #include <__cxx03/experimental/__config>
 
 #if _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
 
-_LIBCPP_BEGIN_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_BEGIN_NAMESPACE_EXPERIMENTAL
 inline namespace parallelism_v2 {
 namespace simd_abi {
 template <int>
@@ -37,7 +37,7 @@ using compatible = __vec_ext<16 / sizeof(_Tp)>;
 
 // TODO: make this platform dependent
 template <class _Tp>
-using native = __vec_ext<_LIBCPP_NATIVE_SIMD_WIDTH_IN_BYTES / sizeof(_Tp)>;
+using native = __vec_ext<_LIBCPP___CXX03_NATIVE_SIMD_WIDTH_IN_BYTES / sizeof(_Tp)>;
 
 // TODO: make this platform dependent
 template <class _Tp, size_t _Np, class... _Abis>
@@ -75,7 +75,7 @@ template <class _Tp, class _Abi = simd_abi::compatible<_Tp>>
 class simd_mask;
 
 } // namespace parallelism_v2
-_LIBCPP_END_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_END_NAMESPACE_EXPERIMENTAL
 
 #endif // _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
-#endif // _LIBCPP_EXPERIMENTAL___SIMD_DECLARATION_H
+#endif // _LIBCPP___CXX03_EXPERIMENTAL___SIMD_DECLARATION_H

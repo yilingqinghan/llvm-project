@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CONFIGURATION_ABI_H
-#define _LIBCPP___CONFIGURATION_ABI_H
+#ifndef _LIBCPP___CXX03___CONFIGURATION_ABI_H
+#define _LIBCPP___CXX03___CONFIGURATION_ABI_H
 
 #include <__config_site>
 #include <__cxx03/__configuration/compiler.h>
@@ -103,7 +103,7 @@
 // their representation based on whether something is trivially copyable.
 #  define _LIBCPP_ABI_TRIVIALLY_COPYABLE_PAIR
 #elif _LIBCPP_ABI_VERSION == 1
-#  if !(defined(_LIBCPP_OBJECT_FORMAT_COFF) || defined(_LIBCPP_OBJECT_FORMAT_XCOFF))
+#  if !(defined(_LIBCPP_OBJECT_FORMAT_COFF) || defined(_LIBCPP___CXX03_OBJECT_FORMAT_XCOFF))
 // Enable compiling copies of now inline methods into the dylib to support
 // applications compiled against older libraries. This is unnecessary with
 // COFF dllexport semantics, since dllexport forces a non-inline definition
@@ -169,4 +169,4 @@
 #  endif
 #endif
 
-#endif // _LIBCPP___CONFIGURATION_ABI_H
+#endif // _LIBCPP___CXX03___CONFIGURATION_ABI_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___STOP_TOKEN_STOP_CALLBACK_H
-#define _LIBCPP___STOP_TOKEN_STOP_CALLBACK_H
+#ifndef _LIBCPP___CXX03___STOP_TOKEN_STOP_CALLBACK_H
+#define _LIBCPP___CXX03___STOP_TOKEN_STOP_CALLBACK_H
 
 #include <__cxx03/__concepts/constructible.h>
 #include <__cxx03/__concepts/destructible.h>

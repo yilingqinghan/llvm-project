@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_FORMAT_FUNCTIONS
-#define _LIBCPP___FORMAT_FORMAT_FUNCTIONS
+#ifndef _LIBCPP___CXX03___FORMAT_FORMAT_FUNCTIONS
+#define _LIBCPP___CXX03___FORMAT_FORMAT_FUNCTIONS
 
 #include <__cxx03/__algorithm/clamp.h>
 #include <__cxx03/__concepts/convertible_to.h>
@@ -40,7 +40,7 @@
 #include <__cxx03/string>
 #include <__cxx03/string_view>
 
-#ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 #  include <__cxx03/__locale>
 #endif
 
@@ -531,7 +531,7 @@ formatted_size(wformat_string<_Args...> __fmt, _Args&&... __args) {
 }
 #  endif
 
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 
 template <class _OutIt, class _CharT, class _FormatOutIt>
   requires(output_iterator<_OutIt, const _CharT&>)
@@ -669,7 +669,7 @@ formatted_size(locale __loc, wformat_string<_Args...> __fmt, _Args&&... __args) 
 }
 #    endif
 
-#  endif // _LIBCPP_HAS_NO_LOCALIZATION
+#  endif // _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 
 #endif //_LIBCPP_STD_VER >= 20
 
@@ -677,4 +677,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FORMAT_FORMAT_FUNCTIONS
+#endif // _LIBCPP___CXX03___FORMAT_FORMAT_FUNCTIONS

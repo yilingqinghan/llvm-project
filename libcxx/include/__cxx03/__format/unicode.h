@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_UNICODE_H
-#define _LIBCPP___FORMAT_UNICODE_H
+#ifndef _LIBCPP___CXX03___FORMAT_UNICODE_H
+#define _LIBCPP___CXX03___FORMAT_UNICODE_H
 
 #include <__cxx03/__assert>
 #include <__cxx03/__bit/countl.h>
@@ -54,7 +54,7 @@ struct __consume_result {
 };
 static_assert(sizeof(__consume_result) == sizeof(char32_t));
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
 
 /// Implements the grapheme cluster boundary rules
 ///
@@ -566,10 +566,10 @@ private:
 template <contiguous_iterator _Iterator>
 __extended_grapheme_cluster_view(_Iterator, _Iterator) -> __extended_grapheme_cluster_view<iter_value_t<_Iterator>>;
 
-#  else //  _LIBCPP_HAS_NO_UNICODE
+#  else //  _LIBCPP___CXX03_HAS_NO_UNICODE
 
 // For ASCII every character is a "code point".
-// This makes it easier to write code agnostic of the _LIBCPP_HAS_NO_UNICODE define.
+// This makes it easier to write code agnostic of the _LIBCPP___CXX03_HAS_NO_UNICODE define.
 template <class _CharT>
 class __code_point_view {
   using _Iterator = typename basic_string_view<_CharT>::const_iterator;
@@ -591,7 +591,7 @@ private:
   _Iterator __last_;
 };
 
-#  endif //  _LIBCPP_HAS_NO_UNICODE
+#  endif //  _LIBCPP___CXX03_HAS_NO_UNICODE
 
 } // namespace __unicode
 
@@ -599,4 +599,4 @@ private:
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___FORMAT_UNICODE_H
+#endif // _LIBCPP___CXX03___FORMAT_UNICODE_H

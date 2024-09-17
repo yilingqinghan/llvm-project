@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_PARSER_STD_FORMAT_SPEC_H
-#define _LIBCPP___FORMAT_PARSER_STD_FORMAT_SPEC_H
+#ifndef _LIBCPP___CXX03___FORMAT_PARSER_STD_FORMAT_SPEC_H
+#define _LIBCPP___CXX03___FORMAT_PARSER_STD_FORMAT_SPEC_H
 
 /// \file Contains the std-format-spec parser.
 ///
@@ -580,7 +580,7 @@ private:
       std::__throw_format_error("The fill option contains an invalid value");
   }
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
   // range-fill and tuple-fill are identical
   template <contiguous_iterator _Iterator>
     requires same_as<_CharT, char>
@@ -645,7 +645,7 @@ private:
 
 #    endif // _LIBCPP_HAS_NO_WIDE_CHARACTERS
 
-#  else // _LIBCPP_HAS_NO_UNICODE
+#  else // _LIBCPP___CXX03_HAS_NO_UNICODE
   // range-fill and tuple-fill are identical
   template <contiguous_iterator _Iterator>
   _LIBCPP_HIDE_FROM_ABI constexpr bool __parse_fill_align(_Iterator& __begin, _Iterator __end) {
@@ -670,7 +670,7 @@ private:
     return true;
   }
 
-#  endif // _LIBCPP_HAS_NO_UNICODE
+#  endif // _LIBCPP___CXX03_HAS_NO_UNICODE
 
   template <contiguous_iterator _Iterator>
   _LIBCPP_HIDE_FROM_ABI constexpr bool __parse_sign(_Iterator& __begin) {
@@ -1026,7 +1026,7 @@ __column_width_result(size_t, _Iterator) -> __column_width_result<_Iterator>;
 ///   "rounded up".
 enum class __column_width_rounding { __down, __up };
 
-#  ifndef _LIBCPP_HAS_NO_UNICODE
+#  ifndef _LIBCPP___CXX03_HAS_NO_UNICODE
 
 namespace __detail {
 template <contiguous_iterator _Iterator>
@@ -1148,7 +1148,7 @@ _LIBCPP_HIDE_FROM_ABI constexpr __column_width_result<_Iterator> __estimate_colu
   __result.__width_ += __ascii_size;
   return __result;
 }
-#  else // !defined(_LIBCPP_HAS_NO_UNICODE)
+#  else // !defined(_LIBCPP___CXX03_HAS_NO_UNICODE)
 template <class _CharT>
 _LIBCPP_HIDE_FROM_ABI constexpr __column_width_result<typename basic_string_view<_CharT>::const_iterator>
 __estimate_column_width(basic_string_view<_CharT> __str, size_t __maximum, __column_width_rounding) noexcept {
@@ -1159,7 +1159,7 @@ __estimate_column_width(basic_string_view<_CharT> __str, size_t __maximum, __col
   return {__width, __str.begin() + __width};
 }
 
-#  endif // !defined(_LIBCPP_HAS_NO_UNICODE)
+#  endif // !defined(_LIBCPP___CXX03_HAS_NO_UNICODE)
 
 } // namespace __format_spec
 
@@ -1169,4 +1169,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FORMAT_PARSER_STD_FORMAT_SPEC_H
+#endif // _LIBCPP___CXX03___FORMAT_PARSER_STD_FORMAT_SPEC_H

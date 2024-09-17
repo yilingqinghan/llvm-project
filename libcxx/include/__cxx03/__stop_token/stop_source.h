@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___STOP_TOKEN_STOP_SOURCE_H
-#define _LIBCPP___STOP_TOKEN_STOP_SOURCE_H
+#ifndef _LIBCPP___CXX03___STOP_TOKEN_STOP_SOURCE_H
+#define _LIBCPP___CXX03___STOP_TOKEN_STOP_SOURCE_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__stop_token/intrusive_shared_ptr.h>

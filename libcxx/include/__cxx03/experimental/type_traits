@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_EXPERIMENTAL_TYPE_TRAITS
-#define _LIBCPP_EXPERIMENTAL_TYPE_TRAITS
+#ifndef _LIBCPP___CXX03_EXPERIMENTAL_TYPE_TRAITS
+#define _LIBCPP___CXX03_EXPERIMENTAL_TYPE_TRAITS
 
 /**
     experimental/type_traits synopsis
@@ -79,7 +79,7 @@ inline namespace fundamentals_v1 {
 #    pragma GCC system_header
 #  endif
 
-_LIBCPP_BEGIN_NAMESPACE_LFTS
+_LIBCPP___CXX03_BEGIN_NAMESPACE_LFTS
 
 // 3.3.2, Other type transformations
 /*
@@ -146,8 +146,8 @@ using is_detected_convertible = is_convertible<detected_t<_Op, _Args...>, _To>;
 template <class _To, template <class...> class _Op, class... _Args>
 constexpr bool is_detected_convertible_v = is_detected_convertible<_To, _Op, _Args...>::value;
 
-_LIBCPP_END_NAMESPACE_LFTS
+_LIBCPP___CXX03_END_NAMESPACE_LFTS
 
 #endif /* _LIBCPP_STD_VER >= 14 */
 
-#endif /* _LIBCPP_EXPERIMENTAL_TYPE_TRAITS */
+#endif /* _LIBCPP___CXX03_EXPERIMENTAL_TYPE_TRAITS */

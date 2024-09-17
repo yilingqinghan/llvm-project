@@ -9,8 +9,8 @@
 
 // For information see https://libcxx.llvm.org/DesignDocs/TimeZone.html
 
-#ifndef _LIBCPP___CHRONO_TZDB_LIST_H
-#define _LIBCPP___CHRONO_TZDB_LIST_H
+#ifndef _LIBCPP___CXX03___CHRONO_TZDB_LIST_H
+#define _LIBCPP___CXX03___CHRONO_TZDB_LIST_H
 
 #include <__cxx03/version>
 // Enable the contents of the header only when libc++ was built with experimental features enabled.
@@ -28,8 +28,8 @@
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
-#  if _LIBCPP_STD_VER >= 20 && !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&   \
-      !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#  if _LIBCPP_STD_VER >= 20 && !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&   \
+      !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 
 namespace chrono {
 
@@ -98,11 +98,11 @@ _LIBCPP_AVAILABILITY_TZDB _LIBCPP_EXPORTED_FROM_ABI const tzdb& reload_tzdb();
 
 } // namespace chrono
 
-#  endif // _LIBCPP_STD_VER >= 20 && !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM)
-         // && !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#  endif // _LIBCPP_STD_VER >= 20 && !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM)
+         // && !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 
 _LIBCPP_END_NAMESPACE_STD
 
 #endif // !defined(_LIBCPP_HAS_NO_EXPERIMENTAL_TZDB)
 
-#endif // _LIBCPP___CHRONO_TZDB_LIST_H
+#endif // _LIBCPP___CXX03___CHRONO_TZDB_LIST_H

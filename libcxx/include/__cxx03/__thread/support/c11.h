@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___THREAD_SUPPORT_C11_H
-#define _LIBCPP___THREAD_SUPPORT_C11_H
+#ifndef _LIBCPP___CXX03___THREAD_SUPPORT_C11_H
+#define _LIBCPP___CXX03___THREAD_SUPPORT_C11_H
 
 #include <__cxx03/__chrono/convert_to_timespec.h>
 #include <__cxx03/__chrono/duration.h>
@@ -30,7 +30,7 @@ using __libcpp_timespec_t = ::timespec;
 //
 typedef mtx_t __libcpp_mutex_t;
 // mtx_t is a struct so using {} for initialization is valid.
-#define _LIBCPP_MUTEX_INITIALIZER                                                                                      \
+#define _LIBCPP___CXX03_MUTEX_INITIALIZER                                                                                      \
   {}
 
 typedef mtx_t __libcpp_recursive_mutex_t;
@@ -81,7 +81,7 @@ inline _LIBCPP_HIDE_FROM_ABI int __libcpp_mutex_destroy(__libcpp_mutex_t* __m) {
 //
 typedef cnd_t __libcpp_condvar_t;
 // cnd_t is a struct so using {} for initialization is valid.
-#define _LIBCPP_CONDVAR_INITIALIZER                                                                                    \
+#define _LIBCPP___CXX03_CONDVAR_INITIALIZER                                                                                    \
   {}
 
 inline _LIBCPP_HIDE_FROM_ABI int __libcpp_condvar_signal(__libcpp_condvar_t* __cv) {
@@ -112,7 +112,7 @@ inline _LIBCPP_HIDE_FROM_ABI int __libcpp_condvar_destroy(__libcpp_condvar_t* __
 // Execute once
 //
 typedef ::once_flag __libcpp_exec_once_flag;
-#define _LIBCPP_EXEC_ONCE_INITIALIZER ONCE_FLAG_INIT
+#define _LIBCPP___CXX03_EXEC_ONCE_INITIALIZER ONCE_FLAG_INIT
 
 inline _LIBCPP_HIDE_FROM_ABI int __libcpp_execute_once(__libcpp_exec_once_flag* flag, void (*init_routine)(void)) {
   ::call_once(flag, init_routine);
@@ -137,7 +137,7 @@ inline _LIBCPP_HIDE_FROM_ABI bool __libcpp_thread_id_less(__libcpp_thread_id t1,
 //
 // Thread
 //
-#define _LIBCPP_NULL_THREAD 0U
+#define _LIBCPP___CXX03_NULL_THREAD 0U
 
 typedef thrd_t __libcpp_thread_t;
 
@@ -172,7 +172,7 @@ inline _LIBCPP_HIDE_FROM_ABI void __libcpp_thread_sleep_for(const chrono::nanose
 //
 // Thread local storage
 //
-#define _LIBCPP_TLS_DESTRUCTOR_CC /* nothing */
+#define _LIBCPP___CXX03_TLS_DESTRUCTOR_CC /* nothing */
 
 typedef tss_t __libcpp_tls_key;
 
@@ -188,4 +188,4 @@ inline _LIBCPP_HIDE_FROM_ABI int __libcpp_tls_set(__libcpp_tls_key __key, void* 
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___THREAD_SUPPORT_C11_H
+#endif // _LIBCPP___CXX03___THREAD_SUPPORT_C11_H

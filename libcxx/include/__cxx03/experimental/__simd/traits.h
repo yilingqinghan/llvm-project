@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_EXPERIMENTAL___SIMD_TRAITS_H
-#define _LIBCPP_EXPERIMENTAL___SIMD_TRAITS_H
+#ifndef _LIBCPP___CXX03_EXPERIMENTAL___SIMD_TRAITS_H
+#define _LIBCPP___CXX03_EXPERIMENTAL___SIMD_TRAITS_H
 
 #include <__cxx03/__bit/bit_ceil.h>
 #include <__cxx03/__type_traits/integral_constant.h>
@@ -20,7 +20,7 @@
 
 #if _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
 
-_LIBCPP_BEGIN_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_BEGIN_NAMESPACE_EXPERIMENTAL
 inline namespace parallelism_v2 {
 
 // traits [simd.traits]
@@ -69,7 +69,7 @@ template <class _Tp, class _Up = typename _Tp::value_type>
 inline constexpr size_t memory_alignment_v = memory_alignment<_Tp, _Up>::value;
 
 } // namespace parallelism_v2
-_LIBCPP_END_NAMESPACE_EXPERIMENTAL
+_LIBCPP___CXX03_END_NAMESPACE_EXPERIMENTAL
 
 #endif // _LIBCPP_STD_VER >= 17 && defined(_LIBCPP_ENABLE_EXPERIMENTAL)
-#endif // _LIBCPP_EXPERIMENTAL___SIMD_TRAITS_H
+#endif // _LIBCPP___CXX03_EXPERIMENTAL___SIMD_TRAITS_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___SYSTEM_ERROR_SYSTEM_ERROR_H
-#define _LIBCPP___SYSTEM_ERROR_SYSTEM_ERROR_H
+#ifndef _LIBCPP___CXX03___SYSTEM_ERROR_SYSTEM_ERROR_H
+#define _LIBCPP___CXX03___SYSTEM_ERROR_SYSTEM_ERROR_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__system_error/error_category.h>
@@ -44,11 +44,11 @@ _LIBCPP_NORETURN _LIBCPP_HIDE_FROM_ABI inline void __throw_system_error(error_co
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw system_error(__ec, __what_arg);
 #else
-  _LIBCPP_VERBOSE_ABORT(
+  _LIBCPP___CXX03_VERBOSE_ABORT(
       "system_error was thrown in -fno-exceptions mode with error %i and message \"%s\"", __ec.value(), __what_arg);
 #endif
 }
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___SYSTEM_ERROR_SYSTEM_ERROR_H
+#endif // _LIBCPP___CXX03___SYSTEM_ERROR_SYSTEM_ERROR_H

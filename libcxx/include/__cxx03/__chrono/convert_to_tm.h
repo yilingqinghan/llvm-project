@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CHRONO_CONVERT_TO_TM_H
-#define _LIBCPP___CHRONO_CONVERT_TO_TM_H
+#ifndef _LIBCPP___CXX03___CHRONO_CONVERT_TO_TM_H
+#define _LIBCPP___CXX03___CHRONO_CONVERT_TO_TM_H
 
 #include <__cxx03/__chrono/calendar.h>
 #include <__cxx03/__chrono/concepts.h>
@@ -180,8 +180,8 @@ _LIBCPP_HIDE_FROM_ABI _Tm __convert_to_tm(const _ChronoT& __value) {
     // Has no time information.
   } else if constexpr (same_as<_ChronoT, chrono::local_info>) {
     // Has no time information.
-#    if !defined(_LIBCPP_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP_HAS_NO_FILESYSTEM) &&                          \
-        !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#    if !defined(_LIBCPP___CXX03_HAS_NO_TIME_ZONE_DATABASE) && !defined(_LIBCPP___CXX03_HAS_NO_FILESYSTEM) &&                          \
+        !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
   } else if constexpr (__is_specialization_v<_ChronoT, chrono::zoned_time>) {
     return std::__convert_to_tm<_Tm>(
         chrono::sys_time<typename _ChronoT::duration>{__value.get_local_time().time_since_epoch()});
@@ -199,4 +199,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___CHRONO_CONVERT_TO_TM_H
+#endif // _LIBCPP___CXX03___CHRONO_CONVERT_TO_TM_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___MEMORY_SHARED_PTR_H
-#define _LIBCPP___MEMORY_SHARED_PTR_H
+#ifndef _LIBCPP___CXX03___MEMORY_SHARED_PTR_H
+#define _LIBCPP___CXX03___MEMORY_SHARED_PTR_H
 
 #include <__cxx03/__compare/compare_three_way.h>
 #include <__cxx03/__compare/ordering.h>
@@ -69,9 +69,9 @@ _LIBCPP_BEGIN_NAMESPACE_STD
 // should be sufficient for thread safety.
 // See https://llvm.org/PR22803
 #if defined(__clang__) && __has_builtin(__atomic_add_fetch) && defined(__ATOMIC_RELAXED) && defined(__ATOMIC_ACQ_REL)
-#  define _LIBCPP_HAS_BUILTIN_ATOMIC_SUPPORT
+#  define _LIBCPP___CXX03_HAS_BUILTIN_ATOMIC_SUPPORT
 #elif defined(_LIBCPP_COMPILER_GCC)
-#  define _LIBCPP_HAS_BUILTIN_ATOMIC_SUPPORT
+#  define _LIBCPP___CXX03_HAS_BUILTIN_ATOMIC_SUPPORT
 #endif
 
 template <class _ValueType>
@@ -96,7 +96,7 @@ inline _LIBCPP_HIDE_FROM_ABI _ValueType __libcpp_acquire_load(_ValueType const* 
 
 template <class _Tp>
 inline _LIBCPP_HIDE_FROM_ABI _Tp __libcpp_atomic_refcount_increment(_Tp& __t) _NOEXCEPT {
-#if defined(_LIBCPP_HAS_BUILTIN_ATOMIC_SUPPORT) && !defined(_LIBCPP_HAS_NO_THREADS)
+#if defined(_LIBCPP___CXX03_HAS_BUILTIN_ATOMIC_SUPPORT) && !defined(_LIBCPP_HAS_NO_THREADS)
   return __atomic_add_fetch(&__t, 1, __ATOMIC_RELAXED);
 #else
   return __t += 1;
@@ -105,7 +105,7 @@ inline _LIBCPP_HIDE_FROM_ABI _Tp __libcpp_atomic_refcount_increment(_Tp& __t) _N
 
 template <class _Tp>
 inline _LIBCPP_HIDE_FROM_ABI _Tp __libcpp_atomic_refcount_decrement(_Tp& __t) _NOEXCEPT {
-#if defined(_LIBCPP_HAS_BUILTIN_ATOMIC_SUPPORT) && !defined(_LIBCPP_HAS_NO_THREADS)
+#if defined(_LIBCPP___CXX03_HAS_BUILTIN_ATOMIC_SUPPORT) && !defined(_LIBCPP_HAS_NO_THREADS)
   return __atomic_add_fetch(&__t, -1, __ATOMIC_ACQ_REL);
 #else
   return __t -= 1;
@@ -125,7 +125,7 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_bad_weak_ptr() {
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw bad_weak_ptr();
 #else
-  _LIBCPP_VERBOSE_ABORT("bad_weak_ptr was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("bad_weak_ptr was thrown in -fno-exceptions mode");
 #endif
 }
 
@@ -146,7 +146,7 @@ private:
 public:
   _LIBCPP_HIDE_FROM_ABI explicit __shared_count(long __refs = 0) _NOEXCEPT : __shared_owners_(__refs) {}
 
-#if defined(_LIBCPP_SHARED_PTR_DEFINE_LEGACY_INLINE_FUNCTIONS)
+#if defined(_LIBCPP___CXX03_SHARED_PTR_DEFINE_LEGACY_INLINE_FUNCTIONS)
   void __add_shared() noexcept;
   bool __release_shared() noexcept;
 #else
@@ -174,7 +174,7 @@ protected:
   ~__shared_weak_count() override;
 
 public:
-#if defined(_LIBCPP_SHARED_PTR_DEFINE_LEGACY_INLINE_FUNCTIONS)
+#if defined(_LIBCPP___CXX03_SHARED_PTR_DEFINE_LEGACY_INLINE_FUNCTIONS)
   void __add_shared() noexcept;
   void __add_weak() noexcept;
   void __release_shared() noexcept;
@@ -407,13 +407,13 @@ template <class _Dp>
 using __shared_ptr_nullptr_deleter_ctor_reqs = _And<is_move_constructible<_Dp>, __well_formed_deleter<_Dp, nullptr_t> >;
 
 #if defined(_LIBCPP_ABI_ENABLE_SHARED_PTR_TRIVIAL_ABI)
-#  define _LIBCPP_SHARED_PTR_TRIVIAL_ABI __attribute__((__trivial_abi__))
+#  define _LIBCPP___CXX03_SHARED_PTR_TRIVIAL_ABI __attribute__((__trivial_abi__))
 #else
-#  define _LIBCPP_SHARED_PTR_TRIVIAL_ABI
+#  define _LIBCPP___CXX03_SHARED_PTR_TRIVIAL_ABI
 #endif
 
 template <class _Tp>
-class _LIBCPP_SHARED_PTR_TRIVIAL_ABI _LIBCPP_TEMPLATE_VIS shared_ptr {
+class _LIBCPP___CXX03_SHARED_PTR_TRIVIAL_ABI _LIBCPP_TEMPLATE_VIS shared_ptr {
   struct __nullptr_sfinae_tag {};
 
 public:
@@ -609,7 +609,7 @@ public:
       __throw_bad_weak_ptr();
   }
 
-#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR)
+#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_AUTO_PTR)
   template <class _Yp, __enable_if_t<is_convertible<_Yp*, element_type*>::value, int> = 0>
   _LIBCPP_HIDE_FROM_ABI shared_ptr(auto_ptr<_Yp>&& __r) : __ptr_(__r.get()) {
     typedef __shared_ptr_pointer<_Yp*, default_delete<_Yp>, allocator<__remove_cv_t<_Yp> > > _CntrlBlk;
@@ -690,7 +690,7 @@ public:
     return *this;
   }
 
-#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR)
+#if _LIBCPP_STD_VER <= 14 || defined(_LIBCPP___CXX03_ENABLE_CXX17_REMOVED_AUTO_PTR)
   template <class _Yp,
             __enable_if_t<!is_array<_Yp>::value && is_convertible<_Yp*, typename shared_ptr<_Tp>::element_type*>::value,
                           int> = 0>
@@ -746,7 +746,7 @@ public:
 
   _LIBCPP_HIDE_FROM_ABI long use_count() const _NOEXCEPT { return __cntrl_ ? __cntrl_->use_count() : 0; }
 
-#if _LIBCPP_STD_VER < 20 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_SHARED_PTR_UNIQUE)
+#if _LIBCPP_STD_VER < 20 || defined(_LIBCPP___CXX03_ENABLE_CXX20_REMOVED_SHARED_PTR_UNIQUE)
   _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_HIDE_FROM_ABI bool unique() const _NOEXCEPT { return use_count() == 1; }
 #endif
 
@@ -1311,7 +1311,7 @@ inline _LIBCPP_HIDE_FROM_ABI _Dp* get_deleter(const shared_ptr<_Tp>& __p) _NOEXC
 #endif // _LIBCPP_HAS_NO_RTTI
 
 template <class _Tp>
-class _LIBCPP_SHARED_PTR_TRIVIAL_ABI _LIBCPP_TEMPLATE_VIS weak_ptr {
+class _LIBCPP___CXX03_SHARED_PTR_TRIVIAL_ABI _LIBCPP_TEMPLATE_VIS weak_ptr {
 public:
 #if _LIBCPP_STD_VER >= 17
   typedef remove_extent_t<_Tp> element_type;
@@ -1569,7 +1569,7 @@ struct _LIBCPP_TEMPLATE_VIS hash;
 
 template <class _Tp>
 struct _LIBCPP_TEMPLATE_VIS hash<shared_ptr<_Tp> > {
-#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_BINDER_TYPEDEFS)
+#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP___CXX03_ENABLE_CXX20_REMOVED_BINDER_TYPEDEFS)
   _LIBCPP_DEPRECATED_IN_CXX17 typedef shared_ptr<_Tp> argument_type;
   _LIBCPP_DEPRECATED_IN_CXX17 typedef size_t result_type;
 #endif
@@ -1691,4 +1691,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___MEMORY_SHARED_PTR_H
+#endif // _LIBCPP___CXX03___MEMORY_SHARED_PTR_H

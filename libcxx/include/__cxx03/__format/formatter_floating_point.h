@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_FORMATTER_FLOATING_POINT_H
-#define _LIBCPP___FORMAT_FORMATTER_FLOATING_POINT_H
+#ifndef _LIBCPP___CXX03___FORMAT_FORMATTER_FLOATING_POINT_H
+#define _LIBCPP___CXX03___FORMAT_FORMATTER_FLOATING_POINT_H
 
 #include <__cxx03/__algorithm/copy_n.h>
 #include <__cxx03/__algorithm/find.h>
@@ -38,7 +38,7 @@
 #include <__cxx03/cmath>
 #include <__cxx03/cstddef>
 
-#ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 #  include <__cxx03/__locale>
 #endif
 
@@ -491,7 +491,7 @@ _LIBCPP_HIDE_FROM_ABI __float_result __format_buffer(
   }
 }
 
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 template <class _OutIt, class _Fp, class _CharT>
 _LIBCPP_HIDE_FROM_ABI _OutIt __format_locale_specific_form(
     _OutIt __out_it,
@@ -576,7 +576,7 @@ _LIBCPP_HIDE_FROM_ABI _OutIt __format_locale_specific_form(
   // alignment
   return __formatter::__fill(std::move(__out_it), __padding.__after_, __specs.__fill_);
 }
-#  endif // _LIBCPP_HAS_NO_LOCALIZATION
+#  endif // _LIBCPP___CXX03_HAS_NO_LOCALIZATION
 
 template <class _OutIt, class _CharT>
 _LIBCPP_HIDE_FROM_ABI _OutIt __format_floating_point_non_finite(
@@ -705,7 +705,7 @@ __format_floating_point(_Tp __value, _FormatContext& __ctx, __format_spec::__par
     }
   }
 
-#  ifndef _LIBCPP_HAS_NO_LOCALIZATION
+#  ifndef _LIBCPP___CXX03_HAS_NO_LOCALIZATION
   if (__specs.__std_.__locale_specific_form_)
     return __formatter::__format_locale_specific_form(__ctx.out(), __buffer, __result, __ctx.locale(), __specs);
 #  endif
@@ -780,4 +780,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___FORMAT_FORMATTER_FLOATING_POINT_H
+#endif // _LIBCPP___CXX03___FORMAT_FORMATTER_FLOATING_POINT_H

@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___BIT_ENDIAN_H
-#define _LIBCPP___BIT_ENDIAN_H
+#ifndef _LIBCPP___CXX03___BIT_ENDIAN_H
+#define _LIBCPP___CXX03___BIT_ENDIAN_H
 
 #include <__cxx03/__config>
 
@@ -22,9 +22,9 @@ _LIBCPP_BEGIN_NAMESPACE_STD
 enum class endian {
   little = 0xDEAD,
   big    = 0xFACE,
-#  if defined(_LIBCPP_LITTLE_ENDIAN)
+#  if defined(_LIBCPP___CXX03_LITTLE_ENDIAN)
   native = little
-#  elif defined(_LIBCPP_BIG_ENDIAN)
+#  elif defined(_LIBCPP___CXX03_BIG_ENDIAN)
   native = big
 #  else
   native = 0xCAFE
@@ -35,4 +35,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 #endif // _LIBCPP_STD_VER >= 20
 
-#endif // _LIBCPP___BIT_ENDIAN_H
+#endif // _LIBCPP___CXX03___BIT_ENDIAN_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___MEMORY_ALLOCATOR_H
-#define _LIBCPP___MEMORY_ALLOCATOR_H
+#ifndef _LIBCPP___CXX03___MEMORY_ALLOCATOR_H
+#define _LIBCPP___CXX03___MEMORY_ALLOCATOR_H
 
 #include <__cxx03/__config>
 #include <__cxx03/__memory/addressof.h>
@@ -49,7 +49,7 @@ public:
 };
 
 // TODO(LLVM 20): Remove the escape hatch
-#  ifdef _LIBCPP_ENABLE_REMOVED_ALLOCATOR_CONST
+#  ifdef _LIBCPP___CXX03_ENABLE_REMOVED_ALLOCATOR_CONST
 template <>
 class _LIBCPP_TEMPLATE_VIS allocator<const void> {
 public:
@@ -62,7 +62,7 @@ public:
     typedef allocator<_Up> other;
   };
 };
-#  endif // _LIBCPP_ENABLE_REMOVED_ALLOCATOR_CONST
+#  endif // _LIBCPP___CXX03_ENABLE_REMOVED_ALLOCATOR_CONST
 #endif   // _LIBCPP_STD_VER <= 17
 
 // This class provides a non-trivial default constructor to the class that derives from it
@@ -100,7 +100,7 @@ public:
   typedef ptrdiff_t difference_type;
   typedef _Tp value_type;
   typedef true_type propagate_on_container_move_assignment;
-#if _LIBCPP_STD_VER <= 23 || defined(_LIBCPP_ENABLE_CXX26_REMOVED_ALLOCATOR_MEMBERS)
+#if _LIBCPP_STD_VER <= 23 || defined(_LIBCPP___CXX03_ENABLE_CXX26_REMOVED_ALLOCATOR_MEMBERS)
   _LIBCPP_DEPRECATED_IN_CXX23 typedef true_type is_always_equal;
 #endif
 
@@ -170,7 +170,7 @@ public:
 };
 
 // TODO(LLVM 20): Remove the escape hatch
-#ifdef _LIBCPP_ENABLE_REMOVED_ALLOCATOR_CONST
+#ifdef _LIBCPP___CXX03_ENABLE_REMOVED_ALLOCATOR_CONST
 template <class _Tp>
 class _LIBCPP_TEMPLATE_VIS allocator<const _Tp>
     : private __non_trivial_if<!is_void<_Tp>::value, allocator<const _Tp> > {
@@ -181,7 +181,7 @@ public:
   typedef ptrdiff_t difference_type;
   typedef const _Tp value_type;
   typedef true_type propagate_on_container_move_assignment;
-#  if _LIBCPP_STD_VER <= 23 || defined(_LIBCPP_ENABLE_CXX26_REMOVED_ALLOCATOR_MEMBERS)
+#  if _LIBCPP_STD_VER <= 23 || defined(_LIBCPP___CXX03_ENABLE_CXX26_REMOVED_ALLOCATOR_MEMBERS)
   _LIBCPP_DEPRECATED_IN_CXX23 typedef true_type is_always_equal;
 #  endif
 
@@ -246,7 +246,7 @@ public:
   _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_HIDE_FROM_ABI void destroy(pointer __p) { __p->~_Tp(); }
 #  endif
 };
-#endif // _LIBCPP_ENABLE_REMOVED_ALLOCATOR_CONST
+#endif // _LIBCPP___CXX03_ENABLE_REMOVED_ALLOCATOR_CONST
 
 template <class _Tp, class _Up>
 inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 bool
@@ -265,4 +265,4 @@ inline _LIBCPP_HIDE_FROM_ABI bool operator!=(const allocator<_Tp>&, const alloca
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___MEMORY_ALLOCATOR_H
+#endif // _LIBCPP___CXX03___MEMORY_ALLOCATOR_H

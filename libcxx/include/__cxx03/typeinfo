@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_TYPEINFO
-#define _LIBCPP_TYPEINFO
+#ifndef _LIBCPP___CXX03_TYPEINFO
+#define _LIBCPP___CXX03_TYPEINFO
 
 /*
 
@@ -117,7 +117,7 @@ public:
 // ========================================================================== //
 // ------------------------------------------------------------------------- //
 //                               Unique
-//               (_LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION = 1)
+//               (_LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION = 1)
 // ------------------------------------------------------------------------- //
 // This implementation of type_info assumes a unique copy of the RTTI for a
 // given type inside a program. This is a valid assumption when abiding to the
@@ -127,7 +127,7 @@ public:
 // a deep string comparison.
 // -------------------------------------------------------------------------- //
 //                             NonUnique
-//               (_LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION = 2)
+//               (_LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION = 2)
 // -------------------------------------------------------------------------- //
 // This implementation of type_info does not assume there is always a unique
 // copy of the RTTI for a given type inside a program. For various reasons
@@ -137,7 +137,7 @@ public:
 // comparison is equal.
 // -------------------------------------------------------------------------- //
 //                          NonUniqueARMRTTIBit
-//               (_LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION = 3)
+//               (_LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION = 3)
 // -------------------------------------------------------------------------- //
 // This implementation is specific to ARM64 on Apple platforms.
 //
@@ -165,19 +165,19 @@ public:
 
 // This value can be overriden in the __config_site. When it's not overriden,
 // we pick a default implementation based on the platform here.
-#    ifndef _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION
+#    ifndef _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION
 
 // Windows and AIX binaries can't merge typeinfos, so use the NonUnique implementation.
-#      if defined(_LIBCPP_OBJECT_FORMAT_COFF) || defined(_LIBCPP_OBJECT_FORMAT_XCOFF)
-#        define _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION 2
+#      if defined(_LIBCPP_OBJECT_FORMAT_COFF) || defined(_LIBCPP___CXX03_OBJECT_FORMAT_XCOFF)
+#        define _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION 2
 
 // On arm64 on Apple platforms, use the special NonUniqueARMRTTIBit implementation.
 #      elif defined(__APPLE__) && defined(__LP64__) && !defined(__x86_64__)
-#        define _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION 3
+#        define _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION 3
 
 // On all other platforms, assume the Itanium C++ ABI and use the Unique implementation.
 #      else
-#        define _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION 1
+#        define _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION 1
 #      endif
 #    endif
 
@@ -263,32 +263,32 @@ struct __type_info_implementations {
   };
 
   typedef
-#    if _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION == 1
+#    if _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION == 1
       __unique_impl
-#    elif _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION == 2
+#    elif _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION == 2
       __non_unique_impl
-#    elif _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION == 3
+#    elif _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION == 3
       __non_unique_arm_rtti_bit_impl
 #    else
-#      error invalid configuration for _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION
+#      error invalid configuration for _LIBCPP___CXX03_TYPEINFO_COMPARISON_IMPLEMENTATION
 #    endif
           __impl;
 };
 
 #    if __has_cpp_attribute(_Clang::__ptrauth_vtable_pointer__)
 #      if __has_feature(ptrauth_type_info_vtable_pointer_discrimination)
-#        define _LIBCPP_TYPE_INFO_VTABLE_POINTER_AUTH                                                                  \
+#        define _LIBCPP___CXX03_TYPE_INFO_VTABLE_POINTER_AUTH                                                                  \
           [[_Clang::__ptrauth_vtable_pointer__(process_independent, address_discrimination, type_discrimination)]]
 #      else
-#        define _LIBCPP_TYPE_INFO_VTABLE_POINTER_AUTH                                                                  \
+#        define _LIBCPP___CXX03_TYPE_INFO_VTABLE_POINTER_AUTH                                                                  \
           [[_Clang::__ptrauth_vtable_pointer__(                                                                        \
               process_independent, no_address_discrimination, no_extra_discrimination)]]
 #      endif
 #    else
-#      define _LIBCPP_TYPE_INFO_VTABLE_POINTER_AUTH
+#      define _LIBCPP___CXX03_TYPE_INFO_VTABLE_POINTER_AUTH
 #    endif
 
-class _LIBCPP_EXPORTED_FROM_ABI _LIBCPP_TYPE_INFO_VTABLE_POINTER_AUTH type_info {
+class _LIBCPP_EXPORTED_FROM_ABI _LIBCPP___CXX03_TYPE_INFO_VTABLE_POINTER_AUTH type_info {
   type_info& operator=(const type_info&);
   type_info(const type_info&);
 
@@ -376,14 +376,14 @@ _LIBCPP_NORETURN inline _LIBCPP_HIDE_FROM_ABI void __throw_bad_cast() {
 #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
   throw bad_cast();
 #else
-  _LIBCPP_VERBOSE_ABORT("bad_cast was thrown in -fno-exceptions mode");
+  _LIBCPP___CXX03_VERBOSE_ABORT("bad_cast was thrown in -fno-exceptions mode");
 #endif
 }
 _LIBCPP_END_NAMESPACE_STD
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/cstdlib>
 #  include <__cxx03/type_traits>
 #endif
 
-#endif // _LIBCPP_TYPEINFO
+#endif // _LIBCPP___CXX03_TYPEINFO

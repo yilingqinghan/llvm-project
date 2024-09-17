@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_MEMORY_RESOURCE
-#define _LIBCPP_MEMORY_RESOURCE
+#ifndef _LIBCPP___CXX03_MEMORY_RESOURCE
+#define _LIBCPP___CXX03_MEMORY_RESOURCE
 
 /**
     memory_resource synopsis
@@ -66,7 +66,7 @@ namespace std::pmr {
 #  pragma GCC system_header
 #endif
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 14
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 14
 #  include <__cxx03/cstddef>
 #  include <__cxx03/cstdint>
 #  include <__cxx03/limits>
@@ -76,8 +76,8 @@ namespace std::pmr {
 #  include <__cxx03/tuple>
 #endif
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/stdexcept>
 #endif
 
-#endif /* _LIBCPP_MEMORY_RESOURCE */
+#endif /* _LIBCPP___CXX03_MEMORY_RESOURCE */

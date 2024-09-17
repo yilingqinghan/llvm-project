@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CONDITION_VARIABLE_CONDITION_VARIABLE_H
-#define _LIBCPP___CONDITION_VARIABLE_CONDITION_VARIABLE_H
+#ifndef _LIBCPP___CXX03___CONDITION_VARIABLE_CONDITION_VARIABLE_H
+#define _LIBCPP___CXX03___CONDITION_VARIABLE_CONDITION_VARIABLE_H
 
 #include <__cxx03/__chrono/duration.h>
 #include <__cxx03/__chrono/steady_clock.h>
@@ -40,7 +40,7 @@ _LIBCPP_DECLARE_STRONG_ENUM(cv_status){no_timeout, timeout};
 _LIBCPP_DECLARE_STRONG_ENUM_EPILOG(cv_status)
 
 class _LIBCPP_EXPORTED_FROM_ABI condition_variable {
-  __libcpp_condvar_t __cv_ = _LIBCPP_CONDVAR_INITIALIZER;
+  __libcpp_condvar_t __cv_ = _LIBCPP___CXX03_CONDVAR_INITIALIZER;
 
 public:
   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR condition_variable() _NOEXCEPT = default;
@@ -241,4 +241,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
 
-#endif // _LIBCPP___CONDITION_VARIABLE_CONDITION_VARIABLE_H
+#endif // _LIBCPP___CXX03___CONDITION_VARIABLE_CONDITION_VARIABLE_H

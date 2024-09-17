@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___THREAD_SUPPORT_H
-#define _LIBCPP___THREAD_SUPPORT_H
+#ifndef _LIBCPP___CXX03___THREAD_SUPPORT_H
+#define _LIBCPP___CXX03___THREAD_SUPPORT_H
 
 #include <__cxx03/__config>
 
@@ -31,7 +31,7 @@ using __libcpp_timespec_t = ...;
 // Mutex
 //
 using __libcpp_mutex_t = ...;
-#define _LIBCPP_MUTEX_INITIALIZER ...
+#define _LIBCPP___CXX03_MUTEX_INITIALIZER ...
 
 using __libcpp_recursive_mutex_t = ...;
 
@@ -50,7 +50,7 @@ int __libcpp_mutex_destroy(__libcpp_mutex_t*);
 // Condition Variable
 //
 using __libcpp_condvar_t = ...;
-#define _LIBCPP_CONDVAR_INITIALIZER ...
+#define _LIBCPP___CXX03_CONDVAR_INITIALIZER ...
 
 int __libcpp_condvar_signal(__libcpp_condvar_t*);
 int __libcpp_condvar_broadcast(__libcpp_condvar_t*);
@@ -63,7 +63,7 @@ int __libcpp_condvar_destroy(__libcpp_condvar_t*);
 // Execute once
 //
 using __libcpp_exec_once_flag = ...;
-#define _LIBCPP_EXEC_ONCE_INITIALIZER ...
+#define _LIBCPP___CXX03_EXEC_ONCE_INITIALIZER ...
 
 int __libcpp_execute_once(__libcpp_exec_once_flag*, void (*__init_routine)());
 
@@ -78,7 +78,7 @@ bool __libcpp_thread_id_less(__libcpp_thread_id, __libcpp_thread_id);
 //
 // Thread
 //
-#define _LIBCPP_NULL_THREAD ...
+#define _LIBCPP___CXX03_NULL_THREAD ...
 using __libcpp_thread_t = ...;
 
 bool __libcpp_thread_isnull(const __libcpp_thread_t*);
@@ -93,7 +93,7 @@ void __libcpp_thread_sleep_for(const chrono::nanoseconds&);
 //
 // Thread local storage
 //
-#define _LIBCPP_TLS_DESTRUCTOR_CC ...
+#define _LIBCPP___CXX03_TLS_DESTRUCTOR_CC ...
 using __libcpp_tls_key = ...;
 
 int __libcpp_tls_create(__libcpp_tls_key*, void (*__at_exit)(void*));
@@ -120,4 +120,4 @@ _LIBCPP_END_NAMESPACE_STD
 
 #endif // !_LIBCPP_HAS_NO_THREADS
 
-#endif // _LIBCPP___THREAD_SUPPORT_H
+#endif // _LIBCPP___CXX03___THREAD_SUPPORT_H

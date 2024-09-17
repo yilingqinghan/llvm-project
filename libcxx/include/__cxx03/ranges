@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP_RANGES
-#define _LIBCPP_RANGES
+#ifndef _LIBCPP___CXX03_RANGES
+#define _LIBCPP___CXX03_RANGES
 
 /*
 
@@ -415,7 +415,7 @@ namespace std {
 #  include <__cxx03/__ranges/view_interface.h>
 #  include <__cxx03/__ranges/views.h>
 
-#  if !defined(_LIBCPP_HAS_NO_LOCALIZATION)
+#  if !defined(_LIBCPP___CXX03_HAS_NO_LOCALIZATION)
 #    include <__cxx03/__ranges/istream_view.h>
 #  endif
 #endif
@@ -446,7 +446,7 @@ namespace std {
 #  pragma GCC system_header
 #endif
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 17
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 17
 #  include <__cxx03/cstddef>
 #  include <__cxx03/limits>
 #  include <__cxx03/optional>
@@ -454,10 +454,10 @@ namespace std {
 #  include <__cxx03/tuple>
 #endif
 
-#if !defined(_LIBCPP_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
+#if !defined(_LIBCPP___CXX03_REMOVE_TRANSITIVE_INCLUDES) && _LIBCPP_STD_VER <= 20
 #  include <__cxx03/cstdlib>
 #  include <__cxx03/iosfwd>
 #  include <__cxx03/type_traits>
 #endif
 
-#endif // _LIBCPP_RANGES
+#endif // _LIBCPP___CXX03_RANGES

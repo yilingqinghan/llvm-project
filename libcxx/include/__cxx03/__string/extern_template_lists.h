@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___STRING_EXTERN_TEMPLATE_LISTS_H
-#define _LIBCPP___STRING_EXTERN_TEMPLATE_LISTS_H
+#ifndef _LIBCPP___CXX03___STRING_EXTERN_TEMPLATE_LISTS_H
+#define _LIBCPP___CXX03___STRING_EXTERN_TEMPLATE_LISTS_H
 
 #include <__cxx03/__config>
 
@@ -18,8 +18,8 @@
 // clang-format off
 
 // We maintain 2 ABI lists:
-// - _LIBCPP_STRING_V1_EXTERN_TEMPLATE_LIST
-// - _LIBCPP_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST
+// - _LIBCPP___CXX03_STRING_V1_EXTERN_TEMPLATE_LIST
+// - _LIBCPP___CXX03_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST
 // As the name implies, the ABI lists define the V1 (Stable) and unstable ABI.
 //
 // For unstable, we may explicitly remove function that are external in V1,
@@ -29,7 +29,7 @@
 // For stable, the ABI list should rarely change, except for adding new
 // functions supporting new c++ version / API changes. Typically entries
 // must never be removed from the stable list.
-#define _LIBCPP_STRING_V1_EXTERN_TEMPLATE_LIST(_Func, _CharType) \
+#define _LIBCPP___CXX03_STRING_V1_EXTERN_TEMPLATE_LIST(_Func, _CharType) \
   _Func(_LIBCPP_EXPORTED_FROM_ABI basic_string<_CharType>& basic_string<_CharType>::replace(size_type, size_type, value_type const*, size_type)) \
   _Func(_LIBCPP_EXPORTED_FROM_ABI basic_string<_CharType>::size_type basic_string<_CharType>::rfind(value_type const*, size_type, size_type) const) \
   _Func(_LIBCPP_EXPORTED_FROM_ABI void basic_string<_CharType>::__init(value_type const*, size_type, size_type)) \
@@ -79,7 +79,7 @@
   _Func(_LIBCPP_EXPORTED_FROM_ABI void basic_string<_CharType>::resize(size_type, value_type)) \
   _Func(_LIBCPP_EXPORTED_FROM_ABI basic_string<_CharType>& basic_string<_CharType>::insert(size_type, basic_string const&, size_type, size_type))
 
-#define _LIBCPP_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST(_Func, _CharType) \
+#define _LIBCPP___CXX03_STRING_UNSTABLE_EXTERN_TEMPLATE_LIST(_Func, _CharType) \
   _Func(_LIBCPP_EXPORTED_FROM_ABI basic_string<_CharType>& basic_string<_CharType>::replace(size_type, size_type, value_type const*, size_type)) \
   _Func(_LIBCPP_EXPORTED_FROM_ABI basic_string<_CharType>::size_type basic_string<_CharType>::rfind(value_type const*, size_type, size_type) const) \
   _Func(_LIBCPP_EXPORTED_FROM_ABI void basic_string<_CharType>::__init(value_type const*, size_type, size_type)) \
@@ -130,4 +130,4 @@
 
 // clang-format on
 
-#endif // _LIBCPP___STRING_EXTERN_TEMPLATE_LISTS_H
+#endif // _LIBCPP___CXX03___STRING_EXTERN_TEMPLATE_LISTS_H

@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___FORMAT_RANGE_DEFAULT_FORMATTER_H
-#define _LIBCPP___FORMAT_RANGE_DEFAULT_FORMATTER_H
+#ifndef _LIBCPP___CXX03___FORMAT_RANGE_DEFAULT_FORMATTER_H
+#define _LIBCPP___CXX03___FORMAT_RANGE_DEFAULT_FORMATTER_H
 
 #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
 #  pragma GCC system_header
@@ -130,9 +130,9 @@ public:
   _LIBCPP_HIDE_FROM_ABI constexpr __range_default_formatter()
     requires(__fmt_pair_like<__element_type>)
   {
-    __underlying_.set_brackets(_LIBCPP_STATICALLY_WIDEN(_CharT, "{"), _LIBCPP_STATICALLY_WIDEN(_CharT, "}"));
+    __underlying_.set_brackets(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{"), _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "}"));
     __underlying_.underlying().set_brackets({}, {});
-    __underlying_.underlying().set_separator(_LIBCPP_STATICALLY_WIDEN(_CharT, ": "));
+    __underlying_.underlying().set_separator(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, ": "));
   }
 
   template <class _ParseContext>
@@ -156,7 +156,7 @@ private:
 
 public:
   _LIBCPP_HIDE_FROM_ABI constexpr __range_default_formatter() {
-    __underlying_.set_brackets(_LIBCPP_STATICALLY_WIDEN(_CharT, "{"), _LIBCPP_STATICALLY_WIDEN(_CharT, "}"));
+    __underlying_.set_brackets(_LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "{"), _LIBCPP___CXX03_STATICALLY_WIDEN(_CharT, "}"));
   }
 
   template <class _ParseContext>
@@ -211,4 +211,4 @@ struct _LIBCPP_TEMPLATE_VIS formatter<_Rp, _CharT> : __range_default_formatter<f
 
 _LIBCPP_END_NAMESPACE_STD
 
-#endif // _LIBCPP___FORMAT_RANGE_DEFAULT_FORMATTER_H
+#endif // _LIBCPP___CXX03___FORMAT_RANGE_DEFAULT_FORMATTER_H

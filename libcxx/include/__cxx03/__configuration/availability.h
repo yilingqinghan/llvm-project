@@ -7,8 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _LIBCPP___CONFIGURATION_AVAILABILITY_H
-#define _LIBCPP___CONFIGURATION_AVAILABILITY_H
+#ifndef _LIBCPP___CXX03___CONFIGURATION_AVAILABILITY_H
+#define _LIBCPP___CXX03___CONFIGURATION_AVAILABILITY_H
 
 #include <__cxx03/__configuration/compiler.h>
 #include <__cxx03/__configuration/language.h>
@@ -44,12 +44,12 @@
 // in the shared library, two macros are added below to allow marking the feature
 // as unavailable:
 // 1. A macro named `_LIBCPP_AVAILABILITY_HAS_<feature>` which must be defined
-//    to `_LIBCPP_INTRODUCED_IN_<version>` for the appropriate LLVM version.
+//    to `_LIBCPP___CXX03_INTRODUCED_IN_<version>` for the appropriate LLVM version.
 // 2. A macro named `_LIBCPP_AVAILABILITY_<feature>`, which must be defined to
-//    `_LIBCPP_INTRODUCED_IN_<version>_MARKUP` for the appropriate LLVM version.
+//    `_LIBCPP___CXX03_INTRODUCED_IN_<version>_MARKUP` for the appropriate LLVM version.
 //
 // When vendors decide to ship the feature as part of their shared library, they
-// can update the `_LIBCPP_INTRODUCED_IN_<version>` macro (and the markup counterpart)
+// can update the `_LIBCPP___CXX03_INTRODUCED_IN_<version>` macro (and the markup counterpart)
 // based on the platform version they shipped that version of LLVM in. The library
 // will then use this markup to provide an optimal user experience on these platforms.
 //
@@ -397,4 +397,4 @@
 #  define _LIBCPP_AVAILABILITY_INIT_PRIMARY_EXCEPTION
 #endif
 
-#endif // _LIBCPP___CONFIGURATION_AVAILABILITY_H
+#endif // _LIBCPP___CXX03___CONFIGURATION_AVAILABILITY_H
