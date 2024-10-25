@@ -210,8 +210,9 @@ static bool needsPlt(RelExpr expr) {
 }
 
 bool lld::elf::needsGot(RelExpr expr) {
-  return oneof<R_GOT, RE_AARCH64_AUTH_GOT, R_GOT_OFF, RE_MIPS_GOT_LOCAL_PAGE,
-               RE_MIPS_GOT_OFF, RE_MIPS_GOT_OFF32, RE_AARCH64_GOT_PAGE_PC,
+  return oneof<R_GOT, RE_AARCH64_AUTH_GOT, RE_AARCH64_AUTH_GOT_PC, R_GOT_OFF,
+               RE_MIPS_GOT_LOCAL_PAGE, RE_MIPS_GOT_OFF, RE_MIPS_GOT_OFF32,
+               RE_AARCH64_GOT_PAGE_PC, RE_AARCH64_AUTH_GOT_PAGE_PC,
                RE_AARCH64_AUTH_GOT_PAGE_PC, R_GOT_PC, R_GOTPLT,
                RE_AARCH64_GOT_PAGE, RE_LOONGARCH_GOT, RE_LOONGARCH_GOT_PAGE_PC>(
       expr);
@@ -995,7 +996,8 @@ bool RelocationScanner::isStaticLinkTimeConstant(RelExpr e, RelType type,
             R_GOTPLTONLY_PC, R_PLT_PC, R_PLT_GOTREL, R_PLT_GOTPLT,
             R_GOTPLT_GOTREL, R_GOTPLT_PC, RE_PPC32_PLTREL, RE_PPC64_CALL_PLT,
             RE_PPC64_RELAX_TOC, RE_RISCV_ADD, RE_AARCH64_GOT_PAGE,
-            RE_AARCH64_AUTH_GOT, RE_LOONGARCH_PLT_PAGE_PC, RE_LOONGARCH_GOT,
+            RE_AARCH64_AUTH_GOT, RE_AARCH64_AUTH_GOT_PC,
+            RE_LOONGARCH_PLT_PAGE_PC, RE_LOONGARCH_GOT,
             RE_LOONGARCH_GOT_PAGE_PC>(e))
     return true;
 
@@ -1111,7 +1113,8 @@ void RelocationScanner::processAux(RelExpr expr, RelType type, uint64_t offset,
       // Many LoongArch TLS relocs reuse the RE_LOONGARCH_GOT type, in which
       // case the NEEDS_GOT flag shouldn't get set.
       bool needsGotAuth =
-          (expr == RE_AARCH64_AUTH_GOT || expr == RE_AARCH64_AUTH_GOT_PAGE_PC);
+          (expr == RE_AARCH64_AUTH_GOT || expr == RE_AARCH64_AUTH_GOT_PC ||
+           expr == RE_AARCH64_AUTH_GOT_PAGE_PC);
       uint16_t flags = sym.flags.load(std::memory_order_relaxed);
       if (!(flags & NEEDS_GOT)) {
         sym.setFlags(needsGotAuth ? (NEEDS_GOT | NEEDS_GOT_AUTH) : NEEDS_GOT);
