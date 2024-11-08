@@ -2223,6 +2223,20 @@ public:
           MapNamesArray(MapNamesArray) {}
   };
 
+  /// Container to pass the default attributes with which a kernel must be
+  /// launched, used to set kernel attributes and populate associated static
+  /// structures.
+  ///
+  /// For max values, < 0 means unset, == 0 means set but unknown at compile
+  /// time. The number of max values will be 1 except for the case where
+  /// ompx_bare is set.
+  struct TargetKernelDefaultAttrs {
+    SmallVector<int32_t, 3> MaxTeams = {-1};
+    int32_t MinTeams = 1;
+    SmallVector<int32_t, 3> MaxThreads = {-1};
+    int32_t MinThreads = 1;
+  };
+
   /// Data structure that contains the needed information to construct the
   /// kernel args vector.
   struct TargetKernelArgs {
@@ -2726,15 +2740,11 @@ public:
   ///
   /// \param Loc The insert and source location description.
   /// \param IsSPMD Flag to indicate if the kernel is an SPMD kernel or not.
-  /// \param MinThreads Minimal number of threads, or 0.
-  /// \param MaxThreads Maximal number of threads, or 0.
-  /// \param MinTeams Minimal number of teams, or 0.
-  /// \param MaxTeams Maximal number of teams, or 0.
-  InsertPointTy createTargetInit(const LocationDescription &Loc, bool IsSPMD,
-                                 int32_t MinThreadsVal = 0,
-                                 int32_t MaxThreadsVal = 0,
-                                 int32_t MinTeamsVal = 0,
-                                 int32_t MaxTeamsVal = 0);
+  /// \param Attrs Structure containing the default numbers of threads and teams
+  ///        to launch the kernel with.
+  InsertPointTy createTargetInit(
+      const LocationDescription &Loc, bool IsSPMD,
+      const llvm::OpenMPIRBuilder::TargetKernelDefaultAttrs &Attrs);
 
   /// Create a runtime call for kmpc_target_deinit
   ///
@@ -2898,8 +2908,8 @@ public:
   /// \param CodeGenIP The insertion point where the call to the outlined
   /// function should be emitted.
   /// \param EntryInfo The entry information about the function.
-  /// \param NumTeams Number of teams specified in the num_teams clause.
-  /// \param NumThreads Number of teams specified in the thread_limit clause.
+  /// \param DefaultAttrs Structure containing the default numbers of threads
+  ///        and teams to launch the kernel with.
   /// \param Inputs The input values to the region that will be passed.
   /// as arguments to the outlined function.
   /// \param BodyGenCB Callback that will generate the region code.
@@ -2912,9 +2922,10 @@ public:
       const LocationDescription &Loc, bool IsOffloadEntry,
       OpenMPIRBuilder::InsertPointTy AllocaIP,
       OpenMPIRBuilder::InsertPointTy CodeGenIP,
-      TargetRegionEntryInfo &EntryInfo, ArrayRef<int32_t> NumTeams,
-      ArrayRef<int32_t> NumThreads, SmallVectorImpl<Value *> &Inputs,
-      GenMapInfoCallbackTy GenMapInfoCB, TargetBodyGenCallbackTy BodyGenCB,
+      TargetRegionEntryInfo &EntryInfo,
+      const TargetKernelDefaultAttrs &DefaultAttrs,
+      SmallVectorImpl<Value *> &Inputs, GenMapInfoCallbackTy GenMapInfoCB,
+      TargetBodyGenCallbackTy BodyGenCB,
       TargetGenArgAccessorsCallbackTy ArgAccessorFuncCB,
       SmallVector<DependData> Dependencies = {}, bool HasNowait = false);
 
