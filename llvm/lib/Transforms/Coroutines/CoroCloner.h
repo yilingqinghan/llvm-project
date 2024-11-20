@@ -48,6 +48,7 @@ protected:
   CloneKind FKind;
   IRBuilder<> Builder;
   TargetTransformInfo &TTI;
+  const MetadataSetTy &GlobalDebugInfo;
 
   ValueToValueMapTy VMap;
   Function *NewF = nullptr;
@@ -60,12 +61,12 @@ protected:
   /// Create a cloner for a continuation lowering.
   BaseCloner(Function &OrigF, const Twine &Suffix, coro::Shape &Shape,
              Function *NewF, AnyCoroSuspendInst *ActiveSuspend,
-             TargetTransformInfo &TTI)
+             TargetTransformInfo &TTI, const MetadataSetTy &GlobalDebugInfo)
       : OrigF(OrigF), Suffix(Suffix), Shape(Shape),
         FKind(Shape.ABI == ABI::Async ? CloneKind::Async
                                       : CloneKind::Continuation),
-        Builder(OrigF.getContext()), TTI(TTI), NewF(NewF),
-        ActiveSuspend(ActiveSuspend) {
+        Builder(OrigF.getContext()), TTI(TTI), GlobalDebugInfo(GlobalDebugInfo),
+        NewF(NewF), ActiveSuspend(ActiveSuspend) {
     assert(Shape.ABI == ABI::Retcon || Shape.ABI == ABI::RetconOnce ||
            Shape.ABI == ABI::Async);
     assert(NewF && "need existing function for continuation");
@@ -74,9 +75,11 @@ protected:
 
 public:
   BaseCloner(Function &OrigF, const Twine &Suffix, coro::Shape &Shape,
-             CloneKind FKind, TargetTransformInfo &TTI)
+             CloneKind FKind, TargetTransformInfo &TTI,
+             const MetadataSetTy &GlobalDebugInfo)
       : OrigF(OrigF), Suffix(Suffix), Shape(Shape), FKind(FKind),
-        Builder(OrigF.getContext()), TTI(TTI) {}
+        Builder(OrigF.getContext()), TTI(TTI),
+        GlobalDebugInfo(GlobalDebugInfo) {}
 
   virtual ~BaseCloner() {}
 
@@ -84,12 +87,14 @@ public:
   static Function *createClone(Function &OrigF, const Twine &Suffix,
                                coro::Shape &Shape, Function *NewF,
                                AnyCoroSuspendInst *ActiveSuspend,
-                               TargetTransformInfo &TTI) {
+                               TargetTransformInfo &TTI,
+                               const MetadataSetTy &GlobalDebugInfo) {
     assert(Shape.ABI == ABI::Retcon || Shape.ABI == ABI::RetconOnce ||
            Shape.ABI == ABI::Async);
     TimeTraceScope FunctionScope("BaseCloner");
 
-    BaseCloner Cloner(OrigF, Suffix, Shape, NewF, ActiveSuspend, TTI);
+    BaseCloner Cloner(OrigF, Suffix, Shape, NewF, ActiveSuspend, TTI,
+                      GlobalDebugInfo);
     Cloner.create();
     return Cloner.getFunction();
   }
@@ -129,8 +134,9 @@ class SwitchCloner : public BaseCloner {
 protected:
   /// Create a cloner for a switch lowering.
   SwitchCloner(Function &OrigF, const Twine &Suffix, coro::Shape &Shape,
-               CloneKind FKind, TargetTransformInfo &TTI)
-      : BaseCloner(OrigF, Suffix, Shape, FKind, TTI) {}
+               CloneKind FKind, TargetTransformInfo &TTI,
+               const MetadataSetTy &GlobalDebugInfo)
+      : BaseCloner(OrigF, Suffix, Shape, FKind, TTI, GlobalDebugInfo) {}
 
   void create() override;
 
@@ -138,11 +144,12 @@ public:
   /// Create a clone for a switch lowering.
   static Function *createClone(Function &OrigF, const Twine &Suffix,
                                coro::Shape &Shape, CloneKind FKind,
-                               TargetTransformInfo &TTI) {
+                               TargetTransformInfo &TTI,
+                               const MetadataSetTy &GlobalDebugInfo) {
     assert(Shape.ABI == ABI::Switch);
     TimeTraceScope FunctionScope("SwitchCloner");
 
-    SwitchCloner Cloner(OrigF, Suffix, Shape, FKind, TTI);
+    SwitchCloner Cloner(OrigF, Suffix, Shape, FKind, TTI, GlobalDebugInfo);
     Cloner.create();
     return Cloner.getFunction();
   }
