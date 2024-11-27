@@ -1387,9 +1387,6 @@ public:
 
   /// Supporting functions for Reductions CodeGen.
 private:
-  /// Emit the llvm.used metadata.
-  void emitUsed(StringRef Name, std::vector<llvm::WeakTrackingVH> &List);
-
   /// Get the id of the current thread on the GPU.
   Value *getGPUThreadID();
 
@@ -2010,6 +2007,13 @@ public:
   /// Create a hidden global flag \p Name in the module with initial value \p
   /// Value.
   GlobalValue *createGlobalFlag(unsigned Value, StringRef Name);
+
+  /// Emit the llvm.used metadata.
+  void emitUsed(StringRef Name, ArrayRef<llvm::WeakTrackingVH> List);
+
+  /// Emit the kernel execution mode.
+  GlobalVariable *emitKernelExecutionMode(StringRef KernelName,
+                                          omp::OMPTgtExecModeFlags Mode);
 
   /// Generate control flow and cleanup for cancellation.
   ///

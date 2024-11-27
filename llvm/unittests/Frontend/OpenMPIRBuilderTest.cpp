@@ -6459,18 +6459,19 @@ TEST_F(OpenMPIRBuilderTest, TargetRegionSPMD) {
     return Builder.saveIP();
   };
 
-  auto SimpleArgAccessorCB =
-      [&](llvm::Argument &, llvm::Value *, llvm::Value *&,
-          llvm::OpenMPIRBuilder::InsertPointTy,
-          llvm::OpenMPIRBuilder::InsertPointTy CodeGenIP) {
-        Builder.restoreIP(CodeGenIP);
-        return Builder.saveIP();
-      };
+  auto SimpleArgAccessorCB = [&](Argument &, Value *, Value *&,
+                                 OpenMPIRBuilder::InsertPointTy,
+                                 OpenMPIRBuilder::InsertPointTy CodeGenIP) {
+    Builder.restoreIP(CodeGenIP);
+    return Builder.saveIP();
+  };
 
-  llvm::SmallVector<llvm::Value *> Inputs;
-  llvm::OpenMPIRBuilder::MapInfosTy CombinedInfos;
-  auto GenMapInfoCB = [&](llvm::OpenMPIRBuilder::InsertPointTy)
-      -> llvm::OpenMPIRBuilder::MapInfosTy & { return CombinedInfos; };
+  SmallVector<Value *> Inputs;
+  OpenMPIRBuilder::MapInfosTy CombinedInfos;
+  auto GenMapInfoCB =
+      [&](OpenMPIRBuilder::InsertPointTy) -> OpenMPIRBuilder::MapInfosTy & {
+    return CombinedInfos;
+  };
 
   TargetRegionEntryInfo EntryInfo("func", 42, 4711, 17);
   OpenMPIRBuilder::LocationDescription OmpLoc({Builder.saveIP(), DL});
@@ -6547,19 +6548,20 @@ TEST_F(OpenMPIRBuilderTest, TargetRegionDeviceSPMD) {
   OpenMPIRBuilder::LocationDescription Loc({Builder.saveIP(), DL});
 
   Function *OutlinedFn = nullptr;
-  llvm::SmallVector<llvm::Value *> CapturedArgs;
+  SmallVector<Value *> CapturedArgs;
 
-  auto SimpleArgAccessorCB =
-      [&](llvm::Argument &, llvm::Value *, llvm::Value *&,
-          llvm::OpenMPIRBuilder::InsertPointTy,
-          llvm::OpenMPIRBuilder::InsertPointTy CodeGenIP) {
-        Builder.restoreIP(CodeGenIP);
-        return Builder.saveIP();
-      };
+  auto SimpleArgAccessorCB = [&](Argument &, Value *, Value *&,
+                                 OpenMPIRBuilder::InsertPointTy,
+                                 OpenMPIRBuilder::InsertPointTy CodeGenIP) {
+    Builder.restoreIP(CodeGenIP);
+    return Builder.saveIP();
+  };
 
-  llvm::OpenMPIRBuilder::MapInfosTy CombinedInfos;
-  auto GenMapInfoCB = [&](llvm::OpenMPIRBuilder::InsertPointTy)
-      -> llvm::OpenMPIRBuilder::MapInfosTy & { return CombinedInfos; };
+  OpenMPIRBuilder::MapInfosTy CombinedInfos;
+  auto GenMapInfoCB =
+      [&](OpenMPIRBuilder::InsertPointTy) -> OpenMPIRBuilder::MapInfosTy & {
+    return CombinedInfos;
+  };
 
   auto BodyGenCB = [&](OpenMPIRBuilder::InsertPointTy,
                        OpenMPIRBuilder::InsertPointTy CodeGenIP)

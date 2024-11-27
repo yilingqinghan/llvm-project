@@ -830,6 +830,38 @@ GlobalValue *OpenMPIRBuilder::createGlobalFlag(unsigned Value, StringRef Name) {
   return GV;
 }
 
+void OpenMPIRBuilder::emitUsed(StringRef Name, ArrayRef<WeakTrackingVH> List) {
+  if (List.empty())
+    return;
+
+  // Convert List to what ConstantArray needs.
+  SmallVector<Constant *, 8> UsedArray;
+  UsedArray.resize(List.size());
+  for (unsigned I = 0, E = List.size(); I != E; ++I)
+    UsedArray[I] = ConstantExpr::getPointerBitCastOrAddrSpaceCast(
+        cast<Constant>(&*List[I]), Builder.getPtrTy());
+
+  if (UsedArray.empty())
+    return;
+  ArrayType *ATy = ArrayType::get(Builder.getPtrTy(), UsedArray.size());
+
+  auto *GV = new GlobalVariable(M, ATy, false, GlobalValue::AppendingLinkage,
+                                ConstantArray::get(ATy, UsedArray), Name);
+
+  GV->setSection("llvm.metadata");
+}
+
+GlobalVariable *
+OpenMPIRBuilder::emitKernelExecutionMode(StringRef KernelName,
+                                         OMPTgtExecModeFlags Mode) {
+  auto *Int8Ty = Builder.getInt8Ty();
+  auto *GVMode = new GlobalVariable(
+      M, Int8Ty, /*isConstant=*/true, GlobalValue::WeakAnyLinkage,
+      ConstantInt::get(Int8Ty, Mode), Twine(KernelName, "_exec_mode"));
+  GVMode->setVisibility(GlobalVariable::ProtectedVisibility);
+  return GVMode;
+}
+
 Constant *OpenMPIRBuilder::getOrCreateIdent(Constant *SrcLocStr,
                                             uint32_t SrcLocStrSize,
                                             IdentFlag LocFlags,
@@ -2244,28 +2276,6 @@ static OpenMPIRBuilder::InsertPointTy getInsertPointAfterInstr(Instruction *I) {
   BasicBlock::iterator IT(I);
   IT++;
   return OpenMPIRBuilder::InsertPointTy(I->getParent(), IT);
-}
-
-void OpenMPIRBuilder::emitUsed(StringRef Name,
-                               std::vector<WeakTrackingVH> &List) {
-  if (List.empty())
-    return;
-
-  // Convert List to what ConstantArray needs.
-  SmallVector<Constant *, 8> UsedArray;
-  UsedArray.resize(List.size());
-  for (unsigned I = 0, E = List.size(); I != E; ++I)
-    UsedArray[I] = ConstantExpr::getPointerBitCastOrAddrSpaceCast(
-        cast<Constant>(&*List[I]), Builder.getPtrTy());
-
-  if (UsedArray.empty())
-    return;
-  ArrayType *ATy = ArrayType::get(Builder.getPtrTy(), UsedArray.size());
-
-  auto *GV = new GlobalVariable(M, ATy, false, GlobalValue::AppendingLinkage,
-                                ConstantArray::get(ATy, UsedArray), Name);
-
-  GV->setSection("llvm.metadata");
 }
 
 Value *OpenMPIRBuilder::getGPUThreadID() {
@@ -6731,41 +6741,6 @@ FunctionCallee OpenMPIRBuilder::createDispatchDeinitFunction() {
   return getOrCreateRuntimeFunction(M, omp::OMPRTL___kmpc_dispatch_deinit);
 }
 
-static void emitUsed(StringRef Name, std::vector<llvm::WeakTrackingVH> &List,
-                     Module &M) {
-  if (List.empty())
-    return;
-
-  Type *PtrTy = PointerType::get(M.getContext(), /*AddressSpace=*/0);
-
-  // Convert List to what ConstantArray needs.
-  SmallVector<Constant *, 8> UsedArray;
-  UsedArray.reserve(List.size());
-  for (auto Item : List)
-    UsedArray.push_back(ConstantExpr::getPointerBitCastOrAddrSpaceCast(
-        cast<Constant>(&*Item), PtrTy));
-
-  ArrayType *ArrTy = ArrayType::get(PtrTy, UsedArray.size());
-  auto *GV =
-      new GlobalVariable(M, ArrTy, false, llvm::GlobalValue::AppendingLinkage,
-                         llvm::ConstantArray::get(ArrTy, UsedArray), Name);
-
-  GV->setSection("llvm.metadata");
-}
-
-static void
-emitExecutionMode(OpenMPIRBuilder &OMPBuilder, IRBuilderBase &Builder,
-                  StringRef FunctionName, OMPTgtExecModeFlags Mode,
-                  std::vector<llvm::WeakTrackingVH> &LLVMCompilerUsed) {
-  auto *Int8Ty = Type::getInt8Ty(Builder.getContext());
-  auto *GVMode = new llvm::GlobalVariable(
-      OMPBuilder.M, Int8Ty, /*isConstant=*/true,
-      llvm::GlobalValue::WeakAnyLinkage, llvm::ConstantInt::get(Int8Ty, Mode),
-      Twine(FunctionName, "_exec_mode"));
-  GVMode->setVisibility(llvm::GlobalVariable::ProtectedVisibility);
-  LLVMCompilerUsed.emplace_back(GVMode);
-}
-
 static Expected<Function *> createOutlinedFunction(
     OpenMPIRBuilder &OMPBuilder, IRBuilderBase &Builder, bool IsSPMD,
     const OpenMPIRBuilder::TargetKernelDefaultAttrs &DefaultAttrs,
@@ -6798,12 +6773,9 @@ static Expected<Function *> createOutlinedFunction(
       Function::Create(FuncType, GlobalValue::InternalLinkage, FuncName, M);
 
   if (OMPBuilder.Config.isTargetDevice()) {
-    std::vector<llvm::WeakTrackingVH> LLVMCompilerUsed;
-    emitExecutionMode(OMPBuilder, Builder, FuncName,
-                      IsSPMD ? OMP_TGT_EXEC_MODE_SPMD
-                             : OMP_TGT_EXEC_MODE_GENERIC,
-                      LLVMCompilerUsed);
-    emitUsed("llvm.compiler.used", LLVMCompilerUsed, OMPBuilder.M);
+    Value *ExecMode = OMPBuilder.emitKernelExecutionMode(
+        FuncName, IsSPMD ? OMP_TGT_EXEC_MODE_SPMD : OMP_TGT_EXEC_MODE_GENERIC);
+    OMPBuilder.emitUsed("llvm.compiler.used", {ExecMode});
   }
 
   // Save insert point.
@@ -7460,8 +7432,8 @@ emitTargetCall(OpenMPIRBuilder &OMPBuilder, IRBuilderBase &Builder,
                                 ? InitMaxThreadsClause(RuntimeAttrs.MaxThreads)
                                 : nullptr;
 
-  for (auto [TeamsVal, TargetVal] : llvm::zip_equal(
-           RuntimeAttrs.TeamsThreadLimit, RuntimeAttrs.TargetThreadLimit)) {
+  for (auto [TeamsVal, TargetVal] : zip_equal(RuntimeAttrs.TeamsThreadLimit,
+                                              RuntimeAttrs.TargetThreadLimit)) {
     Value *TeamsThreadLimitClause = InitMaxThreadsClause(TeamsVal);
     Value *NumThreads = InitMaxThreadsClause(TargetVal);
 
@@ -7521,8 +7493,6 @@ OpenMPIRBuilder::InsertPointOrErrorTy OpenMPIRBuilder::createTarget(
     OpenMPIRBuilder::TargetBodyGenCallbackTy CBFunc,
     OpenMPIRBuilder::TargetGenArgAccessorsCallbackTy ArgAccessorFuncCB,
     SmallVector<DependData> Dependencies, bool HasNowait) {
-  assert((!RuntimeAttrs.LoopTripCount || IsSPMD) &&
-         "trip count not expected if IsSPMD=false");
 
   if (!updateToLocation(Loc))
     return InsertPointTy();
