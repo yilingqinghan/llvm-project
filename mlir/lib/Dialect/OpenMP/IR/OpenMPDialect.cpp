@@ -31,6 +31,7 @@
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/TypeSwitch.h"
 #include "llvm/Frontend/OpenMP/OMPConstants.h"
+#include "llvm/Frontend/OpenMP/OMPDeviceConstants.h"
 #include <cstddef>
 #include <iterator>
 #include <optional>
@@ -1754,7 +1755,7 @@ LogicalResult TargetOp::verifyRegions() {
     return emitError("target containing multiple 'omp.teams' nested ops");
 
   // Check that host_eval values are only used in legal ways.
-  bool isTargetSPMD = isTargetSPMDLoop();
+  llvm::omp::OMPTgtExecModeFlags execFlags = getKernelExecFlags();
   for (Value hostEvalArg :
        cast<BlockArgOpenMPOpInterface>(getOperation()).getHostEvalBlockArgs()) {
     for (Operation *user : hostEvalArg.getUsers()) {
@@ -1769,7 +1770,8 @@ LogicalResult TargetOp::verifyRegions() {
                                 "and 'thread_limit' in 'omp.teams'";
       }
       if (auto parallelOp = dyn_cast<ParallelOp>(user)) {
-        if (isTargetSPMD && hostEvalArg == parallelOp.getNumThreads())
+        if (execFlags == llvm::omp::OMP_TGT_EXEC_MODE_SPMD &&
+            hostEvalArg == parallelOp.getNumThreads())
           continue;
 
         return emitOpError()
@@ -1777,15 +1779,15 @@ LogicalResult TargetOp::verifyRegions() {
                   "'omp.parallel' when representing target SPMD";
       }
       if (auto loopNestOp = dyn_cast<LoopNestOp>(user)) {
-        if (isTargetSPMD &&
+        if (execFlags != llvm::omp::OMP_TGT_EXEC_MODE_GENERIC &&
             (llvm::is_contained(loopNestOp.getLoopLowerBounds(), hostEvalArg) ||
              llvm::is_contained(loopNestOp.getLoopUpperBounds(), hostEvalArg) ||
              llvm::is_contained(loopNestOp.getLoopSteps(), hostEvalArg)))
           continue;
 
-        return emitOpError()
-               << "host_eval argument only legal as loop bounds and steps in "
-                  "'omp.loop_nest' when representing target SPMD";
+        return emitOpError() << "host_eval argument only legal as loop bounds "
+                                "and steps in 'omp.loop_nest' when "
+                                "representing target SPMD or Generic-SPMD";
       }
 
       return emitOpError() << "host_eval argument illegal use in '"
@@ -1823,6 +1825,7 @@ static bool siblingAllowedInCapture(Operation *op) {
 Operation *TargetOp::getInnermostCapturedOmpOp() {
   Dialect *ompDialect = (*this)->getDialect();
   Operation *capturedOp = nullptr;
+  DominanceInfo domInfo;
 
   // Process in pre-order to check operations from outermost to innermost,
   // ensuring we only enter the region of an operation if it meets the criteria
@@ -1840,6 +1843,22 @@ Operation *TargetOp::getInnermostCapturedOmpOp() {
     if (!isOmpDialect || !hasRegions)
       return WalkResult::skip();
 
+    // This operation cannot be captured if it can be executed more than once
+    // (i.e. its block's successors can reach it) or if it's not guaranteed to
+    // be executed before all exits of the region (i.e. it doesn't dominate all
+    // blocks with no successors reachable from the entry block).
+    Region *parentRegion = op->getParentRegion();
+    Block *parentBlock = op->getBlock();
+
+    for (Block *successor : parentBlock->getSuccessors())
+      if (successor->isReachable(parentBlock))
+        return WalkResult::interrupt();
+
+    for (Block &block : *parentRegion)
+      if (domInfo.isReachableFromEntry(&block) && block.hasNoSuccessors() &&
+          !domInfo.dominates(parentBlock, &block))
+        return WalkResult::interrupt();
+
     // Don't capture this op if it has a not-allowed sibling, and stop recursing
     // into nested operations.
     for (Operation &sibling : op->getParentRegion()->getOps())
@@ -1856,49 +1875,61 @@ Operation *TargetOp::getInnermostCapturedOmpOp() {
   return capturedOp;
 }
 
-bool TargetOp::isTargetSPMDLoop() {
-  // The expected MLIR representation for a target SPMD loop is:
-  // omp.target {
-  //   omp.teams {
-  //     omp.parallel {
-  //       omp.distribute {
-  //         omp.wsloop {
-  //           omp.loop_nest ... { ... }
-  //         } {omp.composite}
-  //       } {omp.composite}
-  //       omp.terminator
-  //     } {omp.composite}
-  //     omp.terminator
-  //   }
-  //   omp.terminator
-  // }
+llvm::omp::OMPTgtExecModeFlags TargetOp::getKernelExecFlags() {
+  using namespace llvm::omp;
 
+  // Make sure this region is capturing a loop. Otherwise, it's a generic
+  // kernel.
   Operation *capturedOp = getInnermostCapturedOmpOp();
   if (!isa_and_present<LoopNestOp>(capturedOp))
-    return false;
+    return OMP_TGT_EXEC_MODE_GENERIC;
 
-  Operation *workshareOp = capturedOp->getParentOp();
+  SmallVector<LoopWrapperInterface> wrappers;
+  cast<LoopNestOp>(capturedOp).gatherWrappers(wrappers);
+  assert(!wrappers.empty());
 
-  // Accept an optional omp.simd loop wrapper as part of the SPMD pattern.
-  if (isa_and_present<SimdOp>(workshareOp))
-    workshareOp = workshareOp->getParentOp();
+  // Ignore optional SIMD leaf construct.
+  auto *innermostWrapper = wrappers.begin();
+  if (isa<SimdOp>(innermostWrapper))
+    innermostWrapper = std::next(innermostWrapper);
 
-  if (!isa_and_present<WsloopOp>(workshareOp))
-    return false;
+  long numWrappers = std::distance(innermostWrapper, wrappers.end());
 
-  Operation *distributeOp = workshareOp->getParentOp();
-  if (!isa_and_present<DistributeOp>(distributeOp))
-    return false;
+  // Detect Generic-SPMD: target-teams-distribute[-simd].
+  if (numWrappers == 1) {
+    if (!isa<DistributeOp>(innermostWrapper))
+      return OMP_TGT_EXEC_MODE_GENERIC;
 
-  Operation *parallelOp = distributeOp->getParentOp();
-  if (!isa_and_present<ParallelOp>(parallelOp))
-    return false;
+    Operation *teamsOp = (*innermostWrapper)->getParentOp();
+    if (!isa_and_present<TeamsOp>(teamsOp))
+      return OMP_TGT_EXEC_MODE_GENERIC;
 
-  Operation *teamsOp = parallelOp->getParentOp();
-  if (!isa_and_present<TeamsOp>(teamsOp))
-    return false;
+    if (teamsOp->getParentOp() == *this)
+      return OMP_TGT_EXEC_MODE_GENERIC_SPMD;
+  }
 
-  return teamsOp->getParentOp() == (*this);
+  // Detect SPMD: target-teams-distribute-parallel-wsloop[-simd].
+  if (numWrappers == 2) {
+    if (!isa<WsloopOp>(innermostWrapper))
+      return OMP_TGT_EXEC_MODE_GENERIC;
+
+    innermostWrapper = std::next(innermostWrapper);
+    if (!isa<DistributeOp>(innermostWrapper))
+      return OMP_TGT_EXEC_MODE_GENERIC;
+
+    Operation *parallelOp = (*innermostWrapper)->getParentOp();
+    if (!isa_and_present<ParallelOp>(parallelOp))
+      return OMP_TGT_EXEC_MODE_GENERIC;
+
+    Operation *teamsOp = parallelOp->getParentOp();
+    if (!isa_and_present<TeamsOp>(teamsOp))
+      return OMP_TGT_EXEC_MODE_GENERIC;
+
+    if (teamsOp->getParentOp() == *this)
+      return OMP_TGT_EXEC_MODE_SPMD;
+  }
+
+  return OMP_TGT_EXEC_MODE_GENERIC;
 }
 
 //===----------------------------------------------------------------------===//
