@@ -2243,21 +2243,21 @@ public:
 
   /// Container to pass LLVM IR runtime values or constants related to the
   /// number of teams and threads with which the kernel must be launched, as
-  /// well as the trip count of the SPMD loop, if it is an SPMD kernel. These
-  /// must be defined in the host prior to the call to the kernel launch OpenMP
-  /// RTL function.
+  /// well as the trip count of the loop, if it is an SPMD or Generic-SPMD
+  /// kernel. These must be defined in the host prior to the call to the kernel
+  /// launch OpenMP RTL function.
   struct TargetKernelRuntimeAttrs {
     SmallVector<Value *, 3> MaxTeams = {nullptr};
     Value *MinTeams = nullptr;
     SmallVector<Value *, 3> TargetThreadLimit = {nullptr};
     SmallVector<Value *, 3> TeamsThreadLimit = {nullptr};
 
-    /// 'parallel' construct 'num_threads' clause value, if present and it is a
-    /// target SPMD kernel.
+    /// 'parallel' construct 'num_threads' clause value, if present and it is an
+    /// SPMD kernel.
     Value *MaxThreads = nullptr;
 
-    /// Total number of iterations of the target SPMD kernel or null if it is a
-    /// generic kernel.
+    /// Total number of iterations of the SPMD or Generic-SPMD kernel or null if
+    /// it is a generic kernel.
     Value *LoopTripCount = nullptr;
   };
 
@@ -2763,11 +2763,12 @@ public:
   /// Create a runtime call for kmpc_target_init
   ///
   /// \param Loc The insert and source location description.
+  /// \param ExecFlags Kernel execution mode flags.
   /// \param IsSPMD Flag to indicate if the kernel is an SPMD kernel or not.
   /// \param Attrs Structure containing the default numbers of threads and teams
   ///        to launch the kernel with.
   InsertPointTy createTargetInit(
-      const LocationDescription &Loc, bool IsSPMD,
+      const LocationDescription &Loc, omp::OMPTgtExecModeFlags ExecFlags,
       const llvm::OpenMPIRBuilder::TargetKernelDefaultAttrs &Attrs);
 
   /// Create a runtime call for kmpc_target_deinit
@@ -2929,7 +2930,7 @@ public:
   ///
   /// \param Loc where the target data construct was encountered.
   /// \param IsOffloadEntry whether it is an offload entry.
-  /// \param IsSPMD whether it is a target SPMD kernel.
+  /// \param ExecFlags kernel execution mode flags.
   /// \param CodeGenIP The insertion point where the call to the outlined
   /// function should be emitted.
   /// \param EntryInfo The entry information about the function.
@@ -2946,7 +2947,8 @@ public:
   // dependency information as passed in the depend clause
   // \param HasNowait Whether the target construct has a `nowait` clause or not.
   InsertPointOrErrorTy createTarget(
-      const LocationDescription &Loc, bool IsOffloadEntry, bool IsSPMD,
+      const LocationDescription &Loc, bool IsOffloadEntry,
+      omp::OMPTgtExecModeFlags ExecFlags,
       OpenMPIRBuilder::InsertPointTy AllocaIP,
       OpenMPIRBuilder::InsertPointTy CodeGenIP,
       TargetRegionEntryInfo &EntryInfo,

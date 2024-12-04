@@ -6189,7 +6189,8 @@ TEST_F(OpenMPIRBuilderTest, TargetRegion) {
   RuntimeAttrs.TeamsThreadLimit[0] = Builder.getInt32(30);
   RuntimeAttrs.MaxThreads = Builder.getInt32(40);
   OpenMPIRBuilder::InsertPointOrErrorTy AfterIP = OMPBuilder.createTarget(
-      OmpLoc, /*IsOffloadEntry=*/true, /*IsSPMD=*/false, Builder.saveIP(),
+      OmpLoc, /*IsOffloadEntry=*/true,
+      omp::OMPTgtExecModeFlags::OMP_TGT_EXEC_MODE_GENERIC, Builder.saveIP(),
       Builder.saveIP(), EntryInfo, DefaultAttrs, RuntimeAttrs, Inputs,
       GenMapInfoCB, BodyGenCB, SimpleArgAccessorCB);
   assert(AfterIP && "unexpected error");
@@ -6340,7 +6341,8 @@ TEST_F(OpenMPIRBuilderTest, TargetRegionDevice) {
       /*MaxTeams=*/{-1}, /*MinTeams=*/0, /*MaxThreads=*/{0}, /*MinThreads=*/0};
   OpenMPIRBuilder::TargetKernelRuntimeAttrs RuntimeAttrs;
   OpenMPIRBuilder::InsertPointOrErrorTy AfterIP = OMPBuilder.createTarget(
-      Loc, /*IsOffloadEntry=*/true, /*IsSPMD=*/false, EntryIP, EntryIP,
+      Loc, /*IsOffloadEntry=*/true,
+      omp::OMPTgtExecModeFlags::OMP_TGT_EXEC_MODE_GENERIC, EntryIP, EntryIP,
       EntryInfo, DefaultAttrs, RuntimeAttrs, CapturedArgs, GenMapInfoCB,
       BodyGenCB, SimpleArgAccessorCB);
   assert(AfterIP && "unexpected error");
@@ -6480,7 +6482,8 @@ TEST_F(OpenMPIRBuilderTest, TargetRegionSPMD) {
   OpenMPIRBuilder::TargetKernelRuntimeAttrs RuntimeAttrs;
   RuntimeAttrs.LoopTripCount = Builder.getInt64(1000);
   OpenMPIRBuilder::InsertPointOrErrorTy AfterIP = OMPBuilder.createTarget(
-      OmpLoc, /*IsOffloadEntry=*/true, /*IsSPMD=*/true, Builder.saveIP(),
+      OmpLoc, /*IsOffloadEntry=*/true,
+      omp::OMPTgtExecModeFlags::OMP_TGT_EXEC_MODE_SPMD, Builder.saveIP(),
       Builder.saveIP(), EntryInfo, DefaultAttrs, RuntimeAttrs, Inputs,
       GenMapInfoCB, BodyGenCB, SimpleArgAccessorCB);
   assert(AfterIP && "unexpected error");
@@ -6580,7 +6583,8 @@ TEST_F(OpenMPIRBuilderTest, TargetRegionDeviceSPMD) {
       /*MaxTeams=*/{-1}, /*MinTeams=*/0, /*MaxThreads=*/{0}, /*MinThreads=*/0};
   OpenMPIRBuilder::TargetKernelRuntimeAttrs RuntimeAttrs;
   OpenMPIRBuilder::InsertPointOrErrorTy AfterIP = OMPBuilder.createTarget(
-      Loc, /*IsOffloadEntry=*/true, /*IsSPMD=*/true, EntryIP, EntryIP,
+      Loc, /*IsOffloadEntry=*/true,
+      omp::OMPTgtExecModeFlags::OMP_TGT_EXEC_MODE_SPMD, EntryIP, EntryIP,
       EntryInfo, DefaultAttrs, RuntimeAttrs, CapturedArgs, GenMapInfoCB,
       BodyGenCB, SimpleArgAccessorCB);
   assert(AfterIP && "unexpected error");
@@ -6686,7 +6690,8 @@ TEST_F(OpenMPIRBuilderTest, ConstantAllocaRaise) {
       /*MaxTeams=*/{-1}, /*MinTeams=*/0, /*MaxThreads=*/{0}, /*MinThreads=*/0};
   OpenMPIRBuilder::TargetKernelRuntimeAttrs RuntimeAttrs;
   OpenMPIRBuilder::InsertPointOrErrorTy AfterIP = OMPBuilder.createTarget(
-      Loc, /*IsOffloadEntry=*/true, /*IsSPMD=*/false, EntryIP, EntryIP,
+      Loc, /*IsOffloadEntry=*/true,
+      omp::OMPTgtExecModeFlags::OMP_TGT_EXEC_MODE_GENERIC, EntryIP, EntryIP,
       EntryInfo, DefaultAttrs, RuntimeAttrs, CapturedArgs, GenMapInfoCB,
       BodyGenCB, SimpleArgAccessorCB);
   assert(AfterIP && "unexpected error");

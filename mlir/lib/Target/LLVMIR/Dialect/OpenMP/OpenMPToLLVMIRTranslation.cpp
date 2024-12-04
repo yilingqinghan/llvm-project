@@ -3975,9 +3975,10 @@ convertOmpTarget(Operation &opInst, llvm::IRBuilderBase &builder,
 
   llvm::OpenMPIRBuilder::InsertPointOrErrorTy afterIP =
       moduleTranslation.getOpenMPBuilder()->createTarget(
-          ompLoc, isOffloadEntry, /*IsSPMD=*/false, allocaIP, builder.saveIP(),
-          entryInfo, defaultAttrs, runtimeAttrs, kernelInput, genMapInfoCB,
-          bodyCB, argAccessorCB, dds, targetOp.getNowait());
+          ompLoc, isOffloadEntry, llvm::omp::OMP_TGT_EXEC_MODE_GENERIC,
+          allocaIP, builder.saveIP(), entryInfo, defaultAttrs, runtimeAttrs,
+          kernelInput, genMapInfoCB, bodyCB, argAccessorCB, dds,
+          targetOp.getNowait());
 
   if (failed(handleError(afterIP, opInst)))
     return failure();

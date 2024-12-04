@@ -6124,7 +6124,7 @@ CallInst *OpenMPIRBuilder::createCachedThreadPrivate(
 }
 
 OpenMPIRBuilder::InsertPointTy OpenMPIRBuilder::createTargetInit(
-    const LocationDescription &Loc, bool IsSPMD,
+    const LocationDescription &Loc, omp::OMPTgtExecModeFlags ExecFlags,
     const llvm::OpenMPIRBuilder::TargetKernelDefaultAttrs &Attrs) {
   assert(!Attrs.MaxThreads.empty() && !Attrs.MaxTeams.empty() &&
          "expected num_threads and num_teams to be specified");
@@ -6135,9 +6135,9 @@ OpenMPIRBuilder::InsertPointTy OpenMPIRBuilder::createTargetInit(
   uint32_t SrcLocStrSize;
   Constant *SrcLocStr = getOrCreateSrcLocStr(Loc, SrcLocStrSize);
   Constant *Ident = getOrCreateIdent(SrcLocStr, SrcLocStrSize);
-  Constant *IsSPMDVal = ConstantInt::getSigned(
-      Int8, IsSPMD ? OMP_TGT_EXEC_MODE_SPMD : OMP_TGT_EXEC_MODE_GENERIC);
-  Constant *UseGenericStateMachineVal = ConstantInt::getSigned(Int8, !IsSPMD);
+  Constant *IsSPMDVal = ConstantInt::getSigned(Int8, ExecFlags);
+  Constant *UseGenericStateMachineVal =
+      ConstantInt::getSigned(Int8, ExecFlags != omp::OMP_TGT_EXEC_MODE_SPMD);
   Constant *MayUseNestedParallelismVal = ConstantInt::getSigned(Int8, true);
   Constant *DebugIndentionLevelVal = ConstantInt::getSigned(Int16, 0);
 
@@ -6742,7 +6742,8 @@ FunctionCallee OpenMPIRBuilder::createDispatchDeinitFunction() {
 }
 
 static Expected<Function *> createOutlinedFunction(
-    OpenMPIRBuilder &OMPBuilder, IRBuilderBase &Builder, bool IsSPMD,
+    OpenMPIRBuilder &OMPBuilder, IRBuilderBase &Builder,
+    omp::OMPTgtExecModeFlags ExecFlags,
     const OpenMPIRBuilder::TargetKernelDefaultAttrs &DefaultAttrs,
     StringRef FuncName, SmallVectorImpl<Value *> &Inputs,
     OpenMPIRBuilder::TargetBodyGenCallbackTy &CBFunc,
@@ -6773,8 +6774,7 @@ static Expected<Function *> createOutlinedFunction(
       Function::Create(FuncType, GlobalValue::InternalLinkage, FuncName, M);
 
   if (OMPBuilder.Config.isTargetDevice()) {
-    Value *ExecMode = OMPBuilder.emitKernelExecutionMode(
-        FuncName, IsSPMD ? OMP_TGT_EXEC_MODE_SPMD : OMP_TGT_EXEC_MODE_GENERIC);
+    Value *ExecMode = OMPBuilder.emitKernelExecutionMode(FuncName, ExecFlags);
     OMPBuilder.emitUsed("llvm.compiler.used", {ExecMode});
   }
 
@@ -6818,7 +6818,7 @@ static Expected<Function *> createOutlinedFunction(
   // Insert target init call in the device compilation pass.
   if (OMPBuilder.Config.isTargetDevice())
     Builder.restoreIP(
-        OMPBuilder.createTargetInit(Builder, IsSPMD, DefaultAttrs));
+        OMPBuilder.createTargetInit(Builder, ExecFlags, DefaultAttrs));
 
   BasicBlock *UserCodeEntryBB = Builder.GetInsertBlock();
 
@@ -7014,7 +7014,7 @@ static Function *emitTargetTaskProxyFunction(OpenMPIRBuilder &OMPBuilder,
 
 static Error emitTargetOutlinedFunction(
     OpenMPIRBuilder &OMPBuilder, IRBuilderBase &Builder, bool IsOffloadEntry,
-    bool IsSPMD, TargetRegionEntryInfo &EntryInfo,
+    omp::OMPTgtExecModeFlags ExecFlags, TargetRegionEntryInfo &EntryInfo,
     const OpenMPIRBuilder::TargetKernelDefaultAttrs &DefaultAttrs,
     Function *&OutlinedFn, Constant *&OutlinedFnID,
     SmallVectorImpl<Value *> &Inputs,
@@ -7023,8 +7023,8 @@ static Error emitTargetOutlinedFunction(
 
   OpenMPIRBuilder::FunctionGenCallback &&GenerateOutlinedFunction =
       [&](StringRef EntryFnName) {
-        return createOutlinedFunction(OMPBuilder, Builder, IsSPMD, DefaultAttrs,
-                                      EntryFnName, Inputs, CBFunc,
+        return createOutlinedFunction(OMPBuilder, Builder, ExecFlags,
+                                      DefaultAttrs, EntryFnName, Inputs, CBFunc,
                                       ArgAccessorFuncCB);
       };
 
@@ -7484,9 +7484,9 @@ emitTargetCall(OpenMPIRBuilder &OMPBuilder, IRBuilderBase &Builder,
 }
 
 OpenMPIRBuilder::InsertPointOrErrorTy OpenMPIRBuilder::createTarget(
-    const LocationDescription &Loc, bool IsOffloadEntry, bool IsSPMD,
-    InsertPointTy AllocaIP, InsertPointTy CodeGenIP,
-    TargetRegionEntryInfo &EntryInfo,
+    const LocationDescription &Loc, bool IsOffloadEntry,
+    omp::OMPTgtExecModeFlags ExecFlags, InsertPointTy AllocaIP,
+    InsertPointTy CodeGenIP, TargetRegionEntryInfo &EntryInfo,
     const TargetKernelDefaultAttrs &DefaultAttrs,
     const TargetKernelRuntimeAttrs &RuntimeAttrs,
     SmallVectorImpl<Value *> &Args, GenMapInfoCallbackTy GenMapInfoCB,
@@ -7505,7 +7505,7 @@ OpenMPIRBuilder::InsertPointOrErrorTy OpenMPIRBuilder::createTarget(
   // the target region itself is generated using the callbacks CBFunc
   // and ArgAccessorFuncCB
   if (Error Err = emitTargetOutlinedFunction(
-          *this, Builder, IsOffloadEntry, IsSPMD, EntryInfo, DefaultAttrs,
+          *this, Builder, IsOffloadEntry, ExecFlags, EntryInfo, DefaultAttrs,
           OutlinedFn, OutlinedFnID, Args, CBFunc, ArgAccessorFuncCB))
     return Err;
 
