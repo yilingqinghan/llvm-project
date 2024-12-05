@@ -75,6 +75,7 @@
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Local.h"
 #include "llvm/Transforms/Utils/ValueMapper.h"
+#include "llvm/Transforms/Utils/TempPrinter.h"
 #include <algorithm>
 #include <cassert>
 #include <climits>
@@ -3721,7 +3722,7 @@ static bool foldCondBranchOnValueKnownInPredecessor(BranchInst *BI,
 }
 
 /// Given a BB that starts with the specified two-entry PHI node,
-/// see if we can eliminate it.
+/// see if we can eli minate it.
 static bool foldTwoEntryPHINode(PHINode *PN, const TargetTransformInfo &TTI,
                                 DomTreeUpdater *DTU, AssumptionCache *AC,
                                 const DataLayout &DL,
@@ -3733,6 +3734,9 @@ static bool foldTwoEntryPHINode(PHINode *PN, const TargetTransformInfo &TTI,
   // dependence information for this check, but simplifycfg can't keep it up
   // to date, and this catches most of the cases we care about anyway.
   BasicBlock *BB = PN->getParent();
+
+  OPTIMIZE_AND_DUMP_METADATA(BB, "foldTwoEntryPHINode", true, 1, 100, 50, true, "test_path");
+  errs() << "走到这里!";
 
   BasicBlock *IfTrue, *IfFalse;
   BranchInst *DomBI = GetIfCondition(BB, IfTrue, IfFalse);

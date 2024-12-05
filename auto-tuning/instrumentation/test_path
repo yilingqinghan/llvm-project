@@ -1,0 +1,7 @@
+GlobalID,FunctionName,RealOptimization,WhichReturn,Cost,Budget,IsValid
+0,foldTwoEntryPHINode,True,1,100,50,Valid
+1,foldTwoEntryPHINode,True,1,100,50,Valid
+0,foldTwoEntryPHINode,True,1,100,50,Valid
+1,foldTwoEntryPHINode,True,1,100,50,Valid
+0,foldTwoEntryPHINode,True,1,100,50,Valid
+1,foldTwoEntryPHINode,True,1,100,50,Valid
